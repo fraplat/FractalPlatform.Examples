@@ -524,9 +524,10 @@ namespace FractalPlatform.Deployment
 			var assembly = options.Assemblies.FirstOrDefault(assembly => IsAssemblyHasApp(assembly, appName));
 
 			if (assembly == null)
-			{
-				throw new InvalidOperationException($"'{appName}' application is not found in assemblies.");
-			}
+				{
+					var assembliesStr = string.Join(", ", options.Assemblies);
+					throw new InvalidOperationException($"'{appName}' application is not found in assemblies [{assembliesStr}]. Did you forget to add the assembly containing '{appName}' to the 'Assemblies' list in appsettings.json?");
+				}
 
 			UploadAsync(options.BaseUrl,
 						appName,
