@@ -15,10 +15,10 @@ Template application for test purposes
 
 ## Web Link
 
-[Template](https://fraplat.dev/jupiter/Template)
+[Template](https://fraplat.com/Template)
 
 ## Open app in Fractal Studio
 
-[Play with Template in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=Template+template)
+[Play with Template in sandbox](https://fraplat.com/mars/FractalStudio/?tag=Template+template)
 
 

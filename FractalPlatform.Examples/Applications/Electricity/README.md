@@ -15,10 +15,10 @@ Application shows locations with electricity and notify if electricity has gone 
 
 ## Web Link
 
-[Electricity](https://fraplat.dev/jupiter/Electricity)
+[Electricity](https://fraplat.com/Electricity)
 
 ## Open app in Fractal Studio
 
-[Play with Electricity in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=Electricity+template)
+[Play with Electricity in sandbox](https://fraplat.com/mars/FractalStudio/?tag=Electricity+template)
 
 

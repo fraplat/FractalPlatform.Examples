@@ -47,7 +47,7 @@ For Guest, User and Admin
 
 ## Web Link
 
-[Forum](https://fraplat.dev/jupiter/Forum)
+[Forum](https://fraplat.com/Forum)
 
 ## Screenshots
 

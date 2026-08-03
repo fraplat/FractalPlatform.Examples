@@ -15,15 +15,15 @@ Application implements small engine for anonymous votes with next functionality:
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=104)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=204)
+- [EN UTube Video](https://fraplat.com/UTube?tag=104)
+- [UA UTube Video](https://fraplat.com/UTube?tag=204)
 
 ## Web Link
 
-[Vote](https://fraplat.dev/jupiter/Vote)
+[Vote](https://fraplat.com/Vote)
 
 ## Open app in Fractal Studio
 
-[Play with Vote in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=Vote+template)
+[Play with Vote in sandbox](https://fraplat.com/mars/FractalStudio/?tag=Vote+template)
 
 

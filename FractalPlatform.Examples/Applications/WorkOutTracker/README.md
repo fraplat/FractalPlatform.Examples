@@ -19,10 +19,10 @@ Application makes simple sport result tracker with progression results report:
 
 ## Web Link
 
-[WorkOutTracker](https://fraplat.dev/jupiter/WorkOutTracker)
+[WorkOutTracker](https://fraplat.com/WorkOutTracker)
 
 ## Open app in Fractal Studio
 
-[Play with WorkOutTracker in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=WorkOutTracker+template)
+[Play with WorkOutTracker in sandbox](https://fraplat.com/mars/FractalStudio/?tag=WorkOutTracker+template)
 
 

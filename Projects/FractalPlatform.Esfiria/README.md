@@ -8,7 +8,7 @@
 
 ## Web Link
 
-[Esfiria](https://fraplat.dev/jupiter/Esfiria)
+[Esfiria](https://fraplat.com/Esfiria)
 
 ## Screenshots
 

@@ -51,7 +51,7 @@ For Guest, User and Admin
 
 ## Web Link
 
-[UTube](https://fraplat.dev/jupiter/UTube)
+[UTube](https://fraplat.com/UTube)
 
 ## Screenshots
 

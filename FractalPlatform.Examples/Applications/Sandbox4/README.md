@@ -15,5 +15,5 @@ Sandbox application for test purposes
 
 ## Web Link
 
-[Sandbox4](https://fraplat.dev/mars/Sandbox4)
+[Sandbox4](https://fraplat.com/mars/Sandbox4)
 

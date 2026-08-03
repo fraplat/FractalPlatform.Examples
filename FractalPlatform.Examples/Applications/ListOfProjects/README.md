@@ -15,10 +15,10 @@ List of projects application for demo purposes
 
 ## Web Link
 
-[ProjectList](https://fraplat.dev/jupiter/ListOfProjects)
+[ProjectList](https://fraplat.com/ListOfProjects)
 
 ## Open app in Fractal Studio
 
-[Play with ProjectList in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=ProjectList+template)
+[Play with ProjectList in sandbox](https://fraplat.com/mars/FractalStudio/?tag=ProjectList+template)
 
 

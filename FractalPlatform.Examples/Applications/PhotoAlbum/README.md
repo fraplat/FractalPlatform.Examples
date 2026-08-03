@@ -13,15 +13,15 @@ Application demonstrates how to create photo album with:
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=109)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=209)
+- [EN UTube Video](https://fraplat.com/UTube?tag=109)
+- [UA UTube Video](https://fraplat.com/UTube?tag=209)
 
 ## Web Link
 
-[PhotoAlbum](https://fraplat.dev/jupiter/PhotoAlbum)
+[PhotoAlbum](https://fraplat.com/PhotoAlbum)
 
 ## Open app in Fractal Studio
 
-[Play with PhotoAlbum in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=PhotoAlbum+template)
+[Play with PhotoAlbum in sandbox](https://fraplat.com/mars/FractalStudio/?tag=PhotoAlbum+template)
 
 

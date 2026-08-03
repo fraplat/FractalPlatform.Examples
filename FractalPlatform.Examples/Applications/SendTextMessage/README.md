@@ -24,10 +24,10 @@ Send text message:
 
 ## Web Link
 
-[SendTextMessage](https://fraplat.dev/jupiter/SendTextMessage)
+[SendTextMessage](https://fraplat.com/SendTextMessage)
 
 ## Open app in Fractal Studio
 
-[Play with SendTextMessage in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=SendTextMessage+template)
+[Play with SendTextMessage in sandbox](https://fraplat.com/mars/FractalStudio/?tag=SendTextMessage+template)
 
 

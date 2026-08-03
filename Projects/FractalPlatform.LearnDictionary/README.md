@@ -24,7 +24,7 @@ Convenient trainer for learning foreign language vocabulary.
 
 ## Web Link
 
-[LearnDictionary](https://fraplat.dev/mars/LearnDictionary)
+[LearnDictionary](https://fraplat.com/mars/LearnDictionary)
 
 ## Contacts
 

@@ -16,10 +16,10 @@ Also in case of exceeding limits it sends a message to Telegram
 
 ## Web Link
 
-[BTCRateStopLoss](https://fraplat.dev/jupiter/BTCRateStopLoss)
+[BTCRateStopLoss](https://fraplat.com/BTCRateStopLoss)
 
 ## Open app in Fractal Studio
 
-[Play with BTCRateStopLoss in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=BTCRateStopLoss+template)
+[Play with BTCRateStopLoss in sandbox](https://fraplat.com/mars/FractalStudio/?tag=BTCRateStopLoss+template)
 
 

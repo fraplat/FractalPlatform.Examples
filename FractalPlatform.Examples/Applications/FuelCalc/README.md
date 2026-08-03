@@ -15,10 +15,10 @@ Calculate fuel consumption for a trip based on distance and vehicle efficiency.
 
 ## Web Link
 
-[FuelCalc](https://fraplat.dev/jupiter/FuelCalc)
+[FuelCalc](https://fraplat.com/FuelCalc)
 
 ## Open app in Fractal Studio
 
-[Play with FuelCalc in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=FuelCalc+template)
+[Play with FuelCalc in sandbox](https://fraplat.com/mars/FractalStudio/?tag=FuelCalc+template)
 
 

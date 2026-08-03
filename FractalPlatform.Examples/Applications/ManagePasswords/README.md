@@ -12,15 +12,15 @@ Application demonstrates how to work with encrypted data in the database.
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=110)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=210)
+- [EN UTube Video](https://fraplat.com/UTube?tag=110)
+- [UA UTube Video](https://fraplat.com/UTube?tag=210)
 
 ## Web Link
 
-[ManagePasswords](https://fraplat.dev/jupiter/ManagePasswords)
+[ManagePasswords](https://fraplat.com/ManagePasswords)
 
 ## Open app in Fractal Studio
 
-[Play with ManagePasswords in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=ManagePasswords+template)
+[Play with ManagePasswords in sandbox](https://fraplat.com/mars/FractalStudio/?tag=ManagePasswords+template)
 
 

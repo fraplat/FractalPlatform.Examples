@@ -21,7 +21,7 @@ A convinient notepad in the browser.
 
 ## Web Link
 
-[Notepad](https://fraplat.dev/mars/Notepad)
+[Notepad](https://fraplat.com/mars/Notepad)
 
 ## Contacts
 

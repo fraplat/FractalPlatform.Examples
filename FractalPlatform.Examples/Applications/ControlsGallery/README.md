@@ -12,15 +12,15 @@ standard web UI controls and UI components
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=111)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=211)
+- [EN UTube Video](https://fraplat.com/UTube?tag=111)
+- [UA UTube Video](https://fraplat.com/UTube?tag=211)
 
 ## Web Link
 
-[ControlsGallery](https://fraplat.dev/jupiter/ControlsGallery)
+[ControlsGallery](https://fraplat.com/ControlsGallery)
 
 ## Open app in Fractal Studio
 
-[Play with ControlsGallery in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=ControlsGallery+template)
+[Play with ControlsGallery in sandbox](https://fraplat.com/mars/FractalStudio/?tag=ControlsGallery+template)
 
 

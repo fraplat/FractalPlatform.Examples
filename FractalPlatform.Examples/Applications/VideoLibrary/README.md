@@ -17,15 +17,15 @@ Application demonstrates web catalog of online videos with next functionality:
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=120)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=220)
+- [EN UTube Video](https://fraplat.com/UTube?tag=120)
+- [UA UTube Video](https://fraplat.com/UTube?tag=220)
 
 ## Web Link
 
-[VideoLibrary](https://fraplat.dev/jupiter/VideoLibrary)
+[VideoLibrary](https://fraplat.com/VideoLibrary)
 
 ## Open app in Fractal Studio
 
-[Play with VideoLibrary in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=VideoLibrary+template)
+[Play with VideoLibrary in sandbox](https://fraplat.com/mars/FractalStudio/?tag=VideoLibrary+template)
 
 

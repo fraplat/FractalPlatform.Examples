@@ -17,15 +17,15 @@ On third stage if all answers are right
 
 ## How it implemented
 
-- [EN UTube Video](https://fraplat.dev/jupiter/UTube?tag=108)
-- [UA UTube Video](https://fraplat.dev/jupiter/UTube?tag=208)
+- [EN UTube Video](https://fraplat.com/UTube?tag=108)
+- [UA UTube Video](https://fraplat.com/UTube?tag=208)
 
 ## Web Link
 
-[MultTable](https://fraplat.dev/jupiter/MultTable)
+[MultTable](https://fraplat.com/MultTable)
 
 ## Open app in Fractal Studio
 
-[Play with MultTable in sandbox](https://fraplat.dev/mars/FractalStudio/?tag=MultTable+template)
+[Play with MultTable in sandbox](https://fraplat.com/mars/FractalStudio/?tag=MultTable+template)
 
 
