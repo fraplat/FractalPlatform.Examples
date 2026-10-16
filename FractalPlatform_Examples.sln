@@ -47,27 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalPlatform.LearnDictio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalPlatform.Teplo", "Projects\FractalPlatform.Teplo\FractalPlatform.Teplo.csproj", "{2AF307C0-47E3-BF76-E3CF-2AC9C2B3FBE6}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Wiki(1)", "..\BigDoc\Clients\Net\Wiki\", "{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_57903"
-		Debug.AspNetCompiler.PhysicalPath = "..\BigDoc\Clients\Net\Wiki\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57903\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_57903"
-		Release.AspNetCompiler.PhysicalPath = "..\BigDoc\Clients\Net\Wiki\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_57903\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "57903"
-		SlnRelativePath = "..\BigDoc\Clients\Net\Wiki\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,14 +215,6 @@ Global
 		{2AF307C0-47E3-BF76-E3CF-2AC9C2B3FBE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AF307C0-47E3-BF76-E3CF-2AC9C2B3FBE6}.Release|x86.ActiveCfg = Release|Any CPU
 		{2AF307C0-47E3-BF76-E3CF-2AC9C2B3FBE6}.Release|x86.Build.0 = Release|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Debug|x86.Build.0 = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Release|x86.ActiveCfg = Debug|Any CPU
-		{D0CFE545-E1F0-5AE1-E3A1-50B531F4861F}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
