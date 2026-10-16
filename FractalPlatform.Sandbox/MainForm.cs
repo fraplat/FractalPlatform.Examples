@@ -8,6 +8,7 @@ using FractalPlatform.Sandbox.Controls;
 using FractalPlatform.Sandbox.Controls.Grid;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -20,6 +21,8 @@ namespace FractalPlatform.Sandbox
 	{
 		public DOMForm DomForm { get; }
 
+		[Browsable(false)]
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public Action<FormResult> HandleResult { get; set; }
 
 		public MainForm(DOMForm domForm, Action<FormResult> handleResult)
