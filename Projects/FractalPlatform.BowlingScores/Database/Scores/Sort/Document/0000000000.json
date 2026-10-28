@@ -1,0 +1,24 @@
+{
+  "Image": {
+    "Index": 1
+  },
+  "OnDate": {
+    "Index": 2
+  },
+  "Julia": {
+    "Points": {
+      "Index": 3
+    },
+    "Strikes": {
+      "Index": 4
+    }
+  },
+  "Viacheslav": {
+    "Points": {
+      "Index": 5
+    },
+    "Strikes": {
+      "Index": 6
+    }
+  }
+}

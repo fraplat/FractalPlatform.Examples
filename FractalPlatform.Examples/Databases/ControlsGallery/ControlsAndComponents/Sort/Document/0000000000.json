@@ -1,0 +1,33 @@
+﻿{
+  "Title": { "Index": 1 },
+  "Controls": [
+    {
+      "Name": { "Index": 2 },
+      "Description": { "Index": 3 },
+      "Dimensions": {
+        "DocumentLabel": { "Index": 4 },
+        "Document": { "Index": 5 },
+        "UILabel": { "Index": 6 },
+        "UI": { "Index": 7 },
+        "EnumLabel": { "Index": 8 },
+        "Enum": { "Index": 9 }
+      },
+      "Example": { "Index": 10 }
+    }
+  ],
+  "Components": [
+    {
+      "Name": { "Index": 11 },
+      "Description": { "Index": 12 },
+      "Dimensions": {
+        "DocumentLabel": { "Index": 13 },
+        "Document": { "Index": 14 },
+        "UILabel": { "Index": 15 },
+        "UI": { "Index": 16 },
+        "EnumLabel": { "Index": 17 },
+        "Enum": { "Index": 18 }
+      },
+      "Example": { "Index": 19 }
+    }
+  ]
+}

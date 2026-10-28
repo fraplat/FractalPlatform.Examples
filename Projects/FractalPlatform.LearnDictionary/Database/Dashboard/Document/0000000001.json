@@ -1,0 +1,15 @@
+{
+  "test": "",
+  "Words": {
+    "NewWord": "New Word",
+    "Learn": "Learn",
+    "Edit": "Edit",
+    "MyLife": "My Life",
+    "Reset": "Reset",
+    "Archive": "Archive"
+  },
+  "Speaking": {
+    "Prompt": "Prompt",
+    "Articles": "Articles"
+  }
+}

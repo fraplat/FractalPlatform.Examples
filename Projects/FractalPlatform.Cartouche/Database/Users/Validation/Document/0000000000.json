@@ -1,0 +1,36 @@
+{
+  "Age": {
+    "IsRequired": true,
+    "MaxValue": 100,
+    "MinValue": 1,
+    "Type": "int"
+  },
+  "Following": [
+    {
+      "Formula": "@ValidateFollowUser"
+    }
+  ],
+  "FullName": {
+    "IsRequired": true,
+    "MaxLen": 40,
+    "MinLen": 3,
+    "Type": "string"
+  },
+  "Name": {
+    "IsRequired": true,
+    "IsUnique": true,
+    "MaxLen": 40,
+    "MinLen": 3,
+    "Type": "string"
+  },
+  "OnDate": {
+    "IsRequired": true,
+    "Type": "date"
+  },
+  "Password": {
+    "IsRequired": true,
+    "MaxLen": 20,
+    "MinLen": 3,
+    "Type": "string"
+  }
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Порівняння з конкурентами</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            padding: 60px 20px 40px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .intro-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .intro-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .table-container {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        
+        thead {
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--primary-gradient);
+        }
+        
+        th:first-child {
+            border-top-left-radius: 8px;
+        }
+        
+        th:last-child {
+            border-top-right-radius: 8px;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+        
+        tbody tr:hover {
+            background-color: #f8f9ff;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        td:first-child {
+            font-weight: 600;
+            color: #667eea;
+            background-color: #f8f9ff;
+        }
+        
+        .highlight {
+            background-color: #e8f5e9;
+            font-weight: 600;
+        }
+        
+        .conclusion-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+        }
+        
+        .conclusion-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .conclusion-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .conclusion-list li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .conclusion-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+        
+            .header p {
+                font-size: 1.1em;
+            }
+        
+            table {
+                font-size: 0.85em;
+            }
+        
+            th, td {
+                padding: 10px 8px;
+            }
+        
+            .intro-section, .table-container, .conclusion-section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+        
+            .header {
+                padding: 40px 10px 30px;
+            }
+        
+            table {
+                font-size: 0.75em;
+            }
+        
+            th, td {
+                padding: 8px 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📊 Порівняння Fractal Platform з конкурентами</h1>
+            <p>Детальний аналіз переваг Fractal Platform над альтернативними рішеннями</p>
+        </header>
+
+        <div class="intro-section">
+            <h2>Конкурентний аналіз</h2>
+            <p>
+                Fractal Platform займає унікальну позицію на ринку, поєднуючи швидкість low-code платформ
+                з гнучкістю традиційної розробки. Нижче представлено детальне порівняння з прямими
+                та непрямими конкурентами за ключовими критеріями.
+            </p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Критерій порівняння</th>
+                        <th>Fractal Platform</th>
+                        <th>Low-Code<br>(Wix, Bubble, Webflow)</th>
+                        <th>Web Frameworks<br>(Django, Laravel, WordPress)</th>
+                        <th>Enterprise<br>(C#, Java, Python)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Швидкість розробки</td>
+                        <td class="highlight">10-100x швидше за frameworks<br>(benchmark RealWorld)</td>
+                        <td>Швидко для шаблонів</td>
+                        <td>Повільно (базовий рівень)</td>
+                        <td>Дуже повільно</td>
+                    </tr>
+                    <tr>
+                        <td>Гнучкість архітектури</td>
+                        <td class="highlight">Повна кастомізація<br>C#/JS/HTML + AOP</td>
+                        <td>Обмежена шаблонами</td>
+                        <td>Середня</td>
+                        <td>Повна</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor lock-in</td>
+                        <td class="highlight">Ні (deploy anywhere)</td>
+                        <td>Так (прив'язка до платформи)</td>
+                        <td>Ні</td>
+                        <td>Ні</td>
+                    </tr>
+                    <tr>
+                        <td>Час відгуку сторінок</td>
+                        <td class="highlight">від 14-18 мс (динамічні)</td>
+                        <td>50-200 мс</td>
+                        <td>100-500 мс</td>
+                        <td>Залежить від реалізації</td>
+                    </tr>
+                    <tr>
+                        <td>Вартість хостингу</td>
+                        <td class="highlight">починаючи з AWS t2.micro (free tier)</td>
+                        <td>Висока (платформа)</td>
+                        <td>Середня</td>
+                        <td>Висока</td>
+                    </tr>
+                    <tr>
+                        <td>Debugging можливості</td>
+                        <td class="highlight">Fractal Studio (webbrowser) + Fractal Studio Mobile (smartphones) + Visual Studio (desktop) + breakpoints</td>
+                        <td>Обмежені</td>
+                        <td>Залежить від IDE</td>
+                        <td>Повні</td>
+                    </tr>
+                    <tr>
+                        <td>Git version control</td>
+                        <td class="highlight">Так (весь проєкт)</td>
+                        <td>Ні або обмежено</td>
+                        <td>Так</td>
+                        <td>Так</td>
+                    </tr>
+                    <tr>
+                        <td>Auto-generated UI</td>
+                        <td class="highlight">Так (з JSON за секунди) + HTML/JS/CSS layouts</td>
+                        <td>Drag-n-drop</td>
+                        <td>Ні</td>
+                        <td>Ні</td>
+                    </tr>
+                    <tr>
+                        <td>AI-friendly code</td>
+                        <td class="highlight">Компактний, в контексті</td>
+                        <td>Не придатний</td>
+                        <td>Громіздкий</td>
+                        <td>Дуже громіздкий</td>
+                    </tr>
+                    <tr>
+                        <td>Автотестування</td>
+                        <td class="highlight">Вбудований framework</td>
+                        <td>Обмежене</td>
+                        <td>Потрібна інтеграція</td>
+                        <td>Потрібна інтеграція</td>
+                    </tr>
+                    <tr>
+                        <td>Database flexibility</td>
+                        <td class="highlight">Key-value, document, SQL</td>
+                        <td>Обмежена</td>
+                        <td>SQL переважно</td>
+                        <td>Повна</td>
+                    </tr>
+                    <tr>
+                        <td>Цільовий сегмент</td>
+                        <td class="highlight">Entry → Enterprise (всі)</td>
+                        <td>Entry → Basic</td>
+                        <td>Basic → Advanced</td>
+                        <td>Advanced → Enterprise</td>
+                    </tr>
+                    <tr>
+                        <td>Навчальна крива</td>
+                        <td class="highlight">Низька → Середня</td>
+                        <td>Дуже низька</td>
+                        <td>Середня → Висока</td>
+                        <td>Висока</td>
+                    </tr>
+                    <tr>
+                        <td>Кількість коду</td>
+                        <td class="highlight">Мінімальна (AI-friendly)</td>
+                        <td>Нульова (no-code)</td>
+                        <td>Велика</td>
+                        <td>Дуже велика</td>
+                    </tr>
+                    <tr>
+                        <td>Marketplace шаблонів</td>
+                        <td class="highlight">Так (/ListOfProjects)</td>
+                        <td>Так</td>
+                        <td>Обмежено</td>
+                        <td>Ні</td>
+                    </tr>
+                    <tr>
+                        <td>Microservices підтримка</td>
+                        <td class="highlight">Так (enterprise рівень)</td>
+                        <td>Ні</td>
+                        <td>Обмежено</td>
+                        <td>Так</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="conclusion-section">
+            <h2>Ключові висновки</h2>
+            <ul class="conclusion-list">
+                <li>Fractal Platform займає унікальну позицію між low-code та traditional development, пропонуючи найкраще з обох світів</li>
+                <li>Єдина платформа, що пропонує швидкість low-code + гнучкість enterprise без vendor lock-in</li>
+                <li>Оптимізована для AI-асистованої розробки завдяки компактному коду та можливості тримати весь проєкт в контексті</li>
+                <li>Покриває всі сегменти від Entry до Enterprise одним інструментом, що знижує складність інфраструктури</li>
+                <li>Унікальна комбінація високої продуктивності (14-18 мс) та низької вартості хостингу (AWS free tier)</li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            <p>Fractal Platform — майбутнє веб-розробки вже сьогодні 🚀</p>
+        </footer>
+    </div>
+</body>
+
+</html>

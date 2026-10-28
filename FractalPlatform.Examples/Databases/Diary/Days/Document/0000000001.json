@@ -1,0 +1,25 @@
+{
+   "OnDate": "2024-08-18",
+   "Points": 0,
+   "Project": {
+      "Code": true,
+      "Communicate": false,
+      "Think": false
+   },
+   "Restrictions": {
+      "NoAlcohol": true,
+      "NoBread": true,
+      "NoCoffee": false,
+      "NoEatAfter18": false,
+      "NoPolitics": true,
+      "NoSugar": true
+   },
+   "Sport": {
+      "Gym": false,
+      "Stairs": false
+   },
+   "Work": {
+      "English": false,
+      "Job": false
+   }
+}

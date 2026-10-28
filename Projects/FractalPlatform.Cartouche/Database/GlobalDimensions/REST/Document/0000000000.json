@@ -1,0 +1,7 @@
+{
+  "Database": {
+    "Token": "123",
+    "IsReadEnabled": true,
+    "IsWriteEnabled": true
+  }
+}

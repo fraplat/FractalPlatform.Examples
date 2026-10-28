@@ -1,0 +1,19 @@
+{
+  "Style": "Hide:Text,Refresh,Save,Cancel;Save:false;Cancel:false;Type:Link",
+  "Notes": [
+    {
+      "IsRawPage": true,
+      "Layout": "Notes",
+      "Style": "Save:true;Cancel:true",
+      "Cancel": {
+        "ControlType": "Button"
+      },
+      "Refresh": {
+        "ControlType": "Button"
+      },
+      "Save": {
+        "ControlType": "Button"
+      }
+    }
+  ]
+}

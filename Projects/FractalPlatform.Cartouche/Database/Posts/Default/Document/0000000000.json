@@ -1,0 +1,42 @@
+{
+  "Avatar": {
+    "Formula": "@Avatar"
+  },
+  "FullName": {
+    "Formula": "@FullName"
+  },
+  "Follow": {
+    "Value": "Follow"
+  },
+  "Unfollow": {
+    "Value": "Unfollow"
+  },
+  "LikePost": {
+    "Value": "Like Post"
+  },
+  "NewComment": {
+    "Value": "New Comment"
+  },
+  "Comments": [
+    {
+      "Avatar": {
+        "Formula": "@Avatar"
+      },
+      "FullName": {
+        "Formula": "@FullName"
+      },
+      "LikeComment": {
+        "Value": "Like Comment"
+      },
+      "Reply": {
+        "Value": "Reply"
+      },
+      "EditComment": {
+        "Formula": "@EditComment"
+      }
+    }
+  ],
+  "EditPost": {
+    "Value": "Edit Post"
+  }
+}

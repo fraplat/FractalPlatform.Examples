@@ -1,0 +1,24 @@
+﻿{
+  "Avatar": "http://i.imgur.com/Qr71crq.jpg",
+  "Comment": "",
+  "CountFollowers": "1",
+  "CountLikes": "1",
+  "OnDate": "09/10/2024",
+  "Text": "Test",
+  "Title": "Test Article",
+  "Who": "Bob",
+  "Comments": [
+    {
+      "Avatar": "http://i.imgur.com/Qr71crq.jpg",
+      "OnDate": "20240101",
+      "Text": "Cool",
+      "Who": "Bob"
+    }
+  ],
+  "Likes": [
+    "Bob"
+  ],
+  "Tags": [
+    "green"
+  ]
+}

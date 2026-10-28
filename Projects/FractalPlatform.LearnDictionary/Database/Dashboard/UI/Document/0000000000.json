@@ -1,0 +1,31 @@
+{
+  "Style": "CollLabel:Learn english;Save:false;Cancel:false",
+  "Speaking": {
+    "Articles": {
+      "ControlType": "Button"
+    },
+    "Prompt": {
+      "ControlType": "Button"
+    }
+  },
+  "Words": {
+    "Archive": {
+      "ControlType": "Button"
+    },
+    "Edit": {
+      "ControlType": "Button"
+    },
+    "Learn": {
+      "ControlType": "Button"
+    },
+    "MyLife": {
+      "ControlType": "Button"
+    },
+    "NewWord": {
+      "ControlType": "Button"
+    },
+    "Reset": {
+      "ControlType": "Button"
+    }
+  }
+}

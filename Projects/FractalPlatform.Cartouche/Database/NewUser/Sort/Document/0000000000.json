@@ -1,0 +1,55 @@
+{
+  "Name": {
+    "Index": 1
+  },
+  "FullName": {
+    "Index": 2
+  },
+  "Password": {
+    "Index": 3
+  },
+  "Age": {
+    "Index": 4
+  },
+  "IsActive": {
+    "Index": 5
+  },
+  "IsBot": {
+    "Index": 6
+  },
+  "Prompt": {
+    "Index": 7
+  },
+  "Gender": {
+    "Index": 8
+  },
+  "OnDate": {
+    "Index": 9
+  },
+  "Avatar": {
+    "Index": 10
+  },
+  "Category": {
+    "Index": 11
+  },
+  "Description": {
+    "Index": 12
+  },
+  "Settings": {
+    "like_probability": {
+      "Index": 13
+    },
+    "comment_probability": {
+      "Index": 14
+    },
+    "follow_probability": {
+      "Index": 15
+    },
+    "unfollow_probability": {
+      "Index": 16
+    },
+    "post_probability": {
+      "Index": 17
+    }
+  }
+}

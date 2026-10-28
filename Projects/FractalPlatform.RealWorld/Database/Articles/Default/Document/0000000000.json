@@ -1,0 +1,23 @@
+{
+  "AddComment": {
+    "Value": "Post Comment"
+  },
+  "AddLike": {
+    "Value": "Add Like"
+  },
+  "RemoveArticle": {
+    "Value": "Remove Article"
+  },
+  "EditArticle": {
+    "Value": "Edit Article"
+  },
+  "FollowUser": {
+    "Value": "Follow User"
+  },
+  "RemoveLike": {
+    "Value": "Remove Like"
+  },
+  "UnfollowUser": {
+    "Value": "Unfollow User"
+  }
+}

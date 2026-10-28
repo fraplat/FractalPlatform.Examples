@@ -1,0 +1,11 @@
+{
+  "Style": "CollLabel:Внести показники тепла;Save:Внести показники;Cancel:false",
+  "History": {
+    "ControlType": "Button",
+    "Style": "Type:Link"
+  },
+  "NoApartmentsInMonth": {
+    "ControlType": "Button",
+    "Style": "Type:Link"
+  }
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesHub — Calculations</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b0f19; color: #e2e8f0; min-height: 100vh; display: flex; }
+        .sidebar { width: 250px; background: #111827; border-right: 1px solid #1e293b; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+        .sidebar-logo { padding: 24px 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #1e293b; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+        .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #475569; padding: 16px 12px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #94a3b8; text-decoration: none; transition: all .15s; }
+        .nav-item:hover { background: #1e293b; color: #e2e8f0; }
+        .nav-item.active { background: rgba(99,102,241,.12); color: #818cf8; }
+        .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+        .sidebar-user { padding: 16px 20px; border-top: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+        .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #fff; }
+        .sidebar-user .info { flex: 1; }
+        .sidebar-user .info .name { font-size: 13px; font-weight: 600; }
+        .sidebar-user .info .role { font-size: 11px; color: #64748b; }
+
+        .main { margin-left: 250px; flex: 1; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #1e293b; background: #0f1423; position: sticky; top: 0; z-index: 5; }
+        .topbar h1 { font-size: 20px; font-weight: 600; }
+        .btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+
+        .content { padding: 28px 32px; }
+        .card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 22px; margin-bottom: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-header h3 { font-size: 15px; font-weight: 600; }
+
+        /* Calculation Pipeline */
+        .pipeline { display: flex; gap: 12px; margin-bottom: 28px; overflow-x: auto; padding-bottom: 8px; }
+        .pipeline-step { min-width: 180px; background: #111827; border: 1px solid #1e293b; border-radius: 12px; padding: 18px; text-align: center; position: relative; flex-shrink: 0; }
+        .pipeline-step.active { border-color: #6366f1; }
+        .pipeline-step .step-num { width: 28px; height: 28px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin: 0 auto 10px; color: #64748b; }
+        .pipeline-step.active .step-num { background: #6366f1; color: #fff; }
+        .pipeline-step .step-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+        .pipeline-step .step-desc { font-size: 11px; color: #64748b; }
+        .pipeline-arrow { display: flex; align-items: center; color: #334155; font-size: 20px; flex-shrink: 0; }
+
+        /* Formula cards */
+        .formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .formula-card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 20px; }
+        .formula-card .label { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+        .formula-card .formula { font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; color: #818cf8; background: #0b0f19; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #1e293b; }
+        .formula-card .result { display: flex; justify-content: space-between; align-items: center; }
+        .formula-card .result .val { font-size: 22px; font-weight: 700; }
+        .formula-card .result .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+        .badge-ok { background: rgba(34,197,94,.12); color: #22c55e; }
+        .badge-warn { background: rgba(245,158,11,.12); color: #f59e0b; }
+
+        /* Dependency Map */
+        .dep-map { display: flex; flex-direction: column; gap: 8px; }
+        .dep-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #0b0f19; border-radius: 8px; border: 1px solid #1e293b; font-size: 13px; }
+        .dep-row .source { color: #f59e0b; font-family: monospace; min-width: 140px; }
+        .dep-row .arrow { color: #334155; }
+        .dep-row .target { color: #818cf8; font-family: monospace; min-width: 140px; }
+        .dep-row .desc { color: #64748b; font-size: 12px; }
+
+        /* Audit log */
+        .audit-log { max-height: 240px; overflow-y: auto; }
+        .audit-entry { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid #1a2332; font-size: 13px; }
+        .audit-entry:last-child { border-bottom: none; }
+        .audit-time { color: #475569; font-size: 12px; min-width: 70px; font-variant-numeric: tabular-nums; }
+        .audit-action { flex: 1; }
+        .audit-user { color: #818cf8; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">SalesHub</div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="data-entry.html" class="nav-item"><span class="nav-icon">📝</span> Data Entry</a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+            <a href="calculations.html" class="nav-item active"><span class="nav-icon">🔢</span> Calculations</a>
+            <div class="nav-section">Management</div>
+            <a href="products.html" class="nav-item"><span class="nav-icon">📦</span> Products</a>
+            <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+            <a href="orders.html" class="nav-item"><span class="nav-icon">🛒</span> Orders</a>
+            <div class="nav-section">System</div>
+            <a href="users.html" class="nav-item"><span class="nav-icon">🔑</span> User Management</a>
+            <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="avatar">JD</div>
+            <div class="info"><div class="name">John Doe</div><div class="role">Manager</div></div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <h1>Calculations Engine</h1>
+            <div style="display:flex;gap:12px;">
+                <button class="btn btn-outline">🔄 Recalculate All</button>
+                <button class="btn btn-primary">+ New Formula</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Calculation Pipeline -->
+            <div class="pipeline">
+                <div class="pipeline-step active">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Raw Input</div>
+                    <div class="step-desc">Sales data, quantities, rates</div>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step active">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Subtotals</div>
+                    <div class="step-desc">Line totals, discounts</div>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step active">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Tax & Fees</div>
+                    <div class="step-desc">Tax rates, fees calc</div>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step active">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Cost Layers</div>
+                    <div class="step-desc">COGS, margins, overhead</div>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step">
+                    <div class="step-num">5</div>
+                    <div class="step-title">Aggregation</div>
+                    <div class="step-desc">Period rollups, KPIs</div>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-step">
+                    <div class="step-num">6</div>
+                    <div class="step-title">Final Output</div>
+                    <div class="step-desc">Dashboard & reports</div>
+                </div>
+            </div>
+
+            <!-- Formulas -->
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <div class="label">Subtotal Calculation</div>
+                    <div class="formula">Subtotal = Qty × UnitPrice × (1 - Discount%)</div>
+                    <div class="result">
+                        <div class="val">$284,520</div>
+                        <span class="badge badge-ok">✓ Valid</span>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="label">Tax Calculation</div>
+                    <div class="formula">TaxAmount = Subtotal × TaxRate</div>
+                    <div class="result">
+                        <div class="val">$24,184</div>
+                        <span class="badge badge-ok">✓ Valid</span>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="label">Gross Margin</div>
+                    <div class="formula">Margin = (Revenue - COGS) / Revenue × 100</div>
+                    <div class="result">
+                        <div class="val">49.8%</div>
+                        <span class="badge badge-ok">✓ Valid</span>
+                    </div>
+                </div>
+                <div class="formula-card">
+                    <div class="label">Commission Layered</div>
+                    <div class="formula">Comm = IF(Rev &gt; 50K, 8%, IF(Rev &gt; 20K, 5%, 3%))</div>
+                    <div class="result">
+                        <div class="val">$17,640</div>
+                        <span class="badge badge-warn">⚠ Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dependency Map -->
+            <div class="card">
+                <div class="card-header"><h3>Data Dependencies</h3></div>
+                <div class="dep-map">
+                    <div class="dep-row">
+                        <span class="source">SalesData.Qty</span>
+                        <span class="arrow">→</span>
+                        <span class="target">Subtotals.LineTotal</span>
+                        <span class="desc">Quantity feeds into line total calc</span>
+                    </div>
+                    <div class="dep-row">
+                        <span class="source">ClientRates.Rate</span>
+                        <span class="arrow">→</span>
+                        <span class="target">Subtotals.LineTotal</span>
+                        <span class="desc">Client-specific pricing lookup</span>
+                    </div>
+                    <div class="dep-row">
+                        <span class="source">Subtotals.LineTotal</span>
+                        <span class="arrow">→</span>
+                        <span class="target">TaxFees.TaxAmount</span>
+                        <span class="desc">Subtotal is base for tax calculation</span>
+                    </div>
+                    <div class="dep-row">
+                        <span class="source">TaxFees.TaxAmount</span>
+                        <span class="arrow">→</span>
+                        <span class="target">FinalOutput.Total</span>
+                        <span class="desc">Tax added to get final total</span>
+                    </div>
+                    <div class="dep-row">
+                        <span class="source">CostBreakdown.COGS</span>
+                        <span class="arrow">→</span>
+                        <span class="target">FinalOutput.Margin</span>
+                        <span class="desc">COGS subtracted for margin calc</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Log -->
+            <div class="card">
+                <div class="card-header"><h3>Calculation Audit Log</h3></div>
+                <div class="audit-log">
+                    <div class="audit-entry">
+                        <span class="audit-time">14:32</span>
+                        <span class="audit-action">Full recalculation completed — 342 records processed in 0.8s</span>
+                        <span class="audit-user">System</span>
+                    </div>
+                    <div class="audit-entry">
+                        <span class="audit-time">14:28</span>
+                        <span class="audit-action">Commission formula updated: threshold changed from $40K to $50K</span>
+                        <span class="audit-user">John D.</span>
+                    </div>
+                    <div class="audit-entry">
+                        <span class="audit-time">13:55</span>
+                        <span class="audit-action">Tax rate for Region: East updated to 9.25%</span>
+                        <span class="audit-user">Jane S.</span>
+                    </div>
+                    <div class="audit-entry">
+                        <span class="audit-time">11:20</span>
+                        <span class="audit-action">New data imported — 24 rows added to Sales Data sheet</span>
+                        <span class="audit-user">John D.</span>
+                    </div>
+                    <div class="audit-entry">
+                        <span class="audit-time">09:15</span>
+                        <span class="audit-action">Scheduled recalculation triggered — all formulas validated</span>
+                        <span class="audit-user">System</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "LearnedWords": {
+    "Index": 1
+  },
+  "TotalWords": {
+    "Index": 2
+  },
+  "Words": [
+    {
+      "IsArchived": {
+        "Index": 3
+      },
+      "IsLearned": {
+        "Index": 4
+      },
+      "Phrase": {
+        "Index": 5
+      },
+      "Trans": {
+        "Index": 6
+      },
+      "Word": {
+        "Index": 7
+      }
+    }
+  ]
+}

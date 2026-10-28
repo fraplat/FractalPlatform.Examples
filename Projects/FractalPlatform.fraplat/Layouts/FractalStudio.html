@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Studio Developer Tutorial</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+        .comment { color: #5c6370; font-style: italic; }
+        .type { color: #61afef; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .success strong {
+            color: #2e7d32;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea30;
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Fractal Studio Developer Tutorial</h1>
+            <p>Your Complete Guide to Low-Code Development</p>
+        </header>
+
+        <nav>
+            <h2>📚 Table of Contents</h2>
+            <ul>
+                <li><a href="#introduction">1. Introduction to Fractal Studio</a></li>
+                <li><a href="#getting-started">2. Getting Started</a></li>
+                <li><a href="#project-structure">3. Project Structure</a></li>
+                <li><a href="#collections">4. Working with Collections</a></li>
+                <li><a href="#dimensions">5. Understanding Dimensions</a></li>
+                <li><a href="#layouts">6. Creating Layouts</a></li>
+                <li><a href="#code">7. Writing C# Code</a></li>
+                <li><a href="#events">8. Event Handling</a></li>
+                <li><a href="#deployment">9. Deployment</a></li>
+                <li><a href="#best-practices">10. Best Practices</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 1: Introduction -->
+        <div class="article" id="introduction">
+            <h2>1. Introduction to Fractal Studio</h2>
+
+            <h3>What is Fractal Studio?</h3>
+            <p>Fractal Studio is a powerful low-code development platform that combines the flexibility of traditional programming with the speed of visual development. It uses a unique approach where:</p>
+
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>📊 <strong>Data is stored in JSON format</strong> - Easy to read and edit</li>
+                <li>🎨 <strong>UI is defined through HTML layouts</strong> - Full control over appearance</li>
+                <li>💻 <strong>Logic is written in C#</strong> - Type-safe and powerful</li>
+                <li>🔧 <strong>Dimensions control behavior</strong> - Configure without coding</li>
+            </ul>
+
+            <h3>Key Components</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🗄️ Collections</h4>
+                    <p>Like database tables, but stored as JSON files. Each collection can have multiple documents.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📐 Dimensions</h4>
+                    <p>Configuration layers that control UI, validation, events, and more without changing code.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎭 Layouts</h4>
+                    <p>HTML templates that define how your data is displayed to users.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Events</h4>
+                    <p>C# methods that respond to user actions like button clicks or form submissions.</p>
+                </div>
+            </div>
+
+            <div class="success">
+                <strong>✅ Why Fractal Studio?</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Rapid development - build apps in hours, not weeks</li>
+                    <li>Full stack - handles data, UI, and logic</li>
+                    <li>AI-powered - automatic generation of code and layouts</li>
+                    <li>Version control friendly - all files are text-based</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 2: Getting Started -->
+        <div class="article" id="getting-started">
+            <h2>2. Getting Started</h2>
+
+            <h3>Creating Your First Project</h3>
+            <p>When you open Fractal Studio, you'll start with creating a new project:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// The system generates a unique name like "HelloWorld_a1b2c3d4"</span>
+<span class="keyword">var</span> appName = <span class="string">"HelloWorld_a1b2c3d4"</span>;
+
+<span class="comment">// Project structure is automatically created</span>
+Projects/
+  FractalPlatform.HelloWorld_a1b2c3d4/
+    HelloWorldApplication.cs    <span class="comment">// Main code file</span>
+    Database/                   <span class="comment">// JSON data storage</span>
+    Layouts/                    <span class="comment">// HTML templates</span>
+    Files/                      <span class="comment">// Static resources</span></pre>
+            </div>
+
+            <h3>The Dashboard Interface</h3>
+            <p>Fractal Studio's main interface has three sections:</p>
+
+            <table>
+                <tr>
+                    <th>Section</th>
+                    <th>Purpose</th>
+                    <th>What You'll Do</th>
+                </tr>
+                <tr>
+                    <td><strong>App (CSharp/Layouts)</strong></td>
+                    <td>Code and UI templates</td>
+                    <td>Write C# code, design HTML layouts</td>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>Data management</td>
+                    <td>Create collections, edit JSON documents</td>
+                </tr>
+                <tr>
+                    <td><strong>Preview</strong></td>
+                    <td>Testing</td>
+                    <td>See your app in action</td>
+                </tr>
+            </table>
+
+            <div class="tip">
+                <strong>💡 Quick Start Tip:</strong> Use one of the templates (HelloWorld, TodoList, etc.) to see a working example. Then modify it to learn how things work!
+            </div>
+
+            <h3>Basic Workflow</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Create a collection to store your data</li>
+                <li>Add dimensions to configure behavior</li>
+                <li>Design a layout to display the data</li>
+                <li>Write C# code to handle user interactions</li>
+                <li>Deploy and test your application</li>
+            </ol>
+        </div>
+
+        <!-- Article 3: Project Structure -->
+        <div class="article" id="project-structure">
+            <h2>3. Project Structure</h2>
+
+            <h3>File Organization</h3>
+            <p>Every Fractal Studio project follows this structure:</p>
+
+            <div class="code-block">
+                <pre>FractalPlatform.YourApp/
+├── YourAppApplication.cs          <span class="comment">// Main application class</span>
+├── Database/
+│   ├── Users/                     <span class="comment">// Collection name</span>
+│   │   ├── Document/
+│   │   │   ├── 0000000001.json   <span class="comment">// First document</span>
+│   │   │   └── 0000000002.json   <span class="comment">// Second document</span>
+│   │   ├── UI/                   <span class="comment">// UI configuration</span>
+│   │   │   └── Document/
+│   │   │       └── 0000000000.json
+│   │   ├── Enum/                 <span class="comment">// Dropdown options</span>
+│   │   │   └── Document/
+│   │   │       └── 0000000000.json
+│   │   └── Event/                <span class="comment">// Event handlers</span>
+│   │       └── Document/
+│   │           └── 0000000000.json
+│   └── GlobalDimensions/         <span class="comment">// Shared configurations</span>
+├── Layouts/
+│   ├── Users.html                <span class="comment">// Main layout</span>
+│   └── UsersMobile.html          <span class="comment">// Mobile layout</span>
+└── Files/
+    ├── logo.png                  <span class="comment">// Static files</span>
+    └── styles.css</pre>
+            </div>
+
+            <h3>Understanding the Main Application File</h3>
+            <p>Your main C# file inherits from <code>DashboardApplication</code>:</p>
+
+            <div class="code-block">
+                <pre><span class="keyword">public class</span> <span class="type">YourAppApplication</span> : <span class="type">DashboardApplication</span>
+{
+    <span class="comment">// This method runs when app starts</span>
+    <span class="keyword">public override void</span> <span class="type">OnLogin</span>(<span class="type">FormResult</span> result)
+    {
+        <span class="comment">// Initialize your app here</span>
+        <span class="type">Dashboard</span>();
+    }
+
+    <span class="comment">// This method handles user actions</span>
+    <span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+    {
+        <span class="comment">// Respond to button clicks, form submissions, etc.</span>
+        <span class="keyword">return</span> <span class="keyword">base</span>.<span class="type">OnEventDimension</span>(info);
+    }
+}</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> Never manually edit files outside Fractal Studio unless you know what you're doing. The platform manages file structure automatically and expects specific formats.
+            </div>
+        </div>
+
+        <!-- Article 4: Collections -->
+        <div class="article" id="collections">
+            <h2>4. Working with Collections</h2>
+
+            <h3>What is a Collection?</h3>
+            <p>A collection is like a database table, but stored as JSON files. Each collection can have multiple documents (records).</p>
+
+            <h3>Creating a Collection</h3>
+            <p>In Fractal Studio, click "Add Collection" and fill in the details:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Collection: "Products"</span>
+<span class="comment">// First document (0000000001.json):</span>
+{
+    <span class="string">"Name"</span>: <span class="string">"Laptop"</span>,
+    <span class="string">"Price"</span>: <span class="number">999.99</span>,
+    <span class="string">"InStock"</span>: <span class="keyword">true</span>,
+    <span class="string">"Categories"</span>: [<span class="string">"Electronics"</span>, <span class="string">"Computers"</span>]
+}</pre>
+            </div>
+
+            <h3>Accessing Collections in Code</h3>
+            <p>Use the built-in methods to query and modify data:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Get all documents from a collection</span>
+<span class="keyword">var</span> products = <span class="type">DocsOf</span>(<span class="string">"Products"</span>)
+                  .<span class="type">ToCollection</span>();
+
+<span class="comment">// Query specific documents</span>
+<span class="keyword">var</span> laptops = <span class="type">DocsWhere</span>(<span class="string">"Products"</span>, <span class="string">"{'Name':'Laptop'}"</span>)
+                   .<span class="type">ToCollection</span>();
+
+<span class="comment">// Get a single value</span>
+<span class="keyword">var</span> price = <span class="type">DocsWhere</span>(<span class="string">"Products"</span>, <span class="string">"{'Name':'Laptop'}"</span>)
+                  .<span class="type">Value</span>(<span class="string">"{'Price':$}"</span>);
+<span class="comment">// Returns: "999.99"</span>
+
+<span class="comment">// Add a new document</span>
+<span class="type">AddDoc</span>(<span class="string">"Products"</span>, <span class="string">"{'Name':'Mouse','Price':29.99}"</span>);
+
+<span class="comment">// Update existing documents</span>
+<span class="type">DocsWhere</span>(<span class="string">"Products"</span>, <span class="string">"{'Name':'Laptop'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Price':899.99}"</span>);
+
+<span class="comment">// Delete documents</span>
+<span class="type">DelDoc</span>(<span class="string">"Products"</span>, <span class="number">1</span>); <span class="comment">// Delete by ID</span></pre>
+            </div>
+
+            <h3>Document IDs</h3>
+            <p>Each document has a unique ID stored in its filename:</p>
+
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><code>0000000001.json</code> → ID is 1</li>
+                <li><code>0000000002.json</code> → ID is 2</li>
+                <li>IDs are automatically generated and sequential</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Use meaningful collection names (Users, Products, Orders) that match your domain. This makes your code more readable and maintainable.
+            </div>
+        </div>
+
+        <!-- Article 5: Dimensions -->
+        <div class="article" id="dimensions">
+            <h2>5. Understanding Dimensions</h2>
+
+            <h3>What are Dimensions?</h3>
+            <p>Dimensions are configuration layers that control various aspects of your application without changing code. Think of them as "settings files" for different behaviors.</p>
+
+            <h3>Available Dimensions</h3>
+            <table>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Purpose</th>
+                    <th>Example Use Case</th>
+                </tr>
+                <tr>
+                    <td><strong>UI</strong></td>
+                    <td>Control appearance and behavior</td>
+                    <td>Make fields read-only, set control types</td>
+                </tr>
+                <tr>
+                    <td><strong>Enum</strong></td>
+                    <td>Define dropdown options</td>
+                    <td>Status: Active, Inactive, Pending</td>
+                </tr>
+                <tr>
+                    <td><strong>Event</strong></td>
+                    <td>Map UI actions to C# methods</td>
+                    <td>Button click → SaveData() method</td>
+                </tr>
+                <tr>
+                    <td><strong>Validation</strong></td>
+                    <td>Define data rules</td>
+                    <td>Email must be valid format</td>
+                </tr>
+                <tr>
+                    <td><strong>Sorting</strong></td>
+                    <td>Default sort order</td>
+                    <td>Sort products by price ascending</td>
+                </tr>
+                <tr>
+                    <td><strong>Pagination</strong></td>
+                    <td>Configure paging</td>
+                    <td>Show 10 items per page</td>
+                </tr>
+            </table>
+
+            <h3>UI Dimension Example</h3>
+            <p>Control how your data is displayed:</p>
+
+            <div class="code-block">
+                <pre>{
+    <span class="string">"Name"</span>: {
+        <span class="string">"ReadOnly"</span>: <span class="keyword">false</span>,
+        <span class="string">"ControlType"</span>: <span class="string">"TextBox"</span>,
+        <span class="string">"MaxLength"</span>: <span class="number">50</span>
+    },
+    <span class="string">"Email"</span>: {
+        <span class="string">"ReadOnly"</span>: <span class="keyword">false</span>,
+        <span class="string">"ControlType"</span>: <span class="string">"Email"</span>
+    },
+    <span class="string">"Status"</span>: {
+        <span class="string">"ControlType"</span>: <span class="string">"ComboBox"</span>
+    },
+    <span class="string">"Bio"</span>: {
+        <span class="string">"ControlType"</span>: <span class="string">"TextArea"</span>,
+        <span class="string">"Rows"</span>: <span class="number">5</span>
+    }
+}</pre>
+            </div>
+
+            <h3>Enum Dimension Example</h3>
+            <p>Define dropdown options:</p>
+
+            <div class="code-block">
+                <pre>{
+    <span class="string">"Status"</span>: {
+        <span class="string">"Items"</span>: [<span class="string">"Active"</span>, <span class="string">"Inactive"</span>, <span class="string">"Pending"</span>]
+    },
+    <span class="string">"Country"</span>: {
+        <span class="string">"Items"</span>: [<span class="string">"USA"</span>, <span class="string">"Canada"</span>, <span class="string">"Mexico"</span>]
+    }
+}</pre>
+            </div>
+
+            <h3>Setting Dimensions in Code</h3>
+            <p>You can also configure dimensions programmatically:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Set UI dimension</span>
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">SetUIDimension</span>(<span class="string">"{'Name':{'ReadOnly':true}}"</span>)
+    .<span class="type">OpenForm</span>();
+
+<span class="comment">// Set Enum dimension</span>
+<span class="keyword">var</span> countries = <span class="keyword">new</span>[] { <span class="string">"USA"</span>, <span class="string">"Canada"</span>, <span class="string">"Mexico"</span> };
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">SetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Enum</span>, 
+                  <span class="type">DQL</span>(<span class="string">"{'Country':{'Items':[@@Countries]}}"</span>, countries))
+    .<span class="type">OpenForm</span>();</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Benefits of Dimensions:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Change behavior without modifying code</li>
+                    <li>Reuse across different collections</li>
+                    <li>Easy to maintain and update</li>
+                    <li>Separate concerns (data, logic, presentation)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 6: Layouts -->
+        <div class="article" id="layouts">
+            <h2>6. Creating Layouts</h2>
+
+            <h3>What is a Layout?</h3>
+            <p>A layout is an HTML template that defines how your data is displayed. Fractal Studio uses special placeholders that get replaced with actual data.</p>
+
+            <h3>Basic Layout Structure</h3>
+            <div class="code-block">
+                <pre><span class="keyword">div</span> <span class="string">class</span>=<span class="string">"form-container"</span><span class="keyword"></span>
+    <span class="keyword"><h2></span>User Profile<span class="keyword"></h2></span>
+    
+    <span class="comment"><!-- Input fields are auto-generated --></span>
+    <span class="keyword">div</span> <span class="string">class</span>=<span class="string">"field"</span><span class="keyword"></span>
+        <span class="keyword"><label></span>Name:<span class="keyword"></label></span>
+        @@Name
+    <span class="keyword">/div</span>
+    
+    <span class="keyword">div</span> <span class="string">class</span>=<span class="string">"field"</span><span class="keyword"></span>
+        <span class="keyword"><label></span>Email:<span class="keyword"></label></span>
+        @@Email
+    <span class="keyword">/div</span>
+    
+    <span class="comment"><!-- Buttons --></span>
+    <span class="keyword">div</span> <span class="string">class</span>=<span class="string">"actions"</span><span class="keyword"></span>
+        @@Save
+        @@Cancel
+    <span class="keyword">/div</span>
+<span class="keyword">/div</span></pre>
+            </div>
+
+            <h3>Special Placeholders</h3>
+            <table>
+                <tr>
+                    <th>Placeholder</th>
+                    <th>Purpose</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>@@FieldName
+                        </code></td>
+                    <td>Replaced with input control</td>
+                    <td><code>@@Name
+                        </code> → text input</td>
+                </tr>
+                <tr>
+                    <td><code>@@BaseUrl
+                        </code></td>
+                    <td>Your app's URL</td>
+                    <td>Used for links</td>
+                </tr>
+                <tr>
+                    <td><code>@@BaseFilesUrl
+                        </code></td>
+                    <td>Files directory URL</td>
+                    <td>For images, CSS, etc.</td>
+                </tr>
+            </table>
+
+            <h3>AI-Generated Layouts</h3>
+            <p>Fractal Studio can automatically generate modern, responsive layouts:</p>
+
+            <div class="tip">
+                <strong>💡 How to Use AI:</strong>
+                <ol style="margin-top: 10px; margin-left: 20px;">
+                    <li>Right-click on the layout area</li>
+                    <li>Select "Design Layout" or "Redesign Layout"</li>
+                    <li>AI analyzes your data structure</li>
+                    <li>Generates professional HTML/CSS</li>
+                </ol>
+            </div>
+
+            <h3>Working with Images and Files</h3>
+            <div class="code-block">
+                <pre><span class="comment"><!-- Display an image from Files folder --></span>
+<span class="keyword"><img</span> <span class="string">src</span>=<span class="string">"@@BaseFilesUrl/logo.png"</span> <span class="string">alt</span>=<span class="string">"Logo"</span><span class="keyword">></span>
+
+<span class="comment"><!-- Link to CSS file --></span>
+<span class="keyword"><link</span> <span class="string">rel</span>=<span class="string">"stylesheet"</span> <span class="string">href</span>=<span class="string">"@@BaseFilesUrl/styles.css"</span><span class="keyword">></span>
+
+<span class="comment"><!-- Link to another page in your app --></span>
+<span class="keyword"><a</span> <span class="string">href</span>=<span class="string">"@@BaseUrl/Products"</span><span class="keyword">></span>View Products<span class="keyword"></a></span></pre>
+            </div>
+
+            <h3>Mobile Layouts</h3>
+            <p>Create separate layouts for mobile devices by naming them with "Mobile" suffix:</p>
+
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><code>Users.html</code> - Desktop layout</li>
+                <li><code>UsersMobile.html</code> - Mobile layout</li>
+                <li>System automatically detects device type</li>
+            </ul>
+
+            <div class="warning">
+                <strong>⚠️ Layout Tips:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Keep layouts simple - let dimensions control behavior</li>
+                    <li>Test on multiple screen sizes</li>
+                    <li>Use semantic HTML for better accessibility</li>
+                    <li>Leverage AI generation for complex designs</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 7: C# Code -->
+        <div class="article" id="code">
+            <h2>7. Writing C# Code</h2>
+
+            <h3>Application Class Structure</h3>
+            <p>Your main application class extends <code>DashboardApplication</code> and overrides key methods:</p>
+
+            <div class="code-block">
+                <pre><span class="keyword">using</span> FractalPlatform.Client.App;
+<span class="keyword">using</span> FractalPlatform.Database.Engine;
+<span class="keyword">using</span> System.Collections.Generic;
+
+<span class="keyword">namespace</span> FractalPlatform.YourApp
+{
+    <span class="keyword">public class</span> <span class="type">YourAppApplication</span> : <span class="type">DashboardApplication</span>
+    {
+        <span class="comment">// Called when user logs in</span>
+        <span class="keyword">public override void</span> <span class="type">OnLogin</span>(<span class="type">FormResult</span> result)
+        {
+            <span class="comment">// Initialize your application</span>
+            <span class="type">ShowMainDashboard</span>();
+        }
+
+        <span class="comment">// Handle user interactions</span>
+        <span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+        {
+            <span class="keyword">switch</span> (info.AttrPath.ToString())
+            {
+                <span class="keyword">case</span> <span class="string">"SaveButton"</span>:
+                    <span class="type">SaveData</span>(info.Collection);
+                    <span class="keyword">return true</span>;
+                
+                <span class="keyword">case</span> <span class="string">"DeleteButton"</span>:
+                    <span class="type">DeleteData</span>(info.Collection);
+                    <span class="keyword">return true</span>;
+            }
+            
+            <span class="keyword">return base</span>.<span class="type">OnEventDimension</span>(info);
+        }
+    }
+}</pre>
+            </div>
+
+            <h3>Essential Methods for Data Operations</h3>
+
+            <h4>Opening Forms</h4>
+            <div class="code-block">
+                <pre><span class="comment">// Open a form with first document</span>
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">OpenForm</span>(result => 
+    {
+        <span class="keyword">if</span> (result.Result)
+        {
+            <span class="comment">// User clicked Save/OK</span>
+            <span class="keyword">var</span> name = result.FindFirstValue(<span class="string">"Name"</span>);
+            <span class="type">MessageBox</span>(<span class="string">$"Hello, {name}!"</span>);
+        }
+    });
+
+<span class="comment">// Open form with custom object</span>
+<span class="keyword">new</span> 
+{
+    Name = <span class="string">""</span>,
+    Email = <span class="string">""</span>,
+    Age = <span class="number">0</span>
+}
+.<span class="type">ToCollection</span>(<span class="string">"New User"</span>)
+.<span class="type">OpenForm</span>(result => 
+{
+    <span class="keyword">if</span> (result.Result)
+    {
+        <span class="comment">// Save to database</span>
+        <span class="type">AddDoc</span>(<span class="string">"Users"</span>, result.Collection.ToJson());
+    }
+});</pre>
+            </div>
+
+            <h4>Querying Data</h4>
+            <div class="code-block">
+                <pre><span class="comment">// Get all documents</span>
+<span class="keyword">var</span> allUsers = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                  .<span class="type">ToCollection</span>();
+
+<span class="comment">// Filter by condition</span>
+<span class="keyword">var</span> activeUsers = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Status':'Active'}"</span>)
+                       .<span class="type">ToCollection</span>();
+
+<span class="comment">// Get specific document by ID</span>
+<span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="number">1</span>)
+                .<span class="type">ToCollection</span>();
+
+<span class="comment">// Count documents</span>
+<span class="keyword">var</span> count = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Status':'Active'}"</span>)
+                  .<span class="type">Count</span>();
+
+<span class="comment">// Get single value</span>
+<span class="keyword">var</span> email = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John'}"</span>)
+                  .<span class="type">Value</span>(<span class="string">"{'Email':$}"</span>);</pre>
+            </div>
+
+            <h4>Modifying Data</h4>
+            <div class="code-block">
+                <pre><span class="comment">// Update documents</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Status':'Inactive'}"</span>);
+
+<span class="comment">// Delete documents</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Status':'Inactive'}"</span>)
+      .<span class="type">Delete</span>();
+
+<span class="comment">// Add to array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Roles':[Add,'Admin']}"</span>);</pre>
+            </div>
+
+            <h3>DQL (Data Query Language)</h3>
+            <p>DQL allows you to pass parameters safely:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Basic DQL with parameters</span>
+<span class="keyword">var</span> userName = <span class="string">"John"</span>;
+<span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="type">DQL</span>(<span class="string">"{'Name':@@Name}"</span>, userName))
+                .<span class="type">ToCollection</span>();
+
+<span class="comment">// Multiple parameters</span>
+<span class="keyword">var</span> minAge = <span class="number">18</span>;
+<span class="keyword">var</span> status = <span class="string">"Active"</span>;
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, 
+                        <span class="type">DQL</span>(<span class="string">"{'Age':{'>':@@MinAge},'Status':@@Status}"</span>, 
+                            minAge, status))
+                   .<span class="type">ToCollection</span>();
+
+<span class="comment">// Arrays in DQL</span>
+<span class="keyword">var</span> roles = <span class="keyword">new</span>[] { <span class="string">"Admin"</span>, <span class="string">"Manager"</span> };
+<span class="keyword">var</span> dimension = <span class="type">DQL</span>(<span class="string">"{'Role':{'Items':[@@Roles]}}"</span>, roles);</pre>
+            </div>
+
+            <h3>Common UI Helpers</h3>
+            <div class="code-block">
+                <pre><span class="comment">// Show message box</span>
+<span class="type">MessageBox</span>(<span class="string">"Operation completed!"</span>);
+
+<span class="comment">// Confirmation dialog</span>
+<span class="type">MessageBox</span>(<span class="string">"Are you sure?"</span>, 
+           <span class="string">"Confirm"</span>, 
+           <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+           result => 
+           {
+               <span class="keyword">if</span> (result.Result)
+               {
+                   <span class="comment">// User clicked Yes</span>
+                   <span class="type">DeleteRecord</span>();
+               }
+           });
+
+<span class="comment">// Input box</span>
+<span class="type">InputBox</span>(<span class="string">"Enter your name"</span>, 
+         <span class="string">"User Input"</span>,
+         result => 
+         {
+             <span class="keyword">var</span> name = result.FindFirstValue(<span class="string">"Enter your name"</span>);
+             <span class="type">MessageBox</span>(<span class="string">$"Hello, {name}!"</span>);
+         });</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Code Best Practices:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Always use DQL for dynamic queries (prevents injection)</li>
+                    <li>Handle form results with callbacks</li>
+                    <li>Use meaningful variable names</li>
+                    <li>Add comments for complex logic</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 8: Events -->
+        <div class="article" id="events">
+            <h2>8. Event Handling</h2>
+
+            <h3>Understanding Events</h3>
+            <p>Events connect user actions (button clicks, form submissions) to your C# code. There are several ways to handle events in Fractal Studio.</p>
+
+            <h3>Method 1: OnEventDimension</h3>
+            <p>The primary method for handling button clicks and other actions:</p>
+
+            <div class="code-block">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="comment">// info.AttrPath contains the path to the clicked element</span>
+    <span class="keyword">var</span> path = info.AttrPath.ToString();
+    
+    <span class="keyword">switch</span> (path)
+    {
+        <span class="keyword">case</span> <span class="string">"SaveButton"</span>:
+            <span class="comment">// Get data from the form</span>
+            <span class="keyword">var</span> name = info.Collection.FindFirstValue(<span class="string">"Name"</span>);
+            <span class="keyword">var</span> email = info.Collection.FindFirstValue(<span class="string">"Email"</span>);
+            
+            <span class="comment">// Save to database</span>
+            <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="type">DQL</span>(<span class="string">"{'Name':@@Name,'Email':@@Email}"</span>, 
+                                      name, email));
+            
+            <span class="type">MessageBox</span>(<span class="string">"User saved successfully!"</span>);
+            <span class="keyword">return true</span>;
+        
+        <span class="keyword">case</span> <span class="string">"DeleteButton"</span>:
+            <span class="type">MessageBox</span>(<span class="string">"Are you sure?"</span>, 
+                       <span class="string">"Confirm Delete"</span>,
+                       <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+                       result => 
+                       {
+                           <span class="keyword">if</span> (result.Result)
+                           {
+                               <span class="keyword">var</span> id = info.Collection.FindFirstIntValue(<span class="string">"ID"</span>);
+                               <span class="type">DelDoc</span>(<span class="string">"Users"</span>, id);
+                               <span class="type">MessageBox</span>(<span class="string">"User deleted!"</span>);
+                           }
+                       });
+            <span class="keyword">return true</span>;
+        
+        <span class="keyword">case</span> <span class="string">"RefreshButton"</span>:
+            <span class="type">ShowUserList</span>();
+            <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">return base</span>.<span class="type">OnEventDimension</span>(info);
+}</pre>
+            </div>
+
+            <h3>Method 2: OnOpenForm and OnCloseForm</h3>
+            <p>Handle form lifecycle events:</p>
+
+            <div class="code-block">
+                <pre><span class="keyword">public override void</span> <span class="type">OnOpenForm</span>(<span class="type">FormResult</span> result)
+{
+    <span class="comment">// Called when a form is about to open</span>
+    <span class="comment">// Good for initializing data</span>
+    
+    <span class="keyword">if</span> (result.Collection.Name == <span class="string">"Users"</span>)
+    {
+        <span class="comment">// Pre-fill some data</span>
+        result.Collection.SetFirstValue(<span class="string">"CreatedDate"</span>, 
+                                       DateTime.Now.ToString());
+    }
+    
+    <span class="keyword">base</span>.<span class="type">OnOpenForm</span>(result);
+}
+
+<span class="keyword">public override void</span> <span class="type">OnCloseForm</span>(<span class="type">FormResult</span> result)
+{
+    <span class="comment">// Called when form closes</span>
+    <span class="comment">// Good for cleanup or validation</span>
+    
+    <span class="keyword">if</span> (result.Result && result.Collection.Name == <span class="string">"Users"</span>)
+    {
+        <span class="comment">// User clicked Save/OK</span>
+        <span class="keyword">var</span> email = result.FindFirstValue(<span class="string">"Email"</span>);
+        
+        <span class="keyword">if</span> (!email.Contains(<span class="string">"@@"</span>))
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Invalid email address!"</span>);
+            <span class="keyword">return</span>;
+        }
+    }
+    
+    <span class="keyword">base</span>.<span class="type">OnCloseForm</span>(result);
+}</pre>
+            </div>
+
+            <h3>Method 3: Event Dimension</h3>
+            <p>Define events in JSON configuration:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// In Event dimension JSON:</span>
+{
+    <span class="string">"SaveButton"</span>: {
+        <span class="string">"OnClick"</span>: <span class="string">"SaveUser"</span>
+    },
+    <span class="string">"LoadButton"</span>: {
+        <span class="string">"OnClick"</span>: <span class="string">"LoadUsers"</span>
+    }
+}
+
+<span class="comment">// In your C# code:</span>
+<span class="keyword">public void</span> <span class="type">SaveUser</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="keyword">var</span> name = info.Collection.FindFirstValue(<span class="string">"Name"</span>);
+    <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="type">DQL</span>(<span class="string">"{'Name':@@Name}"</span>, name));
+    <span class="type">MessageBox</span>(<span class="string">"User saved!"</span>);
+}
+
+<span class="keyword">public void</span> <span class="type">LoadUsers</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="keyword">var</span> users = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                  .<span class="type">ToCollection</span>();
+    
+    users.<span class="type">OpenForm</span>();
+}</pre>
+            </div>
+
+            <h3>Handling Form Results</h3>
+            <div class="code-block">
+                <pre><span class="comment">// Access form data after submission</span>
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">OpenForm</span>(result => 
+    {
+        <span class="keyword">if</span> (result.Result)  <span class="comment">// User clicked Save/OK</span>
+        {
+            <span class="comment">// Get single value</span>
+            <span class="keyword">var</span> name = result.FindFirstValue(<span class="string">"Name"</span>);
+            
+            <span class="comment">// Get typed value</span>
+            <span class="keyword">var</span> age = result.FindFirstIntValue(<span class="string">"Age"</span>);
+            <span class="keyword">var</span> isActive = result.FindFirstBoolValue(<span class="string">"IsActive"</span>);
+            
+            <span class="comment">// Get entire collection as JSON</span>
+            <span class="keyword">var</span> json = result.Collection.ToJson();
+            
+            <span class="comment">// Loop through values</span>
+            result.Collection.ScanKeysAndValues((attr, value) =>
+            {
+                <span class="type">Console</span>.<span class="type">WriteLine</span>(<span class="string">$"{attr}: {value}"</span>);
+                <span class="keyword">return true</span>; <span class="comment">// Continue scanning</span>
+            });
+        }
+        <span class="keyword">else</span>  <span class="comment">// User clicked Cancel</span>
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Operation cancelled"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Working with Collections in Events</h3>
+            <div class="code-block">
+                <pre><span class="comment">// Display a list with actions</span>
+<span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">SetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Patch</span>)
+    .<span class="type">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.Result)
+        {
+            <span class="comment">// Get patch dimension to see changes</span>
+            <span class="keyword">var</span> dimension = (<span class="type">PatchDimension</span>)result.Collection
+                                            .<span class="type">GetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Patch</span>);
+            
+            <span class="keyword">var</span> patch = dimension.GetPatch();
+            
+            <span class="keyword">if</span> (patch.HasChanges)
+            {
+                <span class="comment">// Process deleted items</span>
+                patch.DeleteStorage.ToCollection()
+                     .ScanKeysAndValues((attr, value) =>
+                     {
+                         <span class="keyword">if</span> (attr.LastPath == <span class="string">"ID"</span>)
+                         {
+                             <span class="type">DelDoc</span>(<span class="string">"Users"</span>, value.IntValue);
+                         }
+                         <span class="keyword">return true</span>;
+                     });
+                
+                <span class="comment">// Process updated items</span>
+                patch.UpdateStorage.ToCollection()
+                     .ScanKeysAndValues((attr, value) =>
+                     {
+                         <span class="comment">// Handle updates</span>
+                         <span class="keyword">return true</span>;
+                     });
+            }
+        }
+    });</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Event Handling Tips:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Use switch statements for multiple events</li>
+                    <li>Always return <code>true</code> after handling an event</li>
+                    <li>Use <code>result.Result</code> to check if user confirmed action</li>
+                    <li>Validate data in <code>OnCloseForm</code> before saving</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 9: Deployment -->
+        <div class="article" id="deployment">
+            <h2>9. Deployment</h2>
+
+            <h3>The Deploy Process</h3>
+            <p>Deployment in Fractal Studio involves compiling your code, uploading files, and creating the database on the server.</p>
+
+            <h3>Deploy Button</h3>
+            <p>The easiest way to deploy is using the Deploy button in the dashboard:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// What happens when you click "Deploy":</span>
+
+1. <span class="string">Compile C# Code</span>
+   - Compiles YourAppApplication.cs
+   - Checks for syntax errors
+   - Creates assembly DLL
+
+2. <span class="string">Upload Database</span>
+   - Uploads all JSON files
+   - Creates collections
+   - Optionally recreates database
+
+3. <span class="string">Upload Layouts</span>
+   - Uploads HTML templates
+   - Uploads CSS files
+   - Uploads JavaScript files
+
+4. <span class="string">Upload Files</span>
+   - Uploads static resources
+   - Images, fonts, etc.
+
+5. <span class="string">Register Application</span>
+   - Makes app accessible at URL
+   - Sets up routing</pre>
+            </div>
+
+            <h3>Deployment Settings</h3>
+            <p>Configure deployment options in Settings:</p>
+
+            <table>
+                <tr>
+                    <th>Setting</th>
+                    <th>Description</th>
+                    <th>When to Use</th>
+                </tr>
+                <tr>
+                    <td><strong>IsRecreateDatabase</strong></td>
+                    <td>Delete and recreate database</td>
+                    <td>When structure changes significantly</td>
+                </tr>
+                <tr>
+                    <td><strong>IsDeployApplication</strong></td>
+                    <td>Upload compiled code</td>
+                    <td>When C# code changes</td>
+                </tr>
+                <tr>
+                    <td><strong>IsDeployLayouts</strong></td>
+                    <td>Upload HTML templates</td>
+                    <td>When layouts change</td>
+                </tr>
+                <tr>
+                    <td><strong>IsDeployDatabase</strong></td>
+                    <td>Upload JSON data</td>
+                    <td>When data structure changes</td>
+                </tr>
+                <tr>
+                    <td><strong>IsDeployFiles</strong></td>
+                    <td>Upload static files</td>
+                    <td>When images/CSS change</td>
+                </tr>
+            </table>
+
+            <h3>Deployment Key</h3>
+            <p>The deployment key controls access to your application:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Default deployment key</span>
+<span class="keyword">var</span> deploymentKey = <span class="string">"sandbox"</span>;
+
+<span class="comment">// Your app URL structure:</span>
+https://fraplat.com/mars/{YourAppName}
+
+<span class="comment">// With URL tag (custom routing):</span>
+https://fraplat.com/mars/{YourAppName}/?tag={YourTag}</pre>
+            </div>
+
+            <h3>Transfer to Another Server</h3>
+            <p>You can transfer your application to different environments:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Transfer application settings:</span>
+{
+    <span class="string">"BaseUrl"</span>: <span class="string">"https://your-server.com"</span>,
+    <span class="string">"DeploymentKey"</span>: <span class="string">"production"</span>,
+    <span class="string">"IsDeployApplication"</span>: <span class="keyword">true</span>,
+    <span class="string">"IsDeployDatabase"</span>: <span class="keyword">true</span>,
+    <span class="string">"IsRecreateDatabase"</span>: <span class="keyword">false</span>, <span class="comment">// Keep existing data</span>
+    <span class="string">"IsDeployLayouts"</span>: <span class="keyword">true</span>,
+    <span class="string">"IsDeployFiles"</span>: <span class="keyword">true</span>
+}</pre>
+            </div>
+
+            <h3>Download Project</h3>
+            <p>Download your entire project as a ZIP file:</p>
+
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Contains full Visual Studio solution</li>
+                <li>Includes FractalPlatform.Sandbox project</li>
+                <li>Includes FractalPlatform.Deployment project</li>
+                <li>Can be built and run locally</li>
+                <li>Perfect for version control (Git, SVN)</li>
+            </ul>
+
+            <h3>Pull From Remote</h3>
+            <p>Synchronize your local project with server:</p>
+
+            <div class="code-block">
+                <pre><span class="comment">// Pull database from server</span>
+<span class="type">PullFromSandbox</span>()  <span class="comment">// From main server</span>
+<span class="type">PullFromRemote</span>()  <span class="comment">// From custom server</span>
+
+<span class="comment">// Use cases:</span>
+- Team member made changes on server
+- Testing with production data
+- Recovering lost local changes
+- Syncing after manual edits</pre>
+            </div>
+
+            <h3>Preview vs Deploy</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Preview</th>
+                    <th>Deploy</th>
+                </tr>
+                <tr>
+                    <td><strong>Speed</strong></td>
+                    <td>Instant</td>
+                    <td>10-30 seconds</td>
+                </tr>
+                <tr>
+                    <td><strong>Compilation</strong></td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Layout Only</strong></td>
+                    <td>Yes</td>
+                    <td>Everything</td>
+                </tr>
+                <tr>
+                    <td><strong>When to Use</strong></td>
+                    <td>Quick UI changes</td>
+                    <td>Code or data changes</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <strong>⚠️ Deployment Warnings:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>IsRecreateDatabase = true</strong> will delete all server data!</li>
+                    <li>Always test in sandbox before production</li>
+                    <li>Back up important data before major deployments</li>
+                    <li>Use different deployment keys for dev/staging/production</li>
+                </ul>
+            </div>
+
+            <div class="success">
+                <strong>✅ Deployment Checklist:</strong>
+                <ol style="margin-top: 10px; margin-left: 20px;">
+                    <li>Test locally first (Save & Preview)</li>
+                    <li>Check for compilation errors</li>
+                    <li>Verify database structure is correct</li>
+                    <li>Test layouts on mobile and desktop</li>
+                    <li>Click Deploy and wait for success message</li>
+                    <li>Open in new tab to verify</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Article 10: Best Practices -->
+        <div class="article" id="best-practices">
+            <h2>10. Best Practices</h2>
+
+            <h3>Project Organization</h3>
+
+            <h4>Naming Conventions</h4>
+            <div class="code-block">
+                <pre><span class="comment">// Collections: Use singular nouns</span>
+✅ User, Product, Order
+❌ Users, Products, Orders
+
+<span class="comment">// Layouts: Match collection names</span>
+✅ User.html, UserMobile.html
+❌ user_form.html, mobile-view.html
+
+<span class="comment">// C# Methods: Use PascalCase verbs</span>
+✅ SaveUser(), LoadProducts(), DeleteOrder()
+❌ save_user(), loadproducts(), delete_order()
+
+<span class="comment">// Properties: Use PascalCase nouns</span>
+✅ UserName, EmailAddress, OrderTotal
+❌ userName, email_address, ordertotal</pre>
+            </div>
+
+            <h4>File Structure</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Keep collections focused</strong> - One entity per collection</li>
+                <li><strong>Use GlobalDimensions sparingly</strong> - Only for truly shared config</li>
+                <li><strong>Organize Files folder</strong> - Use subfolders for images, css, js</li>
+                <li><strong>One layout per collection</strong> - Don't try to reuse complex layouts</li>
+            </ul>
+
+            <h3>Data Design</h3>
+
+            <h4>JSON Document Structure</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Flat and simple</span>
+{
+    <span class="string">"Name"</span>: <span class="string">"John Doe"</span>,
+    <span class="string">"Email"</span>: <span class="string">"john@@example.com"</span>,
+    <span class="string">"Age"</span>: <span class="number">30</span>,
+    <span class="string">"Status"</span>: <span class="string">"Active"</span>
+}
+
+<span class="comment">// ✅ GOOD: Nested when logical</span>
+{
+    <span class="string">"Name"</span>: <span class="string">"John Doe"</span>,
+    <span class="string">"Address"</span>: {
+        <span class="string">"Street"</span>: <span class="string">"123 Main St"</span>,
+        <span class="string">"City"</span>: <span class="string">"New York"</span>,
+        <span class="string">"Zip"</span>: <span class="string">"10001"</span>
+    }
+}
+
+<span class="comment">// ❌ BAD: Too deeply nested</span>
+{
+    <span class="string">"User"</span>: {
+        <span class="string">"Personal"</span>: {
+            <span class="string">"Name"</span>: {
+                <span class="string">"First"</span>: <span class="string">"John"</span>,
+                <span class="string">"Last"</span>: <span class="string">"Doe"</span>
+            }
+        }
+    }
+}</pre>
+            </div>
+
+            <h4>Using Arrays Effectively</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Arrays for lists</span>
+{
+    <span class="string">"Name"</span>: <span class="string">"John Doe"</span>,
+    <span class="string">"Roles"</span>: [<span class="string">"Admin"</span>, <span class="string">"User"</span>],
+    <span class="string">"Orders"</span>: [
+        {
+            <span class="string">"ID"</span>: <span class="number">1</span>,
+            <span class="string">"Total"</span>: <span class="number">99.99</span>,
+            <span class="string">"Date"</span>: <span class="string">"2024-01-15"</span>
+        }
+    ]
+}
+
+<span class="comment">// ✅ GOOD: Add/Remove from arrays</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Roles':[Add,'Manager']}"</span>);
+
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Roles':[Remove,'User']}"</span>);</pre>
+            </div>
+
+            <h3>Code Quality</h3>
+
+            <h4>Error Handling</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Always validate user input</span>
+<span class="keyword">var</span> email = result.FindFirstValue(<span class="string">"Email"</span>);
+<span class="keyword">if</span> (<span class="keyword">string</span>.<span class="type">IsNullOrEmpty</span>(email) || !email.Contains(<span class="string">"@@"</span>))
+{
+    <span class="type">MessageBox</span>(<span class="string">"Please enter a valid email address"</span>);
+    <span class="keyword">return</span>;
+}
+
+<span class="comment">// ✅ GOOD: Check if data exists</span>
+<span class="keyword">var</span> count = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Email':@@Email}"</span>, email)
+                  .<span class="type">Count</span>();
+
+<span class="keyword">if</span> (count > <span class="number">0</span>)
+{
+    <span class="type">MessageBox</span>(<span class="string">"Email already exists!"</span>);
+    <span class="keyword">return</span>;
+}
+
+<span class="comment">// ✅ GOOD: Confirm destructive actions</span>
+<span class="type">MessageBox</span>(<span class="string">"Are you sure you want to delete this user?"</span>,
+           <span class="string">"Confirm Delete"</span>,
+           <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+           confirmResult =>
+           {
+               <span class="keyword">if</span> (confirmResult.Result)
+               {
+                   <span class="type">DelDoc</span>(<span class="string">"Users"</span>, userId);
+               }
+           });</pre>
+            </div>
+
+            <h4>Reusable Code</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Create helper methods</span>
+<span class="keyword">private void</span> <span class="type">ShowUserForm</span>(<span class="keyword">int</span>? userId = <span class="keyword">null</span>)
+{
+    <span class="type">Collection</span> user;
+    
+    <span class="keyword">if</span> (userId.<span class="type">HasValue</span>)
+    {
+        <span class="comment">// Edit existing user</span>
+        user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId.<span class="type">Value</span>)
+                   .<span class="type">ToCollection</span>();
+    }
+    <span class="keyword">else</span>
+    {
+        <span class="comment">// New user</span>
+        user = <span class="keyword">new</span> { Name = <span class="string">""</span>, Email = <span class="string">""</span> }
+                   .<span class="type">ToCollection</span>(<span class="string">"New User"</span>);
+    }
+    
+    user.<span class="type">SetUIDimension</span>(<span class="string">"{'Style':'Save:Save'}"</span>)
+        .<span class="type">OpenForm</span>(result =>
+        {
+            <span class="keyword">if</span> (result.Result)
+            {
+                <span class="type">SaveUser</span>(result.Collection, userId);
+            }
+        });
+}
+
+<span class="keyword">private void</span> <span class="type">SaveUser</span>(<span class="type">Collection</span> data, <span class="keyword">int</span>? userId)
+{
+    <span class="keyword">if</span> (userId.<span class="type">HasValue</span>)
+    {
+        <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId.<span class="type">Value</span>)
+              .<span class="type">Update</span>(data.ToJson());
+    }
+    <span class="keyword">else</span>
+    {
+        <span class="type">AddDoc</span>(<span class="string">"Users"</span>, data.ToJson());
+    }
+    
+    <span class="type">MessageBox</span>(<span class="string">"User saved successfully!"</span>);
+    <span class="type">ShowUserList</span>();
+}</pre>
+            </div>
+
+            <h3>Performance Tips</h3>
+
+            <h4>Query Optimization</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ❌ BAD: Loading all data unnecessarily</span>
+<span class="keyword">var</span> allUsers = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">ToCollection</span>();
+<span class="keyword">var</span> activeUsers = <span class="keyword">new</span> <span class="type">List</span><<span class="type">User</span>>();
+<span class="keyword">foreach</span> (<span class="keyword">var</span> user <span class="keyword">in</span> allUsers)
+{
+    <span class="keyword">if</span> (user.Status == <span class="string">"Active"</span>)
+        activeUsers.Add(user);
+}
+
+<span class="comment">// ✅ GOOD: Filter in query</span>
+<span class="keyword">var</span> activeUsers = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Status':'Active'}"</span>)
+                       .<span class="type">ToCollection</span>();
+
+<span class="comment">// ✅ GOOD: Use pagination for large datasets</span>
+<span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">SetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Pagination</span>,
+                  <span class="string">"{'Page':{'Size':20}}"</span>)
+    .<span class="type">OpenForm</span>();</pre>
+            </div>
+
+            <h4>Minimize Form Reopening</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ❌ BAD: Reopening form after every action</span>
+<span class="keyword">public void</span> <span class="type">AddItem</span>()
+{
+    <span class="type">AddDoc</span>(<span class="string">"Items"</span>, <span class="string">"{'Name':'New Item'}"</span>);
+    <span class="type">ShowItemList</span>(); <span class="comment">// Reopens entire form</span>
+}
+
+<span class="comment">// ✅ GOOD: Use Patch dimension for dynamic updates</span>
+<span class="type">DocsOf</span>(<span class="string">"Items"</span>)
+    .<span class="type">SetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Patch</span>)
+    .<span class="type">OpenForm</span>(result =>
+    {
+        <span class="keyword">var</span> dimension = (<span class="type">PatchDimension</span>)result.Collection
+                                    .<span class="type">GetDimension</span>(<span class="type">DimensionType</span>.<span class="type">Patch</span>);
+        <span class="keyword">var</span> patch = dimension.GetPatch();
+        
+        <span class="comment">// Process changes without reopening</span>
+        <span class="type">ProcessPatch</span>(patch);
+    });</pre>
+            </div>
+
+            <h3>UI/UX Best Practices</h3>
+
+            <h4>Form Design</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Provide Clear Labels</strong> - Use descriptive field names</li>
+                <li><strong>Set Appropriate Control Types</strong> - TextArea for long text, ComboBox for selections</li>
+                <li><strong>Use ReadOnly Wisely</strong> - For calculated fields, IDs, timestamps</li>
+                <li><strong>Add Help Text</strong> - Use placeholders and tooltips</li>
+                <li><strong>Group Related Fields</strong> - Use nested objects in JSON</li>
+            </ul>
+
+            <h4>User Feedback</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Confirm actions</span>
+<span class="type">AddDoc</span>(<span class="string">"Users"</span>, userData);
+<span class="type">MessageBox</span>(<span class="string">"User created successfully!"</span>);
+
+<span class="comment">// ✅ GOOD: Show errors clearly</span>
+<span class="keyword">if</span> (!<span class="type">IsValidEmail</span>(email))
+{
+    <span class="type">MessageBox</span>(<span class="string">"Invalid email format. Please use: name@@domain.com"</span>,
+               <span class="string">"Validation Error"</span>,
+               <span class="type">MessageBoxButtonType</span>.<span class="type">Ok</span>);
+    <span class="keyword">return</span>;
+}
+
+<span class="comment">// ✅ GOOD: Confirm before deletion</span>
+<span class="type">MessageBox</span>(<span class="string">$"Delete user '{userName}'? This cannot be undone."</span>,
+           <span class="string">"Confirm Delete"</span>,
+           <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+           result => { <span class="comment">/* handle */</span> });</pre>
+            </div>
+
+            <h3>Security Considerations</h3>
+
+            <h4>Data Validation</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ✅ GOOD: Always validate on server side</span>
+<span class="keyword">public override void</span> <span class="type">OnCloseForm</span>(<span class="type">FormResult</span> result)
+{
+    <span class="keyword">if</span> (result.Result && result.Collection.Name == <span class="string">"Users"</span>)
+    {
+        <span class="keyword">var</span> email = result.FindFirstValue(<span class="string">"Email"</span>);
+        <span class="keyword">var</span> age = result.FindFirstIntValue(<span class="string">"Age"</span>);
+        
+        <span class="comment">// Validate email format</span>
+        <span class="keyword">if</span> (!<span class="type">IsValidEmail</span>(email))
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Invalid email format"</span>);
+            <span class="keyword">return</span>;
+        }
+        
+        <span class="comment">// Validate age range</span>
+        <span class="keyword">if</span> (age < <span class="number">18</span> || age > <span class="number">120</span>)
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Age must be between 18 and 120"</span>);
+            <span class="keyword">return</span>;
+        }
+    }
+}</pre>
+            </div>
+
+            <h4>Use DQL for Dynamic Queries</h4>
+            <div class="code-block">
+                <pre><span class="comment">// ❌ BAD: String concatenation (potential injection)</span>
+<span class="keyword">var</span> userName = userInput;
+<span class="keyword">var</span> query = <span class="string">"{'Name':'"</span> + userName + <span class="string">"'}"</span>;
+<span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, query);
+
+<span class="comment">// ✅ GOOD: Use DQL with parameters</span>
+<span class="keyword">var</span> userName = userInput;
+<span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="type">DQL</span>(<span class="string">"{'Name':@@UserName}"</span>, userName));</pre>
+            </div>
+
+            <h3>Testing Your Application</h3>
+
+            <h4>Test Checklist</h4>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Functionality</strong> - All buttons and forms work</li>
+                <li><strong>Validation</strong> - Invalid data is rejected</li>
+                <li><strong>Edge Cases</strong> - Empty forms, maximum values</li>
+                <li><strong>Mobile View</strong> - Test on phone-sized screen</li>
+                <li><strong>Data Integrity</strong> - Changes saved correctly</li>
+                <li><strong>Error Handling</strong> - Graceful error messages</li>
+                <li><strong>Performance</strong> - Fast load times</li>
+            </ol>
+
+            <h4>Common Issues and Solutions</h4>
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Cause</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>Form doesn't open</td>
+                    <td>Collection name misspelled</td>
+                    <td>Check exact spelling in Database tab</td>
+                </tr>
+                <tr>
+                    <td>Data not saving</td>
+                    <td>Not calling commit/update</td>
+                    <td>Use AddDoc or DocsWhere</td>
+                </tr>
+                <tr>
+                    <td>Layout looks wrong</td>
+                    <td>CSS not loading</td>
+                    <td>Check @
+                        <b></b>BaseFilesUrl path
+                    </td>
+                </tr>
+                <tr>
+                    <td>Button does nothing</td>
+                    <td>Event not handled</td>
+                    <td>Add case in OnEventDimension</td>
+                </tr>
+                <tr>
+                    <td>Compilation error</td>
+                    <td>Syntax error in C#</td>
+                    <td>Check Deploy logs for details</td>
+                </tr>
+            </table>
+
+            <h3>Debugging Tips</h3>
+            <div class="code-block">
+                <pre><span class="comment">// Show values for debugging</span>
+<span class="type">MessageBox</span>(<span class="string">$"Debug: Value = {someValue}"</span>);
+
+<span class="comment">// Log collection contents</span>
+<span class="keyword">var</span> json = myCollection.ToJson();
+<span class="type">MessageBox</span>(<span class="string">$"Collection: {json}"</span>);
+
+<span class="comment">// Check if data exists</span>
+<span class="keyword">var</span> count = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">Count</span>();
+<span class="type">MessageBox</span>(<span class="string">$"Total users: {count}"</span>);
+
+<span class="comment">// Verify paths in events</span>
+<span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="type">MessageBox</span>(<span class="string">$"Event path: {info.AttrPath}"</span>);
+    <span class="keyword">return base</span>.<span class="type">OnEventDimension</span>(info);
+}</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Golden Rules:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Start Small</strong> - Build one feature at a time</li>
+                    <li><strong>Test Often</strong> - Save and Preview after each change</li>
+                    <li><strong>Use AI</strong> - Let it generate layouts and dimensions</li>
+                    <li><strong>Keep It Simple</strong> - Don't over-engineer</li>
+                    <li><strong>Leverage Dimensions</strong> - Configure, don't code</li>
+                    <li><strong>Ask for Help</strong> - Join the community on Telegram</li>
+                </ul>
+            </div>
+
+            <h3>Learning Resources</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📖 Documentation</h4>
+                    <p><a href="https://fraplat.com/Wiki" target="_blank">Official Wiki</a> - Complete reference for all dimensions and features</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💬 Community</h4>
+                    <p><a href="https://t.me/fraplat" target="_blank">Telegram Group</a> - Get help from developers and the creator</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎓 Examples</h4>
+                    <p>Study template projects in Fractal Studio - HelloWorld, TodoList, etc.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔧 Transactions Guide</h4>
+                    <p>Learn database operations and data consistency from the transactions documentation</p>
+                </div>
+            </div>
+
+            <h3>Next Steps</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Create Your First App</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Start with HelloWorld template</li>
+                        <li>Add a simple collection (e.g., Tasks)</li>
+                        <li>Create a basic form</li>
+                        <li>Deploy and test</li>
+                    </ul>
+                </li>
+                <li><strong>Explore Dimensions</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Try different UI controls</li>
+                        <li>Add validation rules</li>
+                        <li>Experiment with layouts</li>
+                    </ul>
+                </li>
+                <li><strong>Build Something Real</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Choose a simple project</li>
+                        <li>Plan your collections</li>
+                        <li>Implement features incrementally</li>
+                        <li>Get feedback from users</li>
+                    </ul>
+                </li>
+                <li><strong>Join the Community</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Share your projects</li>
+                        <li>Ask questions</li>
+                        <li>Help other beginners</li>
+                        <li>Stay updated on new features</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

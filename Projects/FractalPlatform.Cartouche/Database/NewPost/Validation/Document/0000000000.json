@@ -1,0 +1,6 @@
+{
+  "Text": {
+    "IsRequired": true,
+    "MaxLen": 400
+  }
+}

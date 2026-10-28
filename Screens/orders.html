@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesHub — Orders</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b0f19; color: #e2e8f0; min-height: 100vh; display: flex; }
+        .sidebar { width: 250px; background: #111827; border-right: 1px solid #1e293b; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+        .sidebar-logo { padding: 24px 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #1e293b; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+        .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #475569; padding: 16px 12px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #94a3b8; text-decoration: none; transition: all .15s; }
+        .nav-item:hover { background: #1e293b; color: #e2e8f0; }
+        .nav-item.active { background: rgba(99,102,241,.12); color: #818cf8; }
+        .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+        .nav-badge { margin-left: auto; background: #6366f1; color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 10px; }
+        .sidebar-user { padding: 16px 20px; border-top: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+        .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #fff; }
+        .sidebar-user .info { flex: 1; }
+        .sidebar-user .info .name { font-size: 13px; font-weight: 600; }
+        .sidebar-user .info .role { font-size: 11px; color: #64748b; }
+
+        .main { margin-left: 250px; flex: 1; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #1e293b; background: #0f1423; position: sticky; top: 0; z-index: 5; }
+        .topbar h1 { font-size: 20px; font-weight: 600; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+
+        .content { padding: 28px 32px; }
+
+        /* Status filter pills */
+        .status-pills { display: flex; gap: 8px; margin-bottom: 24px; }
+        .pill { padding: 7px 16px; border-radius: 20px; font-size: 13px; border: 1px solid #1e293b; background: transparent; color: #94a3b8; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .pill.active { background: rgba(99,102,241,.1); border-color: #6366f1; color: #818cf8; }
+        .pill .count { background: #1e293b; padding: 1px 7px; border-radius: 10px; font-size: 11px; }
+        .pill.active .count { background: rgba(99,102,241,.2); }
+
+        /* Table */
+        .table-card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; overflow: hidden; }
+        .table-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid #1e293b; }
+        .table-toolbar .search { padding: 8px 14px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 13px; width: 280px; outline: none; }
+        .table-toolbar .search::placeholder { color: #475569; }
+        .table-actions { display: flex; gap: 8px; }
+
+        table { width: 100%; border-collapse: collapse; }
+        thead th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #475569; padding: 12px 16px; border-bottom: 1px solid #1e293b; font-weight: 500; }
+        tbody td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid #1a2332; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(99,102,241,.04); }
+        .checkbox { accent-color: #818cf8; }
+        .order-id { color: #818cf8; font-weight: 500; cursor: pointer; }
+        .order-id:hover { text-decoration: underline; }
+        .status { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+        .status.completed { background: rgba(34,197,94,.12); color: #22c55e; }
+        .status.processing { background: rgba(59,130,246,.12); color: #3b82f6; }
+        .status.pending { background: rgba(245,158,11,.12); color: #f59e0b; }
+        .status.cancelled { background: rgba(244,63,94,.12); color: #f43f5e; }
+        .priority { font-size: 12px; }
+        .priority.high { color: #f43f5e; }
+        .priority.medium { color: #f59e0b; }
+        .priority.low { color: #22c55e; }
+        .actions-cell { display: flex; gap: 6px; }
+        .action-btn { width: 30px; height: 30px; border-radius: 6px; border: 1px solid #1e293b; background: transparent; color: #64748b; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
+        .action-btn:hover { border-color: #818cf8; color: #818cf8; }
+
+        /* Pagination */
+        .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid #1e293b; font-size: 13px; color: #64748b; }
+        .page-btns { display: flex; gap: 4px; }
+        .page-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid #1e293b; background: transparent; color: #94a3b8; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; }
+        .page-btn.active { background: #6366f1; color: #fff; border-color: #6366f1; }
+        .page-btn:hover:not(.active) { border-color: #334155; }
+
+        /* Order detail slide-over */
+        .slide-over { position: fixed; top: 0; right: 0; width: 420px; height: 100vh; background: #111827; border-left: 1px solid #1e293b; box-shadow: -10px 0 40px rgba(0,0,0,.4); z-index: 20; padding: 28px; overflow-y: auto; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .slide-header h2 { font-size: 18px; }
+        .close-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid #1e293b; background: transparent; color: #94a3b8; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+        .detail-section { margin-bottom: 20px; }
+        .detail-section h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #475569; margin-bottom: 10px; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .detail-item .label { font-size: 11px; color: #475569; margin-bottom: 3px; }
+        .detail-item .value { font-size: 14px; font-weight: 500; }
+        .line-items { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .line-items th { font-size: 10px; text-transform: uppercase; color: #475569; padding: 6px 8px; text-align: left; border-bottom: 1px solid #1e293b; }
+        .line-items td { font-size: 12px; padding: 8px; border-bottom: 1px solid #1a2332; }
+        .detail-total { display: flex; justify-content: space-between; padding: 12px 0; border-top: 2px solid #1e293b; margin-top: 8px; font-weight: 700; font-size: 15px; }
+        .detail-total .amount { color: #818cf8; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">SalesHub</div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="data-entry.html" class="nav-item"><span class="nav-icon">📝</span> Data Entry</a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+            <a href="calculations.html" class="nav-item"><span class="nav-icon">🔢</span> Calculations</a>
+            <div class="nav-section">Management</div>
+            <a href="products.html" class="nav-item"><span class="nav-icon">📦</span> Products</a>
+            <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+            <a href="orders.html" class="nav-item active"><span class="nav-icon">🛒</span> Orders <span class="nav-badge">12</span></a>
+            <div class="nav-section">System</div>
+            <a href="users.html" class="nav-item"><span class="nav-icon">🔑</span> User Management</a>
+            <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="avatar">JD</div>
+            <div class="info"><div class="name">John Doe</div><div class="role">Manager</div></div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <h1>Orders</h1>
+            <div class="topbar-right">
+                <button class="btn btn-outline">↓ Export</button>
+                <button class="btn btn-primary">+ New Order</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="status-pills">
+                <button class="pill active">All <span class="count">247</span></button>
+                <button class="pill">Completed <span class="count">189</span></button>
+                <button class="pill">Processing <span class="count">34</span></button>
+                <button class="pill">Pending <span class="count">12</span></button>
+                <button class="pill">Cancelled <span class="count">12</span></button>
+            </div>
+
+            <div class="table-card">
+                <div class="table-toolbar">
+                    <input class="search" placeholder="Search orders by ID, customer, product…" type="text">
+                    <div class="table-actions">
+                        <button class="btn btn-outline" style="font-size:12px;padding:7px 14px;">🔽 Sort</button>
+                        <button class="btn btn-outline" style="font-size:12px;padding:7px 14px;">⚙ Columns</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:40px"><input type="checkbox" class="checkbox"></th>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Products</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2847</span></td>
+                            <td>Acme Corp</td>
+                            <td>Enterprise License ×10</td>
+                            <td>$12,400</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><span class="priority high">● High</span></td>
+                            <td style="color:#64748b">Jun 28, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2846</span></td>
+                            <td>Globex Inc</td>
+                            <td>Bulk Supplies ×250</td>
+                            <td>$3,250</td>
+                            <td><span class="status processing">Processing</span></td>
+                            <td><span class="priority medium">● Medium</span></td>
+                            <td style="color:#64748b">Jun 27, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2845</span></td>
+                            <td>Wayne Enterprises</td>
+                            <td>Consulting (40h)</td>
+                            <td>$8,900</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><span class="priority high">● High</span></td>
+                            <td style="color:#64748b">Jun 26, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2844</span></td>
+                            <td>Stark Industries</td>
+                            <td>Hardware Kit v3 ×5</td>
+                            <td>$1,780</td>
+                            <td><span class="status cancelled">Cancelled</span></td>
+                            <td><span class="priority low">● Low</span></td>
+                            <td style="color:#64748b">Jun 25, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2843</span></td>
+                            <td>Umbrella LLC</td>
+                            <td>Annual Support ×1</td>
+                            <td>$6,100</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><span class="priority medium">● Medium</span></td>
+                            <td style="color:#64748b">Jun 24, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox"></td>
+                            <td><span class="order-id">#ORD-2842</span></td>
+                            <td>Initech</td>
+                            <td>Software Module ×3</td>
+                            <td>$4,500</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><span class="priority low">● Low</span></td>
+                            <td style="color:#64748b">Jun 23, 2025</td>
+                            <td><div class="actions-cell"><button class="action-btn">👁</button><button class="action-btn">✏</button><button class="action-btn">⋯</button></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span>Showing 1–6 of 247 orders</span>
+                    <div class="page-btns">
+                        <button class="page-btn">‹</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">…</button>
+                        <button class="page-btn">42</button>
+                        <button class="page-btn">›</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Slide-over -->
+    <div class="slide-over">
+        <div class="slide-header">
+            <h2>#ORD-2847</h2>
+            <button class="close-btn">✕</button>
+        </div>
+        <div class="detail-section">
+            <h4>Order Information</h4>
+            <div class="detail-grid">
+                <div class="detail-item"><div class="label">Customer</div><div class="value">Acme Corp</div></div>
+                <div class="detail-item"><div class="label">Status</div><div class="value"><span class="status completed">Completed</span></div></div>
+                <div class="detail-item"><div class="label">Order Date</div><div class="value">Jun 28, 2025</div></div>
+                <div class="detail-item"><div class="label">Payment</div><div class="value">NET-30</div></div>
+            </div>
+        </div>
+        <div class="detail-section">
+            <h4>Line Items</h4>
+            <table class="line-items">
+                <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+                <tbody>
+                    <tr><td>Enterprise License</td><td>10</td><td>$1,200</td><td>$12,000</td></tr>
+                    <tr><td>Setup Fee</td><td>1</td><td>$400</td><td>$400</td></tr>
+                </tbody>
+            </table>
+            <div class="detail-total">
+                <span>Total</span>
+                <span class="amount">$12,400.00</span>
+            </div>
+        </div>
+        <div class="detail-section">
+            <h4>Notes</h4>
+            <p style="font-size:13px;color:#94a3b8;line-height:1.6">Priority client — annual renewal. Discount applied per agreement #AC-2024-017. Invoice sent via email.</p>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+            <button class="btn btn-outline" style="flex:1">✏ Edit Order</button>
+            <button class="btn btn-primary" style="flex:1">🖨 Invoice</button>
+        </div>
+    </div>
+</body>
+</html>

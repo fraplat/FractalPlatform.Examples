@@ -1,0 +1,351 @@
+<html>
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card-wrapper {
+            perspective: 1000px;
+            height: 200px;
+        }
+        
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .card-front {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+        
+        .card-back {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .card-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-wrapper:hover {
+            background: rgba(255,255,255,1);
+            transform: scale(1.05);
+        }
+        
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .checkbox-wrapper.learned {
+            background: rgba(76, 217, 100, 0.9);
+            color: white;
+        }
+        
+        .stats {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .word-display, .trans-display {
+            pointer-events: none;
+        }
+        
+        /* Стили для кнопок */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .button-container p {
+            margin: 0;
+        }
+        
+        .button-container input[type="submit"], 
+        .button-container input[type="button"] {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 120px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .button-container input[type="submit"]:hover, 
+        .button-container input[type="button"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+        }
+        
+        .button-container input[type="submit"]:active, 
+        .button-container input[type="button"]:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Специальные стили для разных кнопок */
+        .button-container input[value*="Save"], 
+        .button-container input[value*="Сохранить"] {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+        
+        .button-container input[value*="Save"]:hover, 
+        .button-container input[value*="Сохранить"]:hover {
+            background: linear-gradient(45deg, #44a08d, #4ecdc4);
+        }
+        
+        .button-container input[value*="Cancel"], 
+        .button-container input[value*="Отмена"] {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+        }
+        
+        .button-container input[value*="Cancel"]:hover, 
+        .button-container input[value*="Отмена"]:hover {
+            background: linear-gradient(45deg, #7f8c8d, #95a5a6);
+        }
+        
+        .button-container input[value*="Prev"], 
+        .button-container input[value*="Назад"] {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+        }
+        
+        .button-container input[value*="Prev"]:hover, 
+        .button-container input[value*="Назад"]:hover {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+        }
+        
+        .button-container input[value*="Next"], 
+        .button-container input[value*="Далее"] {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        .button-container input[value*="Next"]:hover, 
+        .button-container input[value*="Далее"]:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .card-face {
+                font-size: 1.4em;
+            }
+        
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .button-container input[type="submit"], 
+            .button-container input[type="button"] {
+                width: 200px;
+                margin: 5px 0;
+            }
+        }
+        
+        .read-link {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            pointer-events: all;
+        }
+        
+        .read-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.7em;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .read-link a:hover {
+            color: white;
+            background: rgba(0, 0, 0, 0.4);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    @StartForm
+    <div class="container">
+        <h1>📚 Learn the words</h1>
+
+        <div class="stats">
+            @LearnedWordsVariable of @TotalWordsVariable words learned. @CurrentPage of @TotalPages pages.
+        </div>
+
+        <div class="cards-container">
+            <control attr="Words" repeatable="true">
+                <div class="card-wrapper">
+                    <div class="card" data-index="0">
+                        <div class="card-controls">
+                            <div class="checkbox-wrapper" data-index="0">
+                                <control attr="IsLearned">
+                                    <input @CheckBox />
+                                </control>
+                                <span>Изучено</span>
+                            </div>
+                        </div>
+                        <div class="card-face card-front">
+                            <div class="word-display">
+                                <b>@Word.Value</b>
+                                <hr>
+                                @Phrase.Value
+                            </div>
+                            <div class="read-link">
+                                <a @LearnText.Link>🔊 Learn text</a>
+                            </div>
+                        </div>
+                        <div class="card-face card-back">
+                            <div class="trans-display">@Trans.Value</div>
+                        </div>
+                    </div>
+                </div>
+            </control>
+        </div>
+
+        <!-- Кнопки с улучшенным дизайном -->
+        <div class="button-container">
+            <p><input @NextPageButton /></p>
+            <p><input @PrevPageButton /></p>
+            <p><input @SavePageButton /></p>
+        </div>
+    </div>
+    @EndForm
+
+    <script>
+        // Инициализация карточек
+        function initializeCards() {
+            // Переворот карточек
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Не переворачиваем карточку при клике на чекбокс
+                    if (e.target.type !== 'checkbox') {
+                        this.classList.toggle('flipped');
+                    }
+                });
+            });
+
+            // Обработка чекбоксов
+            document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function(e) {
+                    e.stopPropagation();
+                    const wrapper = this.closest('.checkbox-wrapper');
+
+                    if (this.checked) {
+                        wrapper.classList.add('learned');
+                    } else {
+                        wrapper.classList.remove('learned');
+                    }
+                });
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCards();
+            updateStats();
+        });
+    </script>
+</body>
+
+</html>

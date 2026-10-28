@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Entry Level</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <script src="@BaseFilesUrl/scripts.js"></script>
+</head>
+
+<body>
+    @StartForm
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Fractal Platform - Entry Level</h1>
+                <p>Build useful mini-apps with just a little code</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="description">
+        <div class="container">
+            <p>Fractal Platform helps you create simple, smart tools—like budget trackers, task lists, and data tables—without getting stuck in complexity.
+                You don’t need to be a developer. With ready-made templates and just a few lines of code, you’ll get things working fast.</p>
+
+            <div class="feature-list">
+                <div class="feature-item">Start from templates – customize only what you need</div>
+                <div class="feature-item">Code just a little – C# snippets do the heavy lifting</div>
+                <div class="feature-item">Perfect for personal and small-scale projects</div>
+            </div>
+
+            <p>Whether you're organizing your life or building your first app, Fractal Platform makes it simple.</p>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Straightforward process, powerful results</p>
+            </div>
+
+            <div class="how-it-works">
+                <h3>Just create a JSON of your data model and Fractal Platform:</h3>
+                <ul>
+                    <li>Creates document or relational database around JSON - <strong>your database level</strong></li>
+                    <li>Automatically creates CRUD business logic - <strong>your business logic level</strong></li>
+                    <li>Automatically creates UI around data model - <strong>your user interface level</strong></li>
+                    <li>Keeps the door open to extend your project for more complex scenarios</li>
+                    <a href="/ToDoIntro" target="_blank" class="btn">Explore our Interactive tutorial</a>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How to Get Started</h2>
+                <p>Create your first app in minutes, on your own</p>
+            </div>
+
+            <div class="how-it-works">
+                <h3>Follow these simple steps to get started:</h3>
+                <ul>
+                    <li>Open <a href="https://fraplat.com/mars/FractalStudio" target="_blank">Fractal Studio</a> in web browser</li>
+                    <li>Select a template for your first app, such as HelloWorld or ToDoList</li>
+                    <li>Review and customize your app’s code</li>
+                    <li>Click the Deploy button and see your web project live</li>
+                </ul>
+                <a href="https://fraplat.com/mars/FractalStudio" target="_blank" class="btn">Open Fractal Studio</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="entry-projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Examples of Entry Level Projects</h2>
+                <p>Explore these beginner-friendly projects to kickstart your development journey. Each project is designed to build your skills while creating practical applications.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project Card: ToDo List -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>To Do List</h3>
+                        <span class="project-badge">Entry</span>
+                    </div>
+                    <div class="project-screenshots">
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/ToDo1.png" alt="ToDo List Screenshot 1" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/ToDo1.png" alt="ToDo List Screenshot 1 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/ToDo2.png" alt="ToDo List Screenshot 2" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/ToDo2.png" alt="ToDo List Screenshot 2 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Simple app that lets users add, complete, and remove tasks</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Development time:</span>
+                                <span class="meta-value">3~4 minutes</span>
+                            </div>
+                        </div>
+                        <h4>Key Features:</h4>
+                        <ul class="feature-list project-features">
+                            <li class="feature-item">Standard web UI</li>
+                            <li class="feature-item">CRUD operations for task list</li>
+                        </ul>
+                        <a href="https://github.com/fraplat/FractalPlatform/tree/main/FractalPlatform.Examples/Applications/ToDo" target="_blank" class="btn project-btn">View Project on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project Card: Pressure Calculator -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Pressure Calculator</h3>
+                        <span class="project-badge">Entry</span>
+                    </div>
+                    <div class="project-screenshots">
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/PressureCalc1.png" alt="Pressure Calculator Screenshot 1" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/PressureCalc1.png" alt="Pressure Calculator Screenshot 1 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/PressureCalc2.png" alt="Pressure Calculator Screenshot 2" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/PressureCalc2.png" alt="Pressure Calculator Screenshot 2 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Calculate blood pressure based on age and weight</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Development time:</span>
+                                <span class="meta-value">5~7 minutes</span>
+                            </div>
+                        </div>
+                        <h4>Key Features:</h4>
+                        <ul class="feature-list project-features">
+                            <li class="feature-item">Standard web UI</li>
+                            <li class="feature-item">Enter you age and weight in input screen</li>
+                            <li class="feature-item">Review max recommended blood pressure based on calculation</li>
+                        </ul>
+                        <a href="https://github.com/fraplat/FractalPlatform/tree/main/FractalPlatform.Examples/Applications/PressureCalc" target="_blank" class="btn project-btn">View Project on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Project Card: Bowling Scores Tracker -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Bowling Scores</h3>
+                        <span class="project-badge">Beginner</span>
+                    </div>
+                    <div class="project-screenshots">
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/BowlingScores1.png" alt="Bowling Scores Tracker Screenshot 1" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/BowlingScores1.png" alt="Bowling Scores Tracker Screenshot 1 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                        <div class="screenshot">
+                            <img src="@BaseFilesUrl/BowlingScores2.png" alt="Bowling Scores Tracker Screenshot 2" />
+                            <div class="enlarged-view">
+                                <img src="@BaseFilesUrl/BowlingScores2.png" alt="Bowling Scores Tracker Screenshot 2 (Enlarged)" />
+                                <button class="enlarged-view-close">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Simple app to upload score photos, manage game results, and view achievements.</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Development time:</span>
+                                <span class="meta-value">1~2 hours</span>
+                            </div>
+                        </div>
+                        <h4>Key Features:</h4>
+                        <ul class="feature-list project-features">
+                            <li class="feature-item">Upload picture of scores in bowling club</li>
+                            <li class="feature-item">Add bowling results</li>
+                            <li class="feature-item">View and edit existing results</li>
+                            <li class="feature-item">View achievement report</li>
+                        </ul>
+                        <a href="https://github.com/fraplat/FractalPlatform/tree/main/Projects/FractalPlatform.BowlingScores" target="_blank" class="btn project-btn">View Project on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="next-level-cta">
+        <div class="container">
+            <h2>Ready to build more complex projects?</h2>
+            <p>Take your skills to the next level with our intermediate projects and tutorials designed to expand your knowledge and capabilities.</p>
+            <a href="@BaseAppUrl/?tag=basic" class="next-level-btn">Explore Basic Level Projects</a>
+            <div class="skill-level-indicator">
+                <div class="level-item">
+                    <div class="level-dot active"></div>
+                    <div class="level-label">Entry</div>
+                </div>
+                <div class="level-line"></div>
+                <div class="level-item">
+                    <div class="level-dot"></div>
+                    <div class="level-label">Basic</div>
+                </div>
+                <div class="level-line"></div>
+                <div class="level-item">
+                    <div class="level-dot"></div>
+                    <div class="level-label">Advanced</div>
+                </div>
+                <div class="level-line"></div>
+                <div class="level-item">
+                    <div class="level-dot"></div>
+                    <div class="level-label">Enterprise</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @Footer.Partial
+    @EndForm
+</body>
+
+</html>

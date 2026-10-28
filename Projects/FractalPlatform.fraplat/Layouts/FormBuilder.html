@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Form Builder Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        .csharp .keyword { color: #c678dd; }
+        .csharp .string { color: #98c379; }
+        .csharp .number { color: #d19a66; }
+        .csharp .comment { color: #5c6370; font-style: italic; }
+        .csharp .type { color: #61afef; }
+        .csharp .method { color: #61afef; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .success strong {
+            color: #2e7d32;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .flow-diagram {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        
+        .flow-arrow {
+            display: inline-block;
+            color: #667eea;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Fractal Platform Form Builder Guide</h1>
+            <p>Master the art of opening and managing forms with elegant chains</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#introduction">0. Introduction</a></li>
+                <li><a href="#basic-opening">1. Basic Form Opening</a></li>
+                <li><a href="#want-patterns">2. Want Patterns</a></li>
+                <li><a href="#dimensions">3. Working with Dimensions</a></li>
+                <li><a href="#modifying">4. Modifying Documents</a></li>
+                <li><a href="#creating">5. Creating New Documents</a></li>
+                <li><a href="#merging">6. Merging & Unmerging</a></li>
+                <li><a href="#chaining">7. Advanced Chaining</a></li>
+                <li><a href="#conditional">8. Conditional Forms</a></li>
+                <li><a href="#examples">9. Real-World Examples</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 0: Introduction -->
+        <div class="article" id="introduction">
+            <h2>0. Introduction to Form Builder</h2>
+
+            <p>The FormBuilderExtensions class provides a powerful, fluent API for opening and managing forms in Fractal Platform. It uses a pattern called "method chaining" that makes your code readable and expressive.</p>
+
+            <h3>What You'll Learn</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>How to open forms from queries, collections, and clients</li>
+                <li>How to use "Want" patterns to declare your intentions</li>
+                <li>How to work with dimensions (UI, Theme, Document)</li>
+                <li>How to create, modify, merge, and manage documents through forms</li>
+                <li>How to build complex form workflows with method chains</li>
+            </ul>
+
+            <h3>Basic Concept: The Form Workflow</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">Start with Data Source</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Declare Intention (Want)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Configure Dimensions</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Open Form</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Handle Result</div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Key Principle:</strong> Forms in Fractal Platform are not just UI elements - they're intelligent data management workflows. You describe WHAT you want to do, and the system handles HOW to do it.
+            </div>
+        </div>
+
+        <!-- Article 1: Basic Opening -->
+        <div class="article" id="basic-opening">
+            <h2>1. Basic Form Opening</h2>
+
+            <h3>Opening a Form from a Client</h3>
+            <p>The simplest way to open a form is directly from a FractalPlatformClient:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form for the first document</span>
+<span class="type">Client</span>.<span class="method">OpenForm</span>(result =>
+{
+    <span class="keyword">if</span> (result.<span class="type">Result</span>)
+    {
+        <span class="comment">// User clicked OK/Save</span>
+        <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Form saved successfully!"</span>);
+    }
+    <span class="keyword">else</span>
+    {
+        <span class="comment">// User clicked Cancel</span>
+        <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Form was cancelled"</span>);
+    }
+});</pre>
+            </div>
+
+            <h3>Opening a Specific Document</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form for document with ID 5</span>
+<span class="type">Client</span>.<span class="method">OpenForm</span>(docID: <span class="number">5</span>, handleResult: result =>
+{
+    <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">$"Document ID: </span>{result.<span class="type">DocID</span>}<span class="string">"</span>);
+});</pre>
+            </div>
+
+            <h3>Opening with JSON Data</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form with specific data shape</span>
+<span class="type">Client</span>.<span class="method">OpenForm</span>(<span class="string">"{'Name':$,'Age':$}"</span>, result =>
+{
+    <span class="keyword">if</span> (result.<span class="type">Result</span>)
+    {
+        <span class="comment">// Access the collection with changes</span>
+        <span class="keyword">var</span> collection = result.<span class="type">Collection</span>;
+    }
+});</pre>
+            </div>
+
+            <h3>Opening from a Query</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form for query results</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Form opened for Bob"</span>);
+    });</pre>
+            </div>
+
+            <h3>Opening from a Collection</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get collection first, then open form</span>
+<span class="keyword">var</span> collection = <span class="type">Client</span>.<span class="method">GetCollection</span>();
+collection.<span class="method">OpenForm</span>(result =>
+{
+    <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Collection form opened"</span>);
+});</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Understanding FormResult:</strong> The result parameter in your callback contains:
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Result</strong> - true if user saved, false if cancelled</li>
+                    <li><strong>Collection</strong> - the data collection with any changes</li>
+                    <li><strong>DocID</strong> - the document ID that was edited</li>
+                    <li><strong>NeedReloadData</strong> - true if backend data changed</li>
+                    <li><strong>IsSubForm</strong> - true if this was a nested form</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 2: Want Patterns -->
+        <div class="article" id="want-patterns">
+            <h2>2. Understanding Want Patterns</h2>
+
+            <p>The "Want" pattern is the core of FormBuilder. It lets you declare your intentions about what should happen when the form is saved.</p>
+
+            <h3>Available Want Types</h3>
+            <table>
+                <tr>
+                    <th>Want Type</th>
+                    <th>Purpose</th>
+                    <th>When to Use</th>
+                </tr>
+                <tr>
+                    <td>WantNotModifyExistingDocuments</td>
+                    <td>View-only or no save</td>
+                    <td>Showing data without changing it</td>
+                </tr>
+                <tr>
+                    <td>WantModifyExistingDocuments</td>
+                    <td>Update existing data</td>
+                    <td>Editing existing records</td>
+                </tr>
+                <tr>
+                    <td>WantCreateNewDocumentFor</td>
+                    <td>Create new document</td>
+                    <td>Adding new records</td>
+                </tr>
+                <tr>
+                    <td>WantCreateNewDocumentForArray</td>
+                    <td>Add to array field</td>
+                    <td>Adding items to lists</td>
+                </tr>
+                <tr>
+                    <td>WantMergeDocumentFor</td>
+                    <td>Merge data into existing</td>
+                    <td>Combining documents</td>
+                </tr>
+                <tr>
+                    <td>WantUnmergeDocumentFor</td>
+                    <td>Remove merged data</td>
+                    <td>Separating documents</td>
+                </tr>
+            </table>
+
+            <h3>Pattern 1: Not Modifying Documents</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form in read-only mode</span>
+<span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Changes won't be saved to database</span>
+    });</pre>
+            </div>
+
+            <h3>Pattern 2: Modifying Existing Documents</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form and save changes to existing document</span>
+<span class="type">Client</span>.<span class="method">WantModifyExistingDocument</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Changes are automatically saved!</span>
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Document updated in database"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Pattern 3: Creating New Documents</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Create new user</span>
+<span class="type">Client</span>.<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Users"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// New document created in Users collection</span>
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">$"New user created with ID: </span>{result.<span class="type">TargetDocID</span>}<span class="string">"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Using Want with Queries</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find specific documents and modify them</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Bob's document is updated</span>
+    });</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> The Want pattern determines how the system handles form data when saved. Choose the right pattern based on your use case!
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> You can chain Want methods with other query operations like AndWhere, OrWhere, OrderBy, etc. The Want is just declaring your intention - filtering still works normally!
+            </div>
+        </div>
+
+        <!-- Article 3: Dimensions -->
+        <div class="article" id="dimensions">
+            <h2>3. Working with Dimensions</h2>
+
+            <p>Dimensions are layers of data that control different aspects of your form: UI layout, theme, and the actual document data.</p>
+
+            <h3>Available Dimension Types</h3>
+            <table>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Purpose</th>
+                    <th>Example Use</th>
+                </tr>
+                <tr>
+                    <td>UI</td>
+                    <td>Form layout and structure</td>
+                    <td>Hide fields, change labels, add sections</td>
+                </tr>
+                <tr>
+                    <td>Theme</td>
+                    <td>Visual appearance</td>
+                    <td>Colors, fonts, light/dark mode</td>
+                </tr>
+                <tr>
+                    <td>Document</td>
+                    <td>The actual data</td>
+                    <td>User records, product info, etc.</td>
+                </tr>
+                <tr>
+                    <td>Patch</td>
+                    <td>Track changes</td>
+                    <td>Undo/redo, change history</td>
+                </tr>
+                <tr>
+                    <td>Filter</td>
+                    <td>Data filtering</td>
+                    <td>Show subset of data</td>
+                </tr>
+            </table>
+
+            <h3>Setting a Dimension</h3>
+            <p>Use <code>SetDimension</code> to replace dimension data completely:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Set UI dimension to hide Age field</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Age':{'Visible':false}}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Form opens without Age field visible</span>
+    });</pre>
+            </div>
+
+            <h3>Extending a Dimension</h3>
+            <p>Use <code>ExtendDimension</code> to merge new data with existing:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add UI rules while keeping existing ones</span>
+<span class="type">Client</span>.<span class="method">WantModifyExistingDocument</span>()
+    .<span class="method">ExtendUIDimension</span>(<span class="string">"{'Name':{'ReadOnly':true}}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Name field is read-only in the form</span>
+    });</pre>
+            </div>
+
+            <h3>Resetting a Dimension</h3>
+            <p>Use <code>ResetDimension</code> to remove dimension data:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Remove custom UI settings</span>
+<span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">ResetDimension</span>(<span class="type">DimensionType</span>.<span class="type">UI</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Form uses default UI layout</span>
+    });</pre>
+            </div>
+
+            <h3>Setting Theme Dimension</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Set dark theme</span>
+<span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">SetThemeDimension</span>(<span class="type">ThemeType</span>.<span class="type">Dark</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Form appears in dark theme</span>
+    });
+
+<span class="comment">// Or with JSON for more control</span>
+<span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">SetThemeDimension</span>(<span class="string">"{'DefaultTheme':'Dark','ChooseThemeOnLoginPage':true}"</span>)
+    .<span class="method">OpenForm</span>(result => { });</pre>
+            </div>
+
+            <h3>Chaining Multiple Dimensions</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Configure both UI and Theme</span>
+<span class="type">Client</span>.<span class="method">WantModifyExistingDocument</span>()
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Age':{'Visible':false}}"</span>)
+    .<span class="method">SetThemeDimension</span>(<span class="type">ThemeType</span>.<span class="type">Light</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Light theme + Age hidden</span>
+    });</pre>
+            </div>
+
+            <h3>Working with Document Dimension</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Extend document with additional data</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">ExtendDocument</span>(<span class="string">"{'TempField':'Some value'}"</span>)
+    .<span class="method">WantNotModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Form shows additional TempField (not saved to DB)</span>
+    });
+
+<span class="comment">// Set entire document shape</span>
+<span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">SetDocument</span>(<span class="string">"{'Name':'','Age':0,'Email':''}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Form uses this exact document structure</span>
+    });</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Best Practice:</strong> Use ExtendDimension when you want to keep existing configuration and just add to it. Use SetDimension when you want complete control and need to replace everything.
+            </div>
+
+            <div class="tip">
+                <strong>💡 Dimension Persistence:</strong> When a form opens and closes, dimensions are automatically cleaned up. If you need data to persist, handle it in the result callback.
+            </div>
+        </div>
+
+        <!-- Article 4: Modifying -->
+        <div class="article" id="modifying">
+            <h2>4. Modifying Existing Documents</h2>
+
+            <h3>The Patch System</h3>
+            <p>When you use WantModifyExistingDocuments, the system tracks all changes in a "patch". When the user saves, the patch is automatically applied to the database.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Edit Bob's data</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// All changes user made are saved to database</span>
+            <span class="comment">// The patch was automatically applied</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Modifying with UI Customization</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Edit with custom UI</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Weight':{'Label':'Weight (kg)'}}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"User updated!"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Modifying Multiple Documents</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Edit all managers</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'IsManager':true}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// All matching documents are updated</span>
+            <span class="keyword">var</span> count = result.<span class="type">Collection</span>.<span class="type">DocumentStorage</span>
+                .<span class="method">GetDocIDs</span>(context).<span class="type">Count</span>;
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">$"Updated </span>{count}<span class="string"> managers"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Checking if Data Needs Reload</h3>
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span> && result.<span class="type">NeedReloadData</span>)
+        {
+            <span class="comment">// Backend data changed, refresh your UI</span>
+            <span class="method">RefreshUserList</span>();
+        }
+    });</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 How Patches Work:</strong>
+                <ol style="margin-top: 10px; margin-left: 20px;">
+                    <li>User opens form (patch tracking starts)</li>
+                    <li>User makes changes (patch records each change)</li>
+                    <li>User clicks Save (patch is applied to database)</li>
+                    <li>Form closes (patch is cleaned up)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Article 5: Creating -->
+        <div class="article" id="creating">
+            <h2>5. Creating New Documents</h2>
+
+            <h3>Creating in a Target Collection</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Create new user</span>
+<span class="type">Client</span>.<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Users"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// New document created in Users collection</span>
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">$"Created user with ID: </span>{result.<span class="type">TargetDocID</span>}<span class="string">"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Creating with Initial Data</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Create user with pre-filled data</span>
+<span class="type">Client</span>.<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Users"</span>)
+    .<span class="method">SetDocument</span>(<span class="string">"{'Name':'New User','Age':0,'Email':''}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"User created with template"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Creating from Query Results</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Use existing data as template for new document</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Users"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Bob's data used as template, new user created</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Adding to Array Fields</h3>
+            <p>Use WantCreateNewDocumentForArray to add items to arrays:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add new job to Bob's Jobs array</span>
+<span class="type">Client</span>.<span class="method">WantCreateNewDocumentForArray</span>(
+    collName: <span class="string">"Users"</span>,
+    json: <span class="string">"{'Jobs':[@0,$]}"</span>,  <span class="comment">// @0 means insert at position 0</span>
+    targetDocID: <span class="number">1</span>)  <span class="comment">// Bob's document ID</span>
+    .<span class="method">SetDocument</span>(<span class="string">"{'Company':'','Position':''}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// New job added to Bob's Jobs array</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Adding Child Objects</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add new child to Bob</span>
+<span class="type">Client</span>.<span class="method">WantCreateNewDocumentForArray</span>(
+    <span class="string">"Users"</span>,
+    <span class="string">"{'Childs':[@0,$]}"</span>,
+    <span class="number">1</span>)
+    .<span class="method">SetDocument</span>(<span class="string">"{'Name':'','Age':0}"</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Name':{'Label':'Child Name'}}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Child added to Bob's record"</span>);
+        }
+    });</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Array Position:</strong> The format <code>[@0,$]</code> means "insert at position 0 and use the form data ($)". You can use any index or "Last" to append to the end.
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> WantCreateNewDocumentForArray actually creates a temporary document, shows it in a form, then adds the form data to the specified array field when saved. The temporary document is not saved as a separate record.
+            </div>
+        </div>
+
+        <!-- Article 6: Merging -->
+        <div class="article" id="merging">
+            <h2>6. Merging & Unmerging Documents</h2>
+
+            <h3>What is Merging?</h3>
+            <p>Merging combines data from one document into another. It's useful for scenarios like:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Copying settings from one user to another</li>
+                <li>Combining partial records</li>
+                <li>Applying templates or presets</li>
+            </ul>
+
+            <h3>Basic Merge Operation</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Merge form data into target document</span>
+<span class="type">Client</span>.<span class="method">WantMergeDocumentFor</span>(
+    collName: <span class="string">"Users"</span>,
+    targetDocID: <span class="number">2</span>)  <span class="comment">// Ted's document</span>
+    .<span class="method">SetDocument</span>(<span class="string">"{'Weight':80,'Car':{'Model':'Toyota'}}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Form data merged into Ted's document</span>
+            <span class="comment">// Ted now has Weight: 80 and Car.Model: Toyota</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Merging with Query</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Use Bob's data to merge into Ted</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantMergeDocumentFor</span>(<span class="string">"Users"</span>, <span class="number">2</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Bob's form data merged into Ted</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Selective Merging with UI</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Show only specific fields to merge</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">WantMergeDocumentFor</span>(<span class="string">"Users"</span>, <span class="number">2</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Name':{'Visible':false},'Age':{'Visible':false}}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Only visible fields are merged</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Unmerge Operation</h3>
+            <p>Unmerge removes previously merged data:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Remove specific fields from document</span>
+<span class="type">Client</span>.<span class="method">WantUnmergeDocumentFor</span>(
+    collName: <span class="string">"Users"</span>,
+    targetDocID: <span class="number">2</span>)
+    .<span class="method">SetDocument</span>(<span class="string">"{'Weight':$,'Car':{'Model':$}}"</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Weight and Car.Model removed from Ted</span>
+        }
+    });</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Merge vs Update:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Merge</strong> - Adds/replaces fields without touching others</li>
+                    <li><strong>Update</strong> - Modifies existing document through patch</li>
+                    <li><strong>Unmerge</strong> - Removes specific fields</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 7: Chaining -->
+        <div class="article" id="chaining">
+            <h2>7. Advanced Method Chaining</h2>
+
+            <h3>Understanding the Chain</h3>
+            <p>The beauty of FormBuilder is how methods chain together. Each method returns a WantInfo object that has more methods available.</p>
+
+            <div class="flow-diagram">
+                <div style="text-align: left; display: inline-block;">
+                    <div class="flow-step">Query/Client</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">Want Pattern</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">Dimensions (optional)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">More Dimensions (optional)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">Query Operations (optional)</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">OpenForm</div>
+                </div>
+            </div>
+
+            <h3>Complex Chain Example</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Complex workflow in one chain</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'IsManager':true}"</span>)
+    .<span class="method">AndWhere</span>(<span class="string">"{'Weight':GreatOrEqual(70)}"</span>)
+    .<span class="method">OrderBy</span>(<span class="string">"{'Name':$}"</span>)
+    .<span class="method">Take</span>(<span class="number">5</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Weight':{'Label':'Weight (kg)','ReadOnly':true}}"</span>)
+    .<span class="method">SetThemeDimension</span>(<span class="type">ThemeType</span>.<span class="type">Dark</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Managers with weight >= 70, sorted by name, first 5</span>
+        <span class="comment">// Dark theme, weight field read-only</span>
+        <span class="comment">// Changes saved to database</span>
+    });</pre>
+            </div>
+
+            <h3>Using BaseQuery Methods in Chain</h3>
+            <p>WantInfo has all BaseQuery methods available:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">AndWhere</span>(<span class="string">"{'Age':GreatOrEqual(18)}"</span>)
+    .<span class="method">OrderByDesc</span>(<span class="string">"{'Age':$}"</span>)
+    .<span class="method">Take</span>(<span class="number">10</span>)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Top 10 adults, sorted by age descending</span>
+    });
+
+<span class="comment">// You can even use Count, Select, etc.</span>
+<span class="keyword">var</span> count = <span class="type">Client</span>.<span class="method">WantNotModifyExistingDocument</span>()
+    .<span class="method">AndWhere</span>(<span class="string">"{'IsManager':true}"</span>)
+    .<span class="method">Count</span>();  <span class="comment">// Returns number without opening form</span></pre>
+            </div>
+
+            <h3>Multiple Dimension Changes</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Chain multiple dimension operations</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Age':{'Visible':false}}"</span>)
+    .<span class="method">ExtendUIDimension</span>(<span class="string">"{'Weight':{'Label':'Weight (kg)'}}"</span>)
+    .<span class="method">SetThemeDimension</span>(<span class="type">ThemeType</span>.<span class="type">Light</span>)
+    .<span class="method">ExtendDocument</span>(<span class="string">"{'TempNote':'Review this user'}"</span>)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// All dimension changes applied</span>
+    });</pre>
+            </div>
+
+            <h3>Creating ToCollection Without Opening Form</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get collection without opening form</span>
+<span class="keyword">var</span> collection = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SetUIDimension</span>(<span class="string">"{'Age':{'Visible':false}}"</span>)
+    .<span class="method">WantNotModifyExistingDocuments</span>()
+    .<span class="method">ToCollection</span>();
+
+<span class="comment">// Now you can work with collection directly</span>
+<span class="keyword">var</span> storage = collection.<span class="method">GetStorage</span>();</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> The order of chaining matters for readability but not functionality. However, it's best practice to put Want patterns before dimensions, and both before OpenForm.
+            </div>
+        </div>
+
+        <!-- Article 8: Conditional -->
+        <div class="article" id="conditional">
+            <h2>8. Conditional Form Opening</h2>
+
+            <h3>Skip Opening Based on Condition</h3>
+            <p>Use <code>SkipOpenFormIf</code> to conditionally show a form:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Only open form if user has permission</span>
+<span class="keyword">bool</span> hasPermission = <span class="method">CheckUserPermission</span>();
+
+<span class="type">Client</span>.<span class="method">SkipOpenFormIf</span>(!hasPermission)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (!hasPermission)
+        {
+            <span class="comment">// Form was skipped, but callback still runs</span>
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Permission denied"</span>);
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="comment">// Form was shown and user interacted with it</span>
+        }
+    });</pre>
+            </div>
+
+            <h3>Skip with Query</h3>
+            <div class="code-block csharp">
+                <pre><span class="keyword">bool</span> isReadOnly = <span class="keyword">true</span>;
+
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SkipOpenFormIf</span>(isReadOnly)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="comment">// Callback runs even if skipped</span>
+    });</pre>
+            </div>
+
+            <h3>Skip with Collection</h3>
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> collection = <span class="type">Client</span>.<span class="method">GetCollection</span>();
+<span class="keyword">bool</span> hasData = collection.<span class="type">DocumentStorage</span>
+    .<span class="method">GetDocIDs</span>(context).<span class="type">Count</span> > <span class="number">0</span>;
+
+collection.<span class="method">SkipOpenFormIf</span>(!hasData)
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (!hasData)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"No data to display"</span>);
+        }
+    });</pre>
+            </div>
+
+            <h3>Dynamic Skip Decision</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Check if document exists first</span>
+<span class="keyword">var</span> exists = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">Exists</span>();
+
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="method">SkipOpenFormIf</span>(!exists)
+    .<span class="method">WantModifyExistingDocuments</span>()
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (!exists)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Bob not found"</span>);
+        }
+        <span class="keyword">else</span> <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="type">Console</span>.<span class="method">WriteLine</span>(<span class="string">"Bob updated"</span>);
+        }
+    });</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> When a form is skipped, the callback still runs! The form just isn't shown to the user. Check the condition in your callback to handle both cases.
+            </div>
+
+            <div class="tip">
+                <strong>💡 Use Cases for Skip:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Checking permissions before showing forms</li>
+                    <li>Validating data exists before editing</li>
+                    <li>Batch operations where some items should be skipped</li>
+                    <li>Conditional workflows based on user settings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 9: Examples -->
+        <div class="article" id="examples">
+            <h2>9. Real-World Examples</h2>
+
+            <h3>Example 1: User Profile Editor</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Complete user profile editing workflow</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="method">EditUserProfile</span>(<span class="keyword">uint</span> userId)
+{
+    <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId)
+        .<span class="method">SkipOpenFormIf</span>(!canEdit)
+        .<span class="method">SetUIDimension</span>(<span class="string">@"{
+            'Salary': {'Visible': " + hasPermission.<span class="method">ToString</span>().<span class="method">ToLower</span>() + <span class="string">@"},
+            'SSN': {'Visible': " + hasPermission.<span class="method">ToString</span>().<span class="method">ToLower</span>() + <span class="string">@"}
+        }"</span>)
+        .<span class="method">WantModifyExistingDocuments</span>()
+        .<span class="method">OpenForm</span>(result =>
+        {
+            <span class="keyword">if</span> (!canEdit)
+            {
+                <span class="method">ShowNotification</span>(<span class="string">"Access denied"</span>);
+            }
+            <span class="keyword">else</span> <span class="keyword">if</span> (result.<span class="type">Result</span>)
+            {
+                <span class="method">ShowNotification</span>(<span class="string">"Data updated"</span>);
+                <span class="method">LogActivity</span>(<span class="string">$"User </span>{userId}<span class="string"> edited by </span>{<span class="method">CurrentUser</span>.<span class="type">ID</span>}<span class="string">"</span>);
+            }
+        });
+}</pre>
+            </div>
+
+            <h3>Example 7: Multi-Step Wizard</h3>
+            <div class="code-block csharp">
+                <pre><span class="keyword">public</span> <span class="keyword">void</span> <span class="method">EmployeeOnboardingWizard</span>()
+{
+    <span class="comment">// Step 1: Basic Information</span>
+    <span class="type">Client</span>.<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Employees"</span>)
+        .<span class="method">SetDocument</span>(<span class="string">"{'Name':'','Email':'','Phone':''}"</span>)
+        .<span class="method">SetUIDimension</span>(<span class="string">"{'Title':'Step 1: Basic Information'}"</span>)
+        .<span class="method">OpenForm</span>(result1 =>
+        {
+            <span class="keyword">if</span> (result1.<span class="type">Result</span>)
+            {
+                <span class="keyword">var</span> employeeId = result1.<span class="type">TargetDocID</span>;
+                
+                <span class="comment">// Step 2: Department and Position</span>
+                <span class="type">DocsWhere</span>(<span class="string">"Employees"</span>, employeeId)
+                    .<span class="method">ExtendDocument</span>(<span class="string">"{'Department':'','Position':'','Manager':''}"</span>)
+                    .<span class="method">SetUIDimension</span>(<span class="string">"{'Title':'Step 2: Department Assignment'}"</span>)
+                    .<span class="method">WantModifyExistingDocuments</span>()
+                    .<span class="method">OpenForm</span>(result2 =>
+                    {
+                        <span class="keyword">if</span> (result2.<span class="type">Result</span>)
+                        {
+                            <span class="comment">// Step 3: Benefits and Salary</span>
+                            <span class="type">DocsWhere</span>(<span class="string">"Employees"</span>, employeeId)
+                                .<span class="method">ExtendDocument</span>(<span class="string">"{'Salary':0,'BenefitsPlan':''}"</span>)
+                                .<span class="method">SetUIDimension</span>(<span class="string">"{'Title':'Step 3: Compensation'}"</span>)
+                                .<span class="method">WantModifyExistingDocuments</span>()
+                                .<span class="method">OpenForm</span>(result3 =>
+                                {
+                                    <span class="keyword">if</span> (result3.<span class="type">Result</span>)
+                                    {
+                                        <span class="method">ShowNotification</span>(<span class="string">"Employee onboarding complete!"</span>);
+                                        <span class="method">SendWelcomeEmail</span>(employeeId);
+                                    }
+                                });
+                        }
+                    });
+            }
+        });
+}</pre>
+            </div>
+
+            <h3>Example 8: Smart Data Loading</h3>
+            <div class="code-block csharp">
+                <pre><span class="keyword">public</span> <span class="keyword">void</span> <span class="method">EditUserWithFallback</span>(<span class="keyword">string</span> username)
+{
+    <span class="comment">// Try to find user, create if not exists</span>
+    <span class="keyword">var</span> exists = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">$"{{'Name':'{username}'}}"</span>)
+        .<span class="method">Exists</span>();
+
+    <span class="keyword">if</span> (exists)
+    {
+        <span class="comment">// User exists - edit them</span>
+        <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">$"{{'Name':'{username}'}}"</span>)
+            .<span class="method">WantModifyExistingDocuments</span>()
+            .<span class="method">OpenForm</span>(result =>
+            {
+                <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                {
+                    <span class="method">ShowNotification</span>(<span class="string">"User updated"</span>);
+                }
+            });
+    }
+    <span class="keyword">else</span>
+    {
+        <span class="comment">// User doesn't exist - create them</span>
+        <span class="type">Client</span>.<span class="method">WantCreateNewDocumentFor</span>(<span class="string">"Users"</span>)
+            .<span class="method">SetDocument</span>(<span class="string">$"{{'Name':'{username}'}}"</span>)
+            .<span class="method">OpenForm</span>(result =>
+            {
+                <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                {
+                    <span class="method">ShowNotification</span>(<span class="string">"New user created"</span>);
+                }
+            });
+    }
+}</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Best Practices from Examples:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Always validate data before showing forms</li>
+                    <li>Use clear UI labels and required field markers</li>
+                    <li>Provide user feedback in result callbacks</li>
+                    <li>Log important operations for audit trails</li>
+                    <li>Handle both success and cancel cases</li>
+                    <li>Chain operations for complex workflows</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="article" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; border-bottom-color: white;">🎓 Summary & Quick Reference</h2>
+
+            <h3 style="color: white;">Key Concepts Learned</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Forms are intelligent workflows</strong> - They handle UI, validation, and data persistence</li>
+                <li><strong>Want patterns declare intent</strong> - Tell the system what you want to do with the data</li>
+                <li><strong>Dimensions add layers</strong> - UI, Theme, and Document control different aspects</li>
+                <li><strong>Method chaining is powerful</strong> - Build complex workflows in readable code</li>
+                <li><strong>Callbacks handle results</strong> - Always check result.Result for user action</li>
+            </ul>
+
+            <h3 style="color: white; margin-top: 30px;">Common Patterns Cheat Sheet</h3>
+<div style="margin-top: 15px; background: rgba(0,0,0,0.3); border-left: 4px solid white; border-radius: 8px; overflow: hidden;">
+    <div style="padding: 16px; color: #abb2bf; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 14px; line-height: 1.5;">
+        <!-- Header -->
+        <div style="display: flex; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); font-weight: 600; color: white;">
+            <div style="flex: 1; min-width: 200px;">Task</div>
+            <div style="flex: 2;">Pattern</div>
+        </div>
+
+        <!-- Row 1 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.05);">
+            <div style="flex: 1; min-width: 200px; color: white;">View data only</div>
+            <div style="flex: 2; color: white;"><code>WantNotModifyExistingDocument()</code></div>
+        </div>
+
+        <!-- Row 2 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.1);">
+            <div style="flex: 1; min-width: 200px; color: white;">Edit existing</div>
+            <div style="flex: 2; color: white;"><code>WantModifyExistingDocuments()</code></div>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.05);">
+            <div style="flex: 1; min-width: 200px; color: white;">Create new</div>
+            <div style="flex: 2; color: white;"><code>WantCreateNewDocumentFor(collection)</code></div>
+        </div>
+
+        <!-- Row 4 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.1);">
+            <div style="flex: 1; min-width: 200px; color: white;">Add to array</div>
+            <div style="flex: 2; color: white;"><code>WantCreateNewDocumentForArray(collection, path, docId)</code></div>
+        </div>
+
+        <!-- Row 5 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.05);">
+            <div style="flex: 1; min-width: 200px; color: white;">Customize UI</div>
+            <div style="flex: 2; color: white;"><code>SetUIDimension(json)</code> or <code>ExtendUIDimension(json)</code></div>
+        </div>
+
+        <!-- Row 6 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.1);">
+            <div style="flex: 1; min-width: 200px; color: white;">Change theme</div>
+            <div style="flex: 2; color: white;"><code>SetThemeDimension(ThemeType.Dark)</code></div>
+        </div>
+
+        <!-- Row 7 -->
+        <div style="display: flex; padding: 10px 0; background: rgba(255,255,255,0.05);">
+            <div style="flex: 1; min-width: 200px; color: white;">Conditional open</div>
+            <div style="flex: 2; color: white;"><code>SkipOpenFormIf(condition)</code></div>
+        </div>
+    </div>
+</div>
+
+            <h3 style="color: white; margin-top: 30px;">The Perfect Chain Template</h3>
+            <div class="code-block" style="background: rgba(0,0,0,0.3); border-left-color: white;">
+                <pre><span class="comment">// 1. Start with data source</span>
+<span class="type">DocsWhere</span>(<span class="string">"Collection"</span>, filter)
+
+<span class="comment">// 2. Add query refinements (optional)</span>
+    .<span class="method">AndWhere</span>(additionalFilter)
+    .<span class="method">OrderBy</span>(sortField)
+    .<span class="method">Take</span>(limit)
+
+<span class="comment">// 3. Configure dimensions (optional)</span>
+    .<span class="method">SetUIDimension</span>(uiConfig)
+    .<span class="method">SetThemeDimension</span>(theme)
+    .<span class="method">ExtendDocument</span>(extraData)
+
+<span class="comment">// 4. Declare intention</span>
+    .<span class="method">WantModifyExistingDocuments</span>()
+
+<span class="comment">// 5. Optional: Conditional skip</span>
+    .<span class="method">SkipOpenFormIf</span>(condition)
+
+<span class="comment">// 6. Open and handle result</span>
+    .<span class="method">OpenForm</span>(result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// Success!</span>
+        }
+    });</pre>
+            </div>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

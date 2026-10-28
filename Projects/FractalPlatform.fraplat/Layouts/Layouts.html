@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Layout Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        .example {
+            background: #f0f4f8;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .example strong {
+            color: #667eea;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+        
+        .comparison-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Fractal Platform Layout Guide</h1>
+            <p>Master custom layouts and UI design</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#introduction">1. Introduction to UI Design</a></li>
+                <li><a href="#screen-types">2. External vs Internal Screens</a></li>
+                <li><a href="#standard-ui">3. Standard UI Interface</a></li>
+                <li><a href="#dimensions">4. UI Customization with Dimensions</a></li>
+                <li><a href="#custom-layouts">5. Creating Custom Layouts</a></li>
+                <li><a href="#control-tags">6. Control Tags and Placement</a></li>
+                <li><a href="#properties">7. Control Properties Reference</a></li>
+                <li><a href="#custom-controls">8. Custom Controls and Components</a></li>
+                <li><a href="#render-form">9. Advanced: RenderForm Customization</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 1: Introduction -->
+        <div class="article" id="introduction">
+            <h2>1. Introduction to UI Design in Fractal Platform</h2>
+
+            <h3>The Fractal Platform Approach</h3>
+            <p>Fractal Platform is designed with a unique philosophy: you focus on your database and business logic first, and the UI is automatically generated as a "skin" over your data model. This means you get a working interface for free, without spending time on initial UI development.</p>
+
+            <h3>Key Benefits</h3>
+            <div class="tip">
+                <strong>💡 Why This Matters:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Rapid Development:</strong> Get a working application without UI coding</li>
+                    <li><strong>Data-Driven:</strong> Your UI automatically reflects your data structure</li>
+                    <li><strong>Progressive Enhancement:</strong> Start with standard UI, customize later</li>
+                    <li><strong>Flexible Customization:</strong> From simple tweaks to complete custom designs</li>
+                </ul>
+            </div>
+
+            <h3>The UI Development Journey</h3>
+            <p>Most applications follow this progression:</p>
+
+            <div class="code-block">
+                <pre>Stage 1: Standard Auto-Generated UI
+   ↓
+Stage 2: Dimension-Based Customization
+   ↓
+Stage 3: Custom Layouts for Key Screens
+   ↓
+Stage 4: Fully Custom Components</pre>
+            </div>
+
+            <div class="example">
+                <strong>📝 Real-World Example:</strong>
+                <p>Building an Online Shop:</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Day 1: Create product database → Get admin panel for free</li>
+                    <li>Week 1: Add UI dimensions for better forms</li>
+                    <li>Week 2: Create custom layout for product catalog</li>
+                    <li>Week 3: Build custom checkout component</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 2: Screen Types -->
+        <div class="article" id="screen-types">
+            <h2>2. External vs Internal Screens</h2>
+
+            <h3>Understanding Screen Types</h3>
+            <p>It's recommended to split your application's UI into two categories:</p>
+
+            <div class="comparison">
+                <div class="comparison-item">
+                    <h4>External Screens</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Seen by all users</li>
+                        <li>Represent your brand</li>
+                        <li>Need custom design</li>
+                        <li>Require HTML designers</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>Internal Screens</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Admin and staff only</li>
+                        <li>Functional priority</li>
+                        <li>Can use standard UI</li>
+                        <li>Save development time</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Example: Online Shop</h3>
+
+            <div class="example">
+                <strong>🛒 External Screens (Need Custom Design):</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Main catalog with product grid</li>
+                    <li>Product detail page</li>
+                    <li>Shopping cart and checkout</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>🔧 Internal Screens (Can Use Standard UI):</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Admin panel for managing products</li>
+                    <li>Order processing dashboard</li>
+                    <li>Report generation system</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Start by using standard UI for ALL screens. Identify which screens your users actually see, then prioritize custom design for those external screens only.
+            </div>
+        </div>
+
+        <!-- Article 3: Standard UI -->
+        <div class="article" id="standard-ui">
+            <h2>3. Standard UI Interface</h2>
+
+            <h3>How Standard UI Works</h3>
+            <p>The system analyzes your document structure and automatically creates appropriate UI controls:</p>
+
+            <table>
+                <tr>
+                    <th>Data Type</th>
+                    <th>UI Control</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>String, Number</td>
+                    <td>TextBox with Label</td>
+                    <td>"Name": "Bob" → Name: [Bob____]</td>
+                </tr>
+                <tr>
+                    <td>Boolean</td>
+                    <td>CheckBox with Label</td>
+                    <td>"Active": true → ☑ Active</td>
+                </tr>
+                <tr>
+                    <td>Enum</td>
+                    <td>ComboBox with Label</td>
+                    <td>"Status" → Status: [Select ▼]</td>
+                </tr>
+                <tr>
+                    <td>Object</td>
+                    <td>GroupBox</td>
+                    <td>"Address": {...} → [Address Group]</td>
+                </tr>
+                <tr>
+                    <td>Array</td>
+                    <td>Grid</td>
+                    <td>"Items": [...] → [Data Grid]</td>
+                </tr>
+                <tr>
+                    <td>Deep Nesting (4+ levels)</td>
+                    <td>TextBox with [E] button</td>
+                    <td>Opens nested form</td>
+                </tr>
+            </table>
+
+            <h3>Document to UI Example</h3>
+
+            <div class="code-block">
+                <pre>{
+  "Name": "Bob",
+  "Age": 25,
+  "IsActive": true,
+  "Address": {
+    "Street": "Main St",
+    "City": "New York"
+  },
+  "Orders": [
+    { "ID": 1, "Total": 100 },
+    { "ID": 2, "Total": 150 }
+  ]
+}</pre>
+            </div>
+
+            <p>This JSON automatically becomes:</p>
+
+            <div class="code-block">
+                <pre>Name:      [Bob________]
+Age:       [25_________]
+☑ IsActive
+
+[Address]
+  Street:  [Main St____]
+  City:    [New York___]
+
+Orders:
+┌────┬───────┐
+│ ID │ Total │
+├────┼───────┤
+│ 1  │ 100   │
+│ 2  │ 150   │
+└────┴───────┘</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Key Point:</strong> All controls are placed vertically, one under another, by default. Nested objects create grouped sections or sub-forms.
+            </div>
+        </div>
+
+        <!-- Article 4: Dimensions -->
+        <div class="article" id="dimensions">
+            <h2>4. UI Customization with Dimensions</h2>
+
+            <h3>What are Dimensions?</h3>
+            <p>Dimensions are configuration documents that customize the Standard UI without writing HTML or code. They're the easiest way to improve your interface.</p>
+
+            <h3>Available Dimensions</h3>
+
+            <table>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Purpose</th>
+                    <th>Example Use</th>
+                </tr>
+                <tr>
+                    <td>UI</td>
+                    <td>Basic UI information</td>
+                    <td>Set control types, locations, layouts</td>
+                </tr>
+                <tr>
+                    <td>Enum</td>
+                    <td>Define dropdown options</td>
+                    <td>Status: Draft, Published, Archived</td>
+                </tr>
+                <tr>
+                    <td>Validation</td>
+                    <td>Restrict data types</td>
+                    <td>Email format, number ranges</td>
+                </tr>
+                <tr>
+                    <td>Menu</td>
+                    <td>Add navigation menus</td>
+                    <td>Action buttons on forms</td>
+                </tr>
+                <tr>
+                    <td>ToolTip</td>
+                    <td>Add help text</td>
+                    <td>Field instructions for users</td>
+                </tr>
+                <tr>
+                    <td>Edit</td>
+                    <td>Control editability</td>
+                    <td>Make fields read-only</td>
+                </tr>
+                <tr>
+                    <td>Pagination</td>
+                    <td>Multi-page forms</td>
+                    <td>Split long forms into pages</td>
+                </tr>
+                <tr>
+                    <td>Tab</td>
+                    <td>Tabbed interface</td>
+                    <td>Group related fields</td>
+                </tr>
+                <tr>
+                    <td>Wizard</td>
+                    <td>Step-by-step forms</td>
+                    <td>Onboarding, registration</td>
+                </tr>
+                <tr>
+                    <td>Filter</td>
+                    <td>Add search box</td>
+                    <td>Filter grid data</td>
+                </tr>
+                <tr>
+                    <td>Theme</td>
+                    <td>Color schemes</td>
+                    <td>Dark mode, light mode</td>
+                </tr>
+                <tr>
+                    <td>Language</td>
+                    <td>Localization</td>
+                    <td>Multi-language support</td>
+                </tr>
+            </table>
+
+            <h3>Example: Using UI Dimension</h3>
+
+            <div class="code-block">
+                <pre>{
+  "Layout": "MyCustomLayout",
+  "Title": {
+    "ControlType": "Label",
+    "Location": "HeaderArea"
+  },
+  "Description": {
+    "ControlType": "RichTextBox",
+    "Width": 500,
+    "Height": 200
+  },
+  "Status": {
+    "ControlType": "ComboBox"
+  }
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Best Practice:</strong> Start with dimensions for quick wins (tooltips, validation, menus) before moving to custom layouts.
+            </div>
+        </div>
+
+        <!-- Article 5: Custom Layouts -->
+        <div class="article" id="custom-layouts">
+            <h2>5. Creating Custom Layouts</h2>
+
+            <h3>What is a Layout?</h3>
+            <p>A layout is an HTML container that defines where your controls appear on the page. Instead of the default vertical stack, you create your own HTML structure.</p>
+
+            <h3>Two Types of Custom Layouts</h3>
+
+            <div class="comparison">
+                <div class="comparison-item">
+                    <h4>Type 1: Embedded Layout</h4>
+                    <p>Part of Standard UI with header/footer</p>
+                    <div class="code-block" style="margin-top: 10px;">
+                        <pre>{
+  "Layout": "MyLayout"
+}</pre>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">✅ Keep filter, buttons, theme selector<br>✅ Override only center content</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>Type 2: Raw Layout</h4>
+                    <p>Complete custom HTML page</p>
+                    <div class="code-block" style="margin-top: 10px;">
+                        <pre>{
+  "Layout": "MyLayout",
+  "IsRawPage": true
+}</pre>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">✅ Full design control<br>⚠️ Must include necessary scripts</p>
+                </div>
+            </div>
+
+            <h3>Creating Your First Layout</h3>
+
+            <p><strong>Step 1: Create HTML file</strong> (MyLayout.html)</p>
+
+            <div class="code-block">
+                <pre><div class="hero">
+  <h1>Welcome to My App!</h1>
+  <p>This is a custom layout</p>
+</div>
+
+<div class="content">
+  <!-- Controls will go here -->
+</div></pre>
+            </div>
+
+            <p><strong>Step 2: Configure UI Dimension</strong></p>
+
+            <div class="code-block">
+                <pre>{
+  "Layout": "MyLayout",
+  "IsRawPage": false
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 File Location:</strong> Place HTML files in your application's Layout folder. The system automatically finds them by name.
+            </div>
+
+            <h3>Layout with Visual Example</h3>
+
+            <div class="example">
+                <strong>📐 Standard Layout vs Custom Layout:</strong>
+                <div class="code-block" style="margin-top: 10px;">
+                    <pre>STANDARD LAYOUT          CUSTOM LAYOUT
+┌──────────────┐         ┌──────────────┐
+│ Filter   [?] │         │  HERO IMAGE  │
+├──────────────┤         │   Welcome!   │
+│ Name: [____] │         ├──────────────┤
+│ Age:  [____] │         │ Name:  Age:  │
+│ ☑ Active     │         │ [___]  [___] │
+│              │         │              │
+│ [Save][Cancel│         │ ☑ Active     │
+└──────────────┘         │ [Save] [___] │
+                         └──────────────┘</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 6: Control Tags -->
+        <div class="article" id="control-tags">
+            <h2>6. Control Tags and Placement</h2>
+
+            <h3>Method 1: Using UI Dimension Locations</h3>
+
+            <p>Define control locations in UI Dimension, reference them in HTML:</p>
+
+            <p><strong>Document:</strong></p>
+            <div class="code-block">
+                <pre>{
+  "Title": "Hello World!",
+  "Subtitle": "Welcome to my app"
+}</pre>
+            </div>
+
+            <p><strong>UI Dimension:</strong></p>
+            <div class="code-block">
+                <pre>{
+  "Layout": "MyLayout",
+  "Title": {
+    "ControlType": "Label",
+    "Location": "TitleLocation"
+  },
+  "Subtitle": {
+    "ControlType": "Label",
+    "Location": "SubtitleLocation"
+  }
+}</pre>
+            </div>
+
+            <p><strong>MyLayout.html:</strong></p>
+            <div class="code-block">
+                <pre><header>
+  <control attr="Title">
+    <h1>@@Value</h1>
+  </control>
+  
+  <control attr="Subtitle">
+    <p>@@Value</p>
+  </control>
+</header></pre>
+            </div>
+
+            <h3>Method 2: Direct Control Tags</h3>
+
+            <p>Place controls directly in HTML without locations:</p>
+
+            <p><strong>UI Dimension:</strong></p>
+            <div class="code-block">
+                <pre>{
+  "Layout": "MyLayout",
+  "IsRawPage": true
+}</pre>
+            </div>
+
+            <p><strong>MyLayout.html:</strong></p>
+            <div class="code-block">
+                <pre><control attr="Title">
+  <h1>@@Value</h1>
+</control>
+
+<control attr="Subtitle">
+  <p class="subtitle">@@Value</p>
+</control></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Method 2 is simpler but gives you less control from the UI Dimension. Choose based on your needs.
+            </div>
+
+            <h3>Repeating Controls (Arrays)</h3>
+
+            <p>Use <code>repeatable="true"</code> to loop through arrays:</p>
+
+            <p><strong>Document:</strong></p>
+            <div class="code-block">
+                <pre>{
+  "Products": [
+    { "Name": "Laptop", "Price": 999 },
+    { "Name": "Mouse", "Price": 25 },
+    { "Name": "Keyboard", "Price": 75 }
+  ]
+}</pre>
+            </div>
+
+            <p><strong>Layout:</strong></p>
+            <div class="code-block">
+                <pre><div class="product-grid">
+  <control attr="Products" repeatable="true">
+    <div class="product-card">
+      <h3>@@Name.Value</h3>
+      <p class="price">$@@Price.Value</p>
+    </div>
+  </control>
+</div></pre>
+            </div>
+
+            <p><strong>Result:</strong></p>
+            <div class="code-block">
+                <pre><div class="product-grid">
+  <div class="product-card">
+    <h3>Laptop</h3>
+    <p class="price">$999</p>
+  </div>
+  <div class="product-card">
+    <h3>Mouse</h3>
+    <p class="price">$25</p>
+  </div>
+  <div class="product-card">
+    <h3>Keyboard</h3>
+    <p class="price">$75</p>
+  </div>
+</div></pre>
+            </div>
+
+            <h3>Nested Repeatable Controls</h3>
+
+            <div class="code-block">
+                <pre><control attr="Categories" repeatable="true">
+  <h2>@@Name.Value</h2>
+  
+  <control attr="Products" repeatable="true">
+    <div class="product">
+      <span>@@Name.Value</span>
+      <span>$@@Price.Value</span>
+    </div>
+  </control>
+</control></pre>
+            </div>
+
+            <h3>Injecting Standard Controls</h3>
+
+            <p>Use <code>type="standard"</code> to render built-in controls:</p>
+
+            <div class="code-block">
+                <pre><control attr="Tags" type="standard">
+</control>
+
+<control attr="Description" type="standard">
+</control></pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Note:</strong> Standard controls must be configured in the UI Dimension with appropriate ControlType (e.g., "Tags", "RichTextBox").
+            </div>
+        </div>
+
+        <!-- Article 7: Properties -->
+        <div class="article" id="properties">
+            <h2>7. Control Properties Reference</h2>
+
+            <h3>Basic Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>@@Value</td>
+                    <td>Control's value</td>
+                    <td><input value="@@Value"></td>
+                </tr>
+                <tr>
+                    <td>@@Name</td>
+                    <td>Control's name</td>
+                    <td><input name="@@Name"></td>
+                </tr>
+                <tr>
+                    <td>@@Key</td>
+                    <td>Attribute key</td>
+                    <td><label>@@Key</label></td>
+                </tr>
+                <tr>
+                    <td>@@ToolTip</td>
+                    <td>Help text</td>
+                    <td><span title="@@ToolTip"></td>
+                </tr>
+            </table>
+
+            <h3>State Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Returns</th>
+                    <th>Usage</th>
+                </tr>
+                <tr>
+                    <td>@@Enabled</td>
+                    <td>"true" or "false"</td>
+                    <td>if (@@Enabled == "true")</td>
+                </tr>
+                <tr>
+                    <td>@@Disabled</td>
+                    <td>"disabled" or ""</td>
+                    <td><input @@Disabled></td>
+                </tr>
+                <tr>
+                    <td>@@Checked</td>
+                    <td>"checked" or ""</td>
+                    <td><input @@Checked></td>
+                </tr>
+                <tr>
+                    <td>@@ReadOnly</td>
+                    <td>"readonly" or ""</td>
+                    <td><input @@ReadOnly></td>
+                </tr>
+                <tr>
+                    <td>@@Visible</td>
+                    <td>"true" or "false"</td>
+                    <td>if (@@Visible == "true")</td>
+                </tr>
+            </table>
+
+            <h3>Dimension Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>@@Width</td>
+                    <td>Control width from UI Dimension</td>
+                </tr>
+                <tr>
+                    <td>@@Height</td>
+                    <td>Control height from UI Dimension</td>
+                </tr>
+            </table>
+
+            <h3>URL and Script Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>@@ClickUrl</td>
+                    <td>Button click URL</td>
+                    <td><a href="@@ClickUrl"></td>
+                </tr>
+                <tr>
+                    <td>@@ClickSubmit</td>
+                    <td>Button submit script</td>
+                    <td><button onclick="@@ClickSubmit"></td>
+                </tr>
+                <tr>
+                    <td>@@ChangeSubmit</td>
+                    <td>Change event script</td>
+                    <td><input onchange="@@ChangeSubmit"></td>
+                </tr>
+            </table>
+
+            <h3>Grid/Array Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>@@AddRowUrl</td>
+                    <td>URL to add new row</td>
+                </tr>
+                <tr>
+                    <td>@@EditRowUrl</td>
+                    <td>URL to edit row</td>
+                </tr>
+                <tr>
+                    <td>@@DeleteRowUrl</td>
+                    <td>URL to delete row</td>
+                </tr>
+                <tr>
+                    <td>@@AddRowScript</td>
+                    <td>Script to add row</td>
+                </tr>
+                <tr>
+                    <td>@@EditRowScript</td>
+                    <td>Script to edit row</td>
+                </tr>
+                <tr>
+                    <td>@@DeleteRowScript</td>
+                    <td>Script to delete row</td>
+                </tr>
+            </table>
+
+            <h3>Page Action Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>@@SavePageScript</td>
+                    <td>Save button script</td>
+                </tr>
+                <tr>
+                    <td>@@CancelPageScript</td>
+                    <td>Cancel button script</td>
+                </tr>
+                <tr>
+                    <td>@@RefreshPageScript</td>
+                    <td>Refresh button script</td>
+                </tr>
+                <tr>
+                    <td>@@NextPageScript</td>
+                    <td>Next page script (pagination)</td>
+                </tr>
+                <tr>
+                    <td>@@PrevPageScript</td>
+                    <td>Previous page script</td>
+                </tr>
+                <tr>
+                    <td>@@SavePageUrl</td>
+                    <td>Save button URL</td>
+                </tr>
+                <tr>
+                    <td>@@CancelPageUrl</td>
+                    <td>Cancel button URL</td>
+                </tr>
+            </table>
+
+            <h3>Context Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Example Value</th>
+                </tr>
+                <tr>
+                    <td>@@UserName</td>
+                    <td>Current user's name</td>
+                    <td>"john.doe"</td>
+                </tr>
+                <tr>
+                    <td>@@UserLanguage</td>
+                    <td>User's language</td>
+                    <td>"EN", "UA", "RU"</td>
+                </tr>
+                <tr>
+                    <td>@@UserTheme</td>
+                    <td>User's theme</td>
+                    <td>"Dark", "Light"</td>
+                </tr>
+                <tr>
+                    <td>@@UserAvatar</td>
+                    <td>User's avatar URL</td>
+                    <td>"/files/avatar.png"</td>
+                </tr>
+                <tr>
+                    <td>@@AppName</td>
+                    <td>Application name</td>
+                    <td>"MyApp"</td>
+                </tr>
+                <tr>
+                    <td>@@FormName</td>
+                    <td>Current form name</td>
+                    <td>"ProductEdit"</td>
+                </tr>
+            </table>
+
+            <h3>URL Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>@@BaseUrl</td>
+                    <td>Base URL of platform</td>
+                </tr>
+                <tr>
+                    <td>@@BaseAppUrl</td>
+                    <td>Base URL of application</td>
+                </tr>
+                <tr>
+                    <td>@@BaseFormUrl</td>
+                    <td>Base URL with form name</td>
+                </tr>
+                <tr>
+                    <td>@@BaseFilesUrl</td>
+                    <td>URL to files folder</td>
+                </tr>
+            </table>
+
+            <h3>Helper Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>@@StartForm</td>
+                    <td>Render form start tags</td>
+                </tr>
+                <tr>
+                    <td>@@EndForm</td>
+                    <td>Render form end tags</td>
+                </tr>
+                <tr>
+                    <td>@@Styles</td>
+                    <td>Inject custom styles</td>
+                </tr>
+                <tr>
+                    <td>@@ComboBoxItems</td>
+                    <td>Render dropdown options</td>
+                </tr>
+                <tr>
+                    <td>@@FilterText</td>
+                    <td>Current filter text</td>
+                </tr>
+            </table>
+
+            <h3>Special Accessors</h3>
+
+            <div class="code-block">
+                <pre>@@Top.FieldName.Value     // Access top-level field from nested context
+@@FieldName.Computed      // Compute element value
+@@FieldName.TextBox       // Render as textbox attributes
+@@FieldName.Button        // Render as button attributes
+@@FieldName.Link          // Render as link attributes
+@@FieldName.CheckBox      // Render as checkbox attributes
+@@FieldName.Picture       // Render as image attributes</pre>
+            </div>
+
+            <h3>Example: Complete Form Template</h3>
+
+            <div class="code-block">
+                <pre><div class="form-container">
+  @@StartForm
+  
+  <h1>@@FormName</h1>
+  
+  <div class="user-info">
+    <img src="@@UserAvatar" alt="@@UserName">
+    <span>@@UserName</span>
+  </div>
+  
+  <control attr="Title">
+    <input type="text" 
+           name="@@Name" 
+           value="@@Value" 
+           @@Disabled 
+           @@ReadOnly
+           title="@@ToolTip">
+  </control>
+  
+  <control attr="IsActive">
+    <input type="checkbox" @@Checked> @@Key
+  </control>
+  
+  <button onclick="@@SavePageScript">Save</button>
+  <button onclick="@@CancelPageScript">Cancel</button>
+  
+  @@EndForm
+</div></pre>
+            </div>
+        </div>
+
+        <!-- Article 8: Custom Controls -->
+        <div class="article" id="custom-controls">
+            <h2>8. Custom Controls and Components</h2>
+
+            <h3>Understanding Components</h3>
+            <p>A component is a UI control that represents a segment (subset) of your JSON document, usually containing multiple fields. Components allow you to create rich, interactive controls beyond simple textboxes and checkboxes.</p>
+
+            <div class="tip">
+                <strong>💡 Standard vs Component:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Standard Control:</strong> Based on ONE field (TextBox, CheckBox)</li>
+                    <li><strong>Component:</strong> Based on MULTIPLE fields (Tags, Calendar, RichEditor)</li>
+                </ul>
+            </div>
+
+            <h3>Creating a Custom Component: Tags Example</h3>
+
+            <p><strong>Step 1: Document Structure</strong></p>
+
+            <div class="code-block">
+                <pre>{
+  "Tags": ["Design", "Development", "Marketing"]
+}</pre>
+            </div>
+
+            <p><strong>Step 2: UI Dimension</strong></p>
+
+            <div class="code-block">
+                <pre>{
+  "Tags": {
+    "ControlType": "Tags"
+  }
+}</pre>
+            </div>
+
+            <p><strong>Step 3: Override RenderForm</strong></p>
+
+            <div class="code-block">
+                <pre>public class MyRenderForm : BaseRenderForm
+{
+    public override string RenderComponent(ComponentDOMControl domControl)
+    {
+        if (domControl.Component == "Tags")
+        {
+            return RenderTags(domControl);
+        }
+        
+        return base.RenderComponent(domControl);
+    }
+    
+    private string RenderTags(ComponentDOMControl domControl)
+    {
+        var tags = domControl.GetValue() as List<string>;
+        var html = new StringBuilder();
+        
+        html.Append("<div class='tags-component'>");
+        html.Append($"<input type='hidden' name='{domControl.Name}' value='{JsonConvert.SerializeObject(tags)}'/>");
+        
+        foreach (var tag in tags)
+        {
+            html.Append($"<span class='tag'>{tag} <button onclick='removeTag(this)'>×</button></span>");
+        }
+        
+        html.Append("<input type='text' placeholder='Add tag...' onkeypress='addTag(event, this)'/>");
+        html.Append("</div>");
+        
+        return html.ToString();
+    }
+}</pre>
+            </div>
+
+            <h3>The Hidden Input Pattern</h3>
+
+            <div class="warning">
+                <strong>⚠️ Important Pattern:</strong>
+                <p style="margin-top: 10px;">Components use a hidden input field to communicate between frontend and backend:</p>
+                <div class="code-block" style="margin-top: 10px;">
+                    <pre><input name="[control.Name]" type="hidden" value='[JSON data]'/></pre>
+                </div>
+                <p style="margin-top: 10px;">Your JavaScript must update this hidden field before form submission. The backend reads this JSON and applies it to your document.</p>
+            </div>
+
+            <h3>Component JavaScript Example</h3>
+
+            <div class="code-block">
+                <pre><script>
+function addTag(event, input) {
+    if (event.key === 'Enter' && input.value.trim()) {
+        // Get current tags from hidden input
+        var container = input.closest('.tags-component');
+        var hiddenInput = container.querySelector('input[type="hidden"]');
+        var tags = JSON.parse(hiddenInput.value);
+        
+        // Add new tag
+        tags.push(input.value.trim());
+        
+        // Update hidden input
+        hiddenInput.value = JSON.stringify(tags);
+        
+        // Refresh display
+        location.reload();
+    }
+}
+
+function removeTag(button) {
+    var tagElement = button.closest('.tag');
+    var tagText = tagElement.textContent.replace('×', '').trim();
+    var container = button.closest('.tags-component');
+    var hiddenInput = container.querySelector('input[type="hidden"]');
+    var tags = JSON.parse(hiddenInput.value);
+    
+    // Remove tag
+    tags = tags.filter(t => t !== tagText);
+    
+    // Update hidden input
+    hiddenInput.value = JSON.stringify(tags);
+    
+    // Refresh display
+    location.reload();
+}
+</script></pre>
+            </div>
+
+            <h3>Alternative: Using Standard Controls</h3>
+
+            <p>For simpler components, you can compose them from standard controls instead of writing custom JavaScript:</p>
+
+            <div class="code-block">
+                <pre>public class MyRenderForm : BaseRenderForm
+{
+    public override string RenderComponent(ComponentDOMControl domControl)
+    {
+        if (domControl.Component == "AddressCard")
+        {
+            var html = new StringBuilder();
+            
+            // Render standard controls inside component
+            html.Append("<div class='address-card'>");
+            html.Append(RenderTextBox(domControl.GetControl("Street")));
+            html.Append(RenderTextBox(domControl.GetControl("City")));
+            html.Append(RenderTextBox(domControl.GetControl("ZipCode")));
+            html.Append("</div>");
+            
+            return html.ToString();
+        }
+        
+        return base.RenderComponent(domControl);
+    }
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 When to Use Each Method:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Hidden Input Pattern:</strong> Complex interactions, custom UI widgets</li>
+                    <li><strong>Standard Controls:</strong> Simple layouts, form sections, grouped fields</li>
+                </ul>
+            </div>
+
+            <h3>Built-in Components</h3>
+
+            <p>Check available standard components at: <code>http://fraplat.com/?app=ControlsGallery</code></p>
+
+            <div class="example">
+                <strong>📚 Common Standard Components:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Tags - Tag input control</li>
+                    <li>Calendar - Date picker</li>
+                    <li>RichTextBox - WYSIWYG editor</li>
+                    <li>Upload - File uploader</li>
+                    <li>TreeView - Hierarchical data</li>
+                    <li>RadioButton - Radio group</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 9: RenderForm -->
+        <div class="article" id="render-form">
+            <h2>9. Advanced: RenderForm Customization</h2>
+
+            <h3>Understanding RenderForm</h3>
+            <p>The RenderForm class is responsible for converting your data and UI dimensions into actual HTML. By creating a custom RenderForm class, you can override how any control renders.</p>
+
+            <h3>Creating Custom RenderForm</h3>
+
+            <p><strong>Step 1: Create Your Class</strong></p>
+
+            <div class="code-block">
+                <pre>public class MyRenderForm : BaseRenderForm
+{
+    // Override methods here
+}</pre>
+            </div>
+
+            <p><strong>Step 2: Register in Application</strong></p>
+
+            <div class="code-block">
+                <pre>public class MyApplication : Application
+{
+    public override BaseRenderForm CreateRenderForm()
+    {
+        return new MyRenderForm();
+    }
+}</pre>
+            </div>
+
+            <h3>Key Methods to Override</h3>
+
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>RenderStyles()</td>
+                    <td>Inject custom CSS</td>
+                </tr>
+                <tr>
+                    <td>RenderTextBox()</td>
+                    <td>Customize textbox rendering</td>
+                </tr>
+                <tr>
+                    <td>RenderButton()</td>
+                    <td>Customize button rendering</td>
+                </tr>
+                <tr>
+                    <td>RenderCheckBox()</td>
+                    <td>Customize checkbox rendering</td>
+                </tr>
+                <tr>
+                    <td>RenderComboBox()</td>
+                    <td>Customize dropdown rendering</td>
+                </tr>
+                <tr>
+                    <td>RenderGrid()</td>
+                    <td>Customize grid/table rendering</td>
+                </tr>
+                <tr>
+                    <td>RenderGroupBox()</td>
+                    <td>Customize group container</td>
+                </tr>
+                <tr>
+                    <td>RenderComponent()</td>
+                    <td>Customize component rendering</td>
+                </tr>
+                <tr>
+                    <td>Render()</td>
+                    <td>Override entire form rendering</td>
+                </tr>
+            </table>
+
+            <h3>Example: Custom TextBox</h3>
+
+            <div class="code-block">
+                <pre>public override string RenderTextBox(TextBoxDOMControl domControl)
+{
+    var html = new StringBuilder();
+    
+    html.Append($"<div class='custom-input-group'>");
+    html.Append($"  <label>{domControl.Label}</label>");
+    html.Append($"  <input type='text' ");
+    html.Append($"         name='{domControl.Name}' ");
+    html.Append($"         value='{domControl.Value}' ");
+    html.Append($"         class='custom-input' ");
+    
+    if (!domControl.Enabled)
+        html.Append(" disabled");
+    
+    if (domControl.ReadOnly)
+        html.Append(" readonly");
+    
+    html.Append($"         placeholder='{domControl.ToolTip}'/>");
+    html.Append($"</div>");
+    
+    return html.ToString();
+}</pre>
+            </div>
+
+            <h3>Example: Custom Grid</h3>
+
+            <div class="code-block">
+                <pre>public override string RenderGrid(GridDOMControl domControl)
+{
+    var html = new StringBuilder();
+    
+    html.Append("<div class='custom-grid'>");
+    html.Append($"<button onclick='{OnAddRowScript(domControl, 0)}'>Add</button>");
+    html.Append("<table>");
+    html.Append("  <thead><tr>");
+    
+    // Render headers
+    foreach (var column in domControl.Columns)
+    {
+        html.Append($"<th>{column.Label}</th>");
+    }
+    html.Append("<th>Actions</th>");
+    html.Append("  </tr></thead>");
+    
+    html.Append("  <tbody>");
+    for (uint i = 0; i < domControl.RowCount; i++)
+    {
+        html.Append("<tr>");
+        
+        foreach (var column in domControl.Columns)
+        {
+            html.Append($"<td>{domControl.GetCellValue(i, column.Name)}</td>");
+        }
+        
+        html.Append("<td>");
+        html.Append($"  <button onclick='{OnEditRowScript(domControl, i)}'>Edit</button>");
+        html.Append($"  <button onclick='{OnDeleteRowScript(domControl, i)}'>Delete</button>");
+        html.Append("</td>");
+        html.Append("</tr>");
+    }
+    html.Append("  </tbody>");
+    html.Append("</table>");
+    html.Append("</div>");
+    
+    return html.ToString();
+}</pre>
+            </div>
+
+            <h3>Useful BaseRenderForm Properties</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Application</td>
+                    <td>Reference to Application instance</td>
+                </tr>
+                <tr>
+                    <td>DOMForm</td>
+                    <td>The form being rendered</td>
+                </tr>
+                <tr>
+                    <td>Collection</td>
+                    <td>Data source for the form</td>
+                </tr>
+            </table>
+
+            <h3>Helper Methods</h3>
+
+            <div class="code-block">
+                <pre>// Get localized string
+string localText = GetLocalizedValue("Hello World");
+
+// Get tooltip
+string tooltip = GetToolTip(domControl);
+
+// Get full file URL
+string imageUrl = GetFileUrl("avatar.png");
+// Returns: fraplat.com/Jupiter/MyApp/files/avatar.png
+
+// Get validation error style
+string errorStyle = GetValidationErrorStyle(domControl);</pre>
+            </div>
+
+            <h3>Example: Adding Custom Menu</h3>
+
+            <div class="code-block">
+                <pre>public override string RenderMenu(DOMControl domControl)
+{
+    var html = new StringBuilder();
+    
+    html.Append("<div class='context-menu'>");
+    html.Append($"  <a href='{OnClickUrl(domControl)}'>View Details</a>");
+    html.Append($"  <a href='#' onclick='{OnClickScript(domControl)}'>Quick Edit</a>");
+    html.Append("  <a href='#'>Export</a>");
+    html.Append("</div>");
+    
+    return html.ToString();
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Best Practice:</strong> Always call <code>base.RenderXXX()</code> for controls you don't want to customize. This ensures default behavior for other controls.
+            </div>
+
+            <h3>Complete Example: Custom Product Form</h3>
+
+            <div class="code-block">
+                <pre>public class ShopRenderForm : BaseRenderForm
+{
+    public override string RenderStyles()
+    {
+        return @@"
+            <style>
+                .product-form { max-width: 800px; margin: 0 auto; }
+                .product-header { background: #667eea; color: white; padding: 20px; }
+                .product-image { width: 200px; height: 200px; object-fit: cover; }
+                .price-tag { font-size: 24px; color: #2c5; font-weight: bold; }
+            </style>
+        ";
+    }
+    
+    public override string RenderPicture(PictureDOMControl domControl)
+    {
+        if (domControl.Name == "ProductImage")
+        {
+            return $@@"
+                <div class='product-image-container'>
+                    <img src='{domControl.Value}' class='product-image' alt='Product'/>
+                    <button onclick='uploadImage()'>Change Image</button>
+                </div>
+            ";
+        }
+        
+        return base.RenderPicture(domControl);
+    }
+    
+    public override string RenderTextBox(TextBoxDOMControl domControl)
+    {
+        if (domControl.Name == "Price")
+        {
+            return $@@"
+                <div class='price-input'>
+                    <label>{domControl.Label}</label>
+                    <span class='currency'>                <tr>
+                    <td>@@ChangeSubmit</td>
+                    <td>Change event script</td>
+                    <td><input onchange="@@ChangeSubmit"></td>lt;/span>
+                    <input type='number' 
+                           name='{domControl.Name}' 
+                           value='{domControl.Value}' 
+                           step='0.01'
+                           class='price-tag'/>
+                </div>
+            ";
+        }
+        
+        return base.RenderTextBox(domControl);
+    }
+}</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Performance Note:</strong> RenderForm methods are called frequently. Keep logic simple and avoid heavy processing. Cache values when possible.
+            </div>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

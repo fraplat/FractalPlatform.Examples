@@ -1,0 +1,33 @@
+{
+  "Name": {
+    "Formula": "@ValidatePostName"
+  },
+  "OnDate": {
+    "IsRequired": true,
+    "Type": "date"
+  },
+  "Text": {
+    "IsRequired": true,
+    "MaxLen": 400
+  },
+  "Likes": [
+    {
+      "Formula": "@ValidateLikePost"
+    }
+  ],
+  "Comments": [
+    {
+      "Name": {
+        "Formula": "@ValidateCommentName"
+      },
+      "OnDate": {
+        "IsRequired": true,
+        "Type": "date"
+      },
+      "Text": {
+        "IsRequired": true,
+        "MaxLen": 400
+      }
+    }
+  ]
+}

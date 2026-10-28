@@ -1,0 +1,27 @@
+{
+  "Style": "Save:Register",
+  "Avatar": {
+    "Visible": false
+  },
+  "Category": {
+    "Visible": false
+  },
+  "IsActive": {
+    "Visible": false
+  },
+  "IsBot": {
+    "Visible": false
+  },
+  "OnDate": {
+    "Visible": false
+  },
+  "Password": {
+    "Style": "Type:Password"
+  },
+  "Prompt": {
+    "Visible": false
+  },
+  "Settings": {
+    "Visible": false
+  }
+}

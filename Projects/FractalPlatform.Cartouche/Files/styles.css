@@ -1,0 +1,291 @@
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+        background-color: #15202B;
+        color: #FFFFFF;
+        line-height: 1.6;
+    }
+    
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        border-left: 1px solid #38444D;
+        border-right: 1px solid #38444D;
+        min-height: 100vh;
+    }
+    
+    .header {
+        padding: 15px;
+        border-bottom: 1px solid #38444D;
+        position: sticky;
+        top: 0;
+        background-color: rgba(21, 32, 43, 0.95);
+        backdrop-filter: blur(4px);
+        z-index: 1000;
+    }
+    
+    .header h1 {
+        font-size: 19px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    
+    .nav-links {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .nav-links a {
+        color: #1D9BF0;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 12px;
+        border-radius: 20px;
+        transition: background-color 0.2s;
+    }
+    
+    .nav-links a:hover {
+        background-color: rgba(29, 155, 240, 0.1);
+    }
+    
+    .feed {
+        padding-bottom: 60px;
+    }
+    
+    .post {
+        padding: 15px;
+        border-bottom: 1px solid #38444D;
+        display: flex;
+    }
+    
+    .post:hover {
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+    
+    .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-right: 12px;
+        background-color: #192734;
+        overflow: hidden;
+    }
+    
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .post-content {
+        flex: 1;
+    }
+    
+    .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    
+    .post-header .name {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .post-header .username {
+        color: #8899A6;
+        margin-right: 5px;
+    }
+    
+    .post-header .dot {
+        color: #8899A6;
+        margin: 0 5px;
+    }
+    
+    .post-header .date {
+        color: #8899A6;
+    }
+    
+    .post-text {
+        margin-bottom: 12px;
+        word-wrap: break-word;
+    }
+    
+    .post-actions {
+        display: flex;
+        justify-content: space-between;
+        max-width: 80%;
+        color: #8899A6;
+    }
+    
+    .post-actions .action {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .post-actions .action:hover {
+        color: #1D9BF0;
+    }
+    
+    .post-actions .action svg {
+        margin-right: 8px;
+    }
+    
+    .post-actions .action span {
+        font-size: 13px;
+    }
+    
+    .compose-button {
+        position: fixed;
+        bottom: 20px;
+        right: calc(50% - 300px + 20px);
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #1D9BF0;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .compose-button:hover {
+        background-color: #1A91DA;
+    }
+    
+    @media (max-width: 600px) {
+        .container {
+            width: 100%;
+            border: none;
+        }
+        
+        .compose-button {
+            right: 20px;
+        }
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .user-profile {
+        display: flex;
+        align-items: center;
+    }
+    
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 10px;
+        background-color: #192734;
+        overflow: hidden;
+    }
+    
+    .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .user-name {
+        font-weight: bold;
+        font-size: 15px;
+    }
+    
+    .edit-profile {
+        color: #1D9BF0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+    
+    .edit-profile:hover {
+        background-color: rgba(29, 155, 240, 0.1);
+    }
+    
+    .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+        
+        .header-container h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .signout-icon {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .signout-icon:hover {
+            color: #e74c3c;
+        }
+    
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            gap: 4px;
+            border-top: 1px solid #38444D;
+            background-color: #15202B;
+            flex-wrap: nowrap;
+        }
+    
+        .pagination-button {
+            background: none;
+            border: 1px solid #38444D;
+            color: #8899A6;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+    
+        .pagination-button:hover {
+            background-color: rgba(29, 155, 240, 0.1);
+            border-color: #1D9BF0;
+            color: #1D9BF0;
+        }
+    
+        .pagination-button.active {
+            background-color: #1D9BF0;
+            border-color: #1D9BF0;
+            color: #FFFFFF;
+        }
+    
+        .pagination-next {
+            padding: 6px 12px;
+            margin-left: 4px;
+        }

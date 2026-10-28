@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesHub — Data Entry</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b0f19; color: #e2e8f0; min-height: 100vh; display: flex; }
+        .sidebar { width: 250px; background: #111827; border-right: 1px solid #1e293b; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+        .sidebar-logo { padding: 24px 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #1e293b; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+        .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #475569; padding: 16px 12px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #94a3b8; text-decoration: none; transition: all .15s; }
+        .nav-item:hover { background: #1e293b; color: #e2e8f0; }
+        .nav-item.active { background: rgba(99,102,241,.12); color: #818cf8; }
+        .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+        .sidebar-user { padding: 16px 20px; border-top: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+        .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #fff; }
+        .sidebar-user .info { flex: 1; }
+        .sidebar-user .info .name { font-size: 13px; font-weight: 600; }
+        .sidebar-user .info .role { font-size: 11px; color: #64748b; }
+
+        .main { margin-left: 250px; flex: 1; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #1e293b; background: #0f1423; position: sticky; top: 0; z-index: 5; }
+        .topbar h1 { font-size: 20px; font-weight: 600; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+        .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+        .btn-primary:hover { opacity: .9; }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+        .btn-outline:hover { border-color: #818cf8; color: #e2e8f0; }
+
+        .content { padding: 28px 32px; }
+
+        /* Sheet Tabs */
+        .sheet-tabs { display: flex; gap: 4px; margin-bottom: 24px; background: #111827; border: 1px solid #1e293b; border-radius: 12px; padding: 4px; width: fit-content; }
+        .sheet-tab { padding: 8px 20px; border-radius: 8px; font-size: 13px; color: #64748b; cursor: pointer; border: none; background: transparent; transition: all .15s; }
+        .sheet-tab.active { background: rgba(99,102,241,.12); color: #818cf8; font-weight: 500; }
+        .sheet-tab:hover:not(.active) { color: #e2e8f0; }
+
+        /* Spreadsheet-like table */
+        .spreadsheet-wrapper { background: #111827; border: 1px solid #1e293b; border-radius: 14px; overflow: hidden; }
+        .spreadsheet-toolbar { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid #1e293b; }
+        .spreadsheet-toolbar .search { padding: 7px 12px; background: #1e293b; border: 1px solid #334155; border-radius: 6px; color: #e2e8f0; font-size: 12px; width: 200px; outline: none; }
+        .spreadsheet-toolbar .search::placeholder { color: #475569; }
+        .toolbar-sep { width: 1px; height: 24px; background: #1e293b; }
+        .toolbar-btn { padding: 6px 12px; border-radius: 6px; border: 1px solid #334155; background: transparent; color: #94a3b8; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .toolbar-btn:hover { border-color: #818cf8; color: #e2e8f0; }
+
+        .spreadsheet { width: 100%; border-collapse: collapse; }
+        .spreadsheet th { background: #0f1423; padding: 10px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #475569; font-weight: 500; text-align: left; border-bottom: 1px solid #1e293b; position: sticky; top: 0; }
+        .spreadsheet th.row-num { width: 50px; text-align: center; }
+        .spreadsheet td { padding: 0; border-bottom: 1px solid #1a2332; border-right: 1px solid #1a2332; }
+        .spreadsheet tr:hover td { background: rgba(99,102,241,.03); }
+        .spreadsheet tr:last-child td { border-bottom: none; }
+        .cell { padding: 10px 14px; font-size: 13px; min-height: 40px; outline: none; }
+        .cell.number { text-align: right; font-variant-numeric: tabular-nums; }
+        .cell.formula { color: #818cf8; }
+        .cell.editable { cursor: text; }
+        .cell.editable:focus { background: rgba(99,102,241,.06); box-shadow: inset 0 0 0 2px #6366f1; border-radius: 2px; }
+        .cell.row-num { text-align: center; color: #475569; font-size: 12px; background: #0f1423; }
+        .cell-highlight { background: rgba(34,197,94,.06); }
+
+        /* Add Row */
+        .add-row { display: flex; align-items: center; justify-content: center; padding: 12px; border-top: 1px solid #1e293b; color: #475569; font-size: 13px; cursor: pointer; gap: 6px; }
+        .add-row:hover { color: #818cf8; background: rgba(99,102,241,.04); }
+
+        /* Footer info */
+        .spreadsheet-footer { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-top: 1px solid #1e293b; font-size: 12px; color: #475569; }
+
+        /* Validation Toast */
+        .toast { position: fixed; bottom: 24px; right: 24px; background: #111827; border: 1px solid #1e293b; border-left: 3px solid #22c55e; border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+        .toast .icon { font-size: 18px; }
+        .toast .text { font-size: 13px; }
+        .toast .text strong { display: block; font-size: 14px; margin-bottom: 2px; }
+        .toast .close { color: #475569; cursor: pointer; font-size: 16px; margin-left: 16px; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">SalesHub</div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="data-entry.html" class="nav-item active"><span class="nav-icon">📝</span> Data Entry</a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+            <a href="calculations.html" class="nav-item"><span class="nav-icon">🔢</span> Calculations</a>
+            <div class="nav-section">Management</div>
+            <a href="products.html" class="nav-item"><span class="nav-icon">📦</span> Products</a>
+            <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+            <a href="orders.html" class="nav-item"><span class="nav-icon">🛒</span> Orders</a>
+            <div class="nav-section">System</div>
+            <a href="users.html" class="nav-item"><span class="nav-icon">🔑</span> User Management</a>
+            <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="avatar">JD</div>
+            <div class="info"><div class="name">John Doe</div><div class="role">Manager</div></div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <h1>Data Entry</h1>
+            <div class="topbar-right">
+                <button class="btn btn-outline">↓ Import CSV</button>
+                <button class="btn btn-outline">↑ Export</button>
+                <button class="btn btn-primary">+ Add Record</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Sheet Tabs (like Excel) -->
+            <div class="sheet-tabs">
+                <button class="sheet-tab active">Sales Data</button>
+                <button class="sheet-tab">Cost Breakdown</button>
+                <button class="sheet-tab">Client Rates</button>
+                <button class="sheet-tab">Inventory</button>
+                <button class="sheet-tab">Tax & Fees</button>
+            </div>
+
+            <!-- Spreadsheet -->
+            <div class="spreadsheet-wrapper">
+                <div class="spreadsheet-toolbar">
+                    <input class="search" placeholder="Filter rows…" type="text">
+                    <span class="toolbar-sep"></span>
+                    <button class="toolbar-btn">🔽 Sort</button>
+                    <button class="toolbar-btn">🔍 Filter</button>
+                    <button class="toolbar-btn">📋 Paste from Excel</button>
+                    <span class="toolbar-sep"></span>
+                    <button class="toolbar-btn">↩ Undo</button>
+                    <button class="toolbar-btn">↪ Redo</button>
+                </div>
+                <table class="spreadsheet">
+                    <thead>
+                        <tr>
+                            <th class="row-num">#</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Product / Service</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Discount %</th>
+                            <th>Tax Rate</th>
+                            <th>Subtotal</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="cell row-num">1</div></td>
+                            <td><div class="cell editable" contenteditable="true">2025-06-01</div></td>
+                            <td><div class="cell editable" contenteditable="true">Acme Corp</div></td>
+                            <td><div class="cell editable" contenteditable="true">Enterprise License</div></td>
+                            <td><div class="cell number editable" contenteditable="true">10</div></td>
+                            <td><div class="cell number editable" contenteditable="true">$1,200.00</div></td>
+                            <td><div class="cell number editable" contenteditable="true">5%</div></td>
+                            <td><div class="cell number editable" contenteditable="true">8.5%</div></td>
+                            <td><div class="cell number formula">$11,400.00</div></td>
+                            <td><div class="cell number formula cell-highlight">$12,369.00</div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="cell row-num">2</div></td>
+                            <td><div class="cell editable" contenteditable="true">2025-06-03</div></td>
+                            <td><div class="cell editable" contenteditable="true">Globex Inc</div></td>
+                            <td><div class="cell editable" contenteditable="true">Bulk Supplies</div></td>
+                            <td><div class="cell number editable" contenteditable="true">250</div></td>
+                            <td><div class="cell number editable" contenteditable="true">$13.00</div></td>
+                            <td><div class="cell number editable" contenteditable="true">0%</div></td>
+                            <td><div class="cell number editable" contenteditable="true">8.5%</div></td>
+                            <td><div class="cell number formula">$3,250.00</div></td>
+                            <td><div class="cell number formula cell-highlight">$3,526.25</div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="cell row-num">3</div></td>
+                            <td><div class="cell editable" contenteditable="true">2025-06-05</div></td>
+                            <td><div class="cell editable" contenteditable="true">Wayne Enterprises</div></td>
+                            <td><div class="cell editable" contenteditable="true">Consulting (40h)</div></td>
+                            <td><div class="cell number editable" contenteditable="true">40</div></td>
+                            <td><div class="cell number editable" contenteditable="true">$225.00</div></td>
+                            <td><div class="cell number editable" contenteditable="true">10%</div></td>
+                            <td><div class="cell number editable" contenteditable="true">8.5%</div></td>
+                            <td><div class="cell number formula">$8,100.00</div></td>
+                            <td><div class="cell number formula cell-highlight">$8,788.50</div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="cell row-num">4</div></td>
+                            <td><div class="cell editable" contenteditable="true">2025-06-08</div></td>
+                            <td><div class="cell editable" contenteditable="true">Stark Industries</div></td>
+                            <td><div class="cell editable" contenteditable="true">Hardware Kit v3</div></td>
+                            <td><div class="cell number editable" contenteditable="true">5</div></td>
+                            <td><div class="cell number editable" contenteditable="true">$356.00</div></td>
+                            <td><div class="cell number editable" contenteditable="true">0%</div></td>
+                            <td><div class="cell number editable" contenteditable="true">8.5%</div></td>
+                            <td><div class="cell number formula">$1,780.00</div></td>
+                            <td><div class="cell number formula cell-highlight">$1,931.30</div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="cell row-num">5</div></td>
+                            <td><div class="cell editable" contenteditable="true">2025-06-12</div></td>
+                            <td><div class="cell editable" contenteditable="true">Umbrella LLC</div></td>
+                            <td><div class="cell editable" contenteditable="true">Annual Support</div></td>
+                            <td><div class="cell number editable" contenteditable="true">1</div></td>
+                            <td><div class="cell number editable" contenteditable="true">$6,100.00</div></td>
+                            <td><div class="cell number editable" contenteditable="true">0%</div></td>
+                            <td><div class="cell number editable" contenteditable="true">8.5%</div></td>
+                            <td><div class="cell number formula">$6,100.00</div></td>
+                            <td><div class="cell number formula cell-highlight">$6,618.50</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="add-row">+ Add new row</div>
+                <div class="spreadsheet-footer">
+                    <span>Showing 5 of 342 records • Sheet: Sales Data</span>
+                    <span>Calculated fields update automatically • <span style="color:#818cf8">Purple values</span> = computed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast">
+        <span class="icon">✅</span>
+        <div class="text">
+            <strong>Auto-saved</strong>
+            All changes saved • Calculations updated
+        </div>
+        <span class="close">✕</span>
+    </div>
+</body>
+</html>

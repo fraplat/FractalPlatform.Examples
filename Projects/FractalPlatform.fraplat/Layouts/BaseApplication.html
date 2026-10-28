@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform BaseApplication Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .article h4 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        .csharp .keyword { color: #c678dd; }
+        .csharp .string { color: #98c379; }
+        .csharp .number { color: #d19a66; }
+        .csharp .comment { color: #5c6370; font-style: italic; }
+        .csharp .type { color: #61afef; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        .info {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .info strong {
+            color: #7b1fa2;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .method-signature {
+            background: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Fractal Platform BaseApplication Guide</h1>
+            <p>Complete guide to building applications with BaseApplication class</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#overview">0. Overview</a></li>
+                <li><a href="#initialization">1. Initialization & Setup</a></li>
+                <li><a href="#event-handlers">2. Event Handlers (On* Methods)</a></li>
+                <li><a href="#query-methods">3. Query Methods</a></li>
+                <li><a href="#ui-methods">4. UI & User Interaction</a></li>
+                <li><a href="#file-operations">5. File Operations</a></li>
+                <li><a href="#utility-methods">6. Utility Methods</a></li>
+                <li><a href="#advanced">7. Advanced Features</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 0: Overview -->
+        <div class="article" id="overview">
+            <h2>0. Overview</h2>
+
+            <h3>What is BaseApplication?</h3>
+            <p>BaseApplication is the foundation class for building applications in Fractal Platform. When you create your application, you inherit from BaseApplication and override its event handler methods to implement your business logic.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> power = <span class="type">GetPowerInfo</span>();
+
+<span class="type">Log</span>(<span class="string">$"Battery: </span>{power.<span class="type">BatteryPercent</span>}<span class="string">%"</span>);
+<span class="type">Log</span>(<span class="string">$"Plugged in: </span>{power.<span class="type">IsOnline</span>}<span class="string">"</span>);
+<span class="type">Log</span>(<span class="string">$"Time remaining: </span>{power.<span class="type">BatteryLifeTime</span>}<span class="string">"</span>);</pre>
+            </div>
+
+            <h3>Properties Reference</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>SessionID</td>
+                    <td>Guid</td>
+                    <td>Unique identifier for current session</td>
+                </tr>
+                <tr>
+                    <td>Client</td>
+                    <td>FractalPlatformClient</td>
+                    <td>Database client for queries</td>
+                </tr>
+                <tr>
+                    <td>REST</td>
+                    <td>RESTClient</td>
+                    <td>HTTP client for REST APIs</td>
+                </tr>
+                <tr>
+                    <td>AI</td>
+                    <td>AIClient</td>
+                    <td>AI service client</td>
+                </tr>
+                <tr>
+                    <td>Context</td>
+                    <td>Context</td>
+                    <td>Current execution context</td>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td>User</td>
+                    <td>Current user information</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>string</td>
+                    <td>Application name (class name without "Application")</td>
+                </tr>
+                <tr>
+                    <td>DatabaseName</td>
+                    <td>string</td>
+                    <td>Default database name</td>
+                </tr>
+                <tr>
+                    <td>HasDatabase</td>
+                    <td>bool</td>
+                    <td>Whether database is configured</td>
+                </tr>
+            </table>
+
+            <h3>Complete Example Application</h3>
+            <p>Here's a complete example showing many features together:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public class</span> <span class="type">TaskManagerApplication</span> : <span class="type">BaseApplication</span>
+{
+    <span class="keyword">public override void</span> <span class="type">OnStart</span>()
+    {
+        <span class="comment">// Check if user is logged in</span>
+        <span class="keyword">if</span> (<span class="type">User</span>.<span class="type">IsGuest</span>)
+        {
+            <span class="comment">// Show login form</span>
+            <span class="type">FirstDocOf</span>(<span class="string">"LoginForm"</span>)
+                .<span class="type">OpenForm</span>(<span class="string">"Login"</span>);
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="comment">// Show main task list</span>
+            <span class="type">ShowTaskList</span>();
+        }
+    }
+
+    <span class="keyword">private void</span> <span class="type">ShowTaskList</span>()
+    {
+        <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, <span class="keyword">new</span> { <span class="type">OwnerID</span> = <span class="type">User</span>.<span class="type">ID</span> })
+            .<span class="type">OrderBy</span>(<span class="string">"{'DueDate':$}"</span>)
+            .<span class="type">OpenForm</span>(<span class="string">"My Tasks"</span>);
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+    {
+        <span class="keyword">switch</span> (info.<span class="type">Action</span>)
+        {
+            <span class="keyword">case</span> <span class="string">"AddTask"</span>:
+                <span class="type">CreateNewDocFor</span>(<span class="string">"TaskTemplate"</span>, <span class="string">"Tasks"</span>)
+                    .<span class="type">OpenForm</span>(<span class="string">"New Task"</span>, result =>
+                    {
+                        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                        {
+                            <span class="type">RefreshForm</span>();
+                            <span class="type">MessageBox</span>(<span class="string">"Task created!"</span>);
+                        }
+                    });
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"CompleteTask"</span>:
+                <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>)
+                    .<span class="type">Update</span>(<span class="string">"{'Status':'Completed','CompletedDate':@@Date}"</span>, 
+                              <span class="type">GetNowDate</span>());
+                <span class="type">RefreshForm</span>();
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"DeleteTask"</span>:
+                <span class="type">MessageBox</span>(
+                    <span class="string">"Delete this task?"</span>,
+                    <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+                    result =>
+                    {
+                        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                        {
+                            <span class="type">DelDoc</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>);
+                            <span class="type">CloseForm</span>();
+                        }
+                    });
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"Logout"</span>:
+                <span class="type">ResetToGuest</span>();
+                <span class="type">CloseAllForms</span>();
+                <span class="type">OnStart</span>();
+                <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnChangeDimension</span>(<span class="type">ChangeInfo</span> info)
+    {
+        <span class="comment">// Auto-calculate priority based on due date</span>
+        <span class="keyword">if</span> (info.<span class="type">ChangeName</span> == <span class="string">"DueDate"</span>)
+        {
+            <span class="keyword">var</span> dueDate = info.<span class="type">AfterValue</span>.<span class="type">ToDateTime</span>();
+            <span class="keyword">var</span> daysUntilDue = (dueDate - <span class="type">GetNowDate</span>()).<span class="type">Days</span>;
+
+            <span class="keyword">string</span> priority = daysUntilDue < <span class="number">1</span> ? <span class="string">"Urgent"</span> :
+                               daysUntilDue < <span class="number">7</span> ? <span class="string">"High"</span> :
+                               <span class="string">"Normal"</span>;
+
+            <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>)
+                .<span class="type">Update</span>(<span class="type">DQL</span>(<span class="string">"{'Priority':@@Priority}"</span>, priority));
+
+            <span class="type">RefreshForm</span>();
+            <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public override object</span> <span class="type">OnComputedDimension</span>(<span class="type">ComputedInfo</span> info)
+    {
+        <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"DaysRemaining"</span>)
+        {
+            <span class="keyword">var</span> dueDate = info.<span class="type">FindFirstDateTimeValue</span>(<span class="string">"DueDate"</span>);
+            <span class="keyword">var</span> days = (dueDate - <span class="type">GetNowDate</span>()).<span class="type">Days</span>;
+            
+            <span class="keyword">return</span> days > <span class="number">0</span> ? <span class="string">$"</span>{days}<span class="string"> days left"</span> : <span class="string">"Overdue"</span>;
+        }
+
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnSecurityDimension</span>(<span class="type">SecurityInfo</span> info)
+    {
+        <span class="comment">// Users can only modify their own tasks</span>
+        <span class="keyword">if</span> (info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Update</span> ||
+            info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Delete</span>)
+        {
+            <span class="keyword">var</span> ownerId = info.<span class="type">FindFirstValue</span>(<span class="string">"OwnerID"</span>);
+            <span class="keyword">return</span> ownerId == <span class="type">User</span>.<span class="type">ID</span>.<span class="type">ToString</span>();
+        }
+
+        <span class="keyword">return true</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnTimerDimension</span>(<span class="type">TimerInfo</span> info)
+    {
+        <span class="comment">// Check for overdue tasks every minute</span>
+        <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"CheckOverdue"</span>)
+        {
+            <span class="keyword">var</span> overdueTasks = <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, 
+                <span class="string">"{'DueDate':Less(@@Now),'Status':'Active'}"</span>,
+                <span class="type">GetNowDate</span>())
+                .<span class="type">Count</span>();
+
+            <span class="keyword">if</span> (overdueTasks > <span class="number">0</span>)
+            {
+                <span class="type">Log</span>(<span class="string">$"Warning: </span>{overdueTasks}<span class="string"> overdue tasks"</span>);
+            }
+
+            <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Best Practices Summary:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Keep OnStart() lightweight - defer heavy operations</li>
+                    <li>Return true from event handlers when you handle the event</li>
+                    <li>Use transactions for multi-step operations</li>
+                    <li>Cache expensive queries with UseCache()</li>
+                    <li>Validate user input in OnChangeDimension()</li>
+                    <li>Implement security checks in OnSecurityDimension()</li>
+                    <li>Use Log() for debugging and monitoring</li>
+                    <li>Provide user feedback with MessageBox() and RefreshForm()</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Common Pitfalls:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Forgetting to return true after handling events (causes event to propagate)</li>
+                    <li>Not refreshing forms after updates (users won't see changes)</li>
+                    <li>Performing heavy operations in OnStart() (slow startup)</li>
+                    <li>Not checking user permissions before operations</li>
+                    <li>Forgetting to commit or rollback transactions</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Article 1: Initialization -->
+        <div class="article" id="initialization">
+            <h2>1. Initialization & Setup</h2>
+
+            <h3>OnStart() - Application Initialization</h3>
+            <p>This is the first method called when your application starts. Use it to initialize data, load settings, or show the initial form.</p>
+
+            <div class="method-signature">
+                public virtual void OnStart()
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override void</span> <span class="type">OnStart</span>()
+{
+    <span class="comment">// Load initial data</span>
+    <span class="keyword">var</span> users = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+        .<span class="type">Select</span><<span class="type">User</span>>();
+
+    <span class="comment">// Show welcome message</span>
+    <span class="type">MessageBox</span>(<span class="string">"Welcome to the application!"</span>);
+
+    <span class="comment">// Open main form</span>
+    <span class="type">FirstDocOf</span>(<span class="string">"MainMenu"</span>)
+        .<span class="type">OpenForm</span>(<span class="string">"Main Menu"</span>);
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Best Practice:</strong> Keep OnStart() lightweight. Load only essential data and defer heavy operations until they're needed.
+            </div>
+
+            <h3>Setting User Preferences</h3>
+
+            <h4>SetUserLanguage()</h4>
+            <p>Change the application language for the current user.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">SetUserLanguage</span>(<span class="string">"en"</span>); <span class="comment">// English</span>
+<span class="type">SetUserLanguage</span>(<span class="string">"uk"</span>); <span class="comment">// Ukrainian</span></pre>
+            </div>
+
+            <h4>SetUserTheme()</h4>
+            <p>Change the visual theme.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">SetUserTheme</span>(<span class="type">ThemeType</span>.<span class="type">Dark</span>);
+<span class="type">SetUserTheme</span>(<span class="type">ThemeType</span>.<span class="type">Light</span>);</pre>
+            </div>
+        </div>
+
+        <!-- Article 2: Event Handlers -->
+        <div class="article" id="event-handlers">
+            <h2>2. Event Handlers (On* Methods)</h2>
+
+            <h3>OnEventDimension() - Handle User Actions</h3>
+            <p>This is the most important event handler. It's called when users click buttons, select items, or trigger any action in your forms.</p>
+
+            <div class="method-signature">
+                public virtual bool OnEventDimension(EventInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="comment">// Get the action name</span>
+    <span class="keyword">var</span> action = info.<span class="type">Action</span>;
+
+    <span class="keyword">if</span> (action == <span class="string">"SaveUser"</span>)
+    {
+        <span class="comment">// Get values from the form</span>
+        <span class="keyword">var</span> name = info.<span class="type">FindFirstValue</span>(<span class="string">"Name"</span>);
+        <span class="keyword">var</span> age = info.<span class="type">FindFirstIntValue</span>(<span class="string">"Age"</span>);
+
+        <span class="comment">// Save to database</span>
+        <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> { <span class="type">Name</span> = name, <span class="type">Age</span> = age });
+
+        <span class="type">MessageBox</span>(<span class="string">"User saved successfully!"</span>);
+
+        <span class="keyword">return true</span>; <span class="comment">// Event was handled</span>
+    }
+
+    <span class="keyword">if</span> (action == <span class="string">"DeleteUser"</span>)
+    {
+        <span class="keyword">var</span> userId = info.<span class="type">DocID</span>;
+        
+        <span class="type">DelDoc</span>(<span class="string">"Users"</span>, userId);
+        
+        <span class="type">CloseForm</span>();
+        
+        <span class="keyword">return true</span>;
+    }
+
+    <span class="keyword">return false</span>; <span class="comment">// Event not handled, continue to other handlers</span>
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 EventInfo Properties:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Action:</strong> Name of the action (button name, menu item)</li>
+                    <li><strong>Collection:</strong> The collection being displayed</li>
+                    <li><strong>DocID:</strong> ID of the current document</li>
+                    <li><strong>AttrPath:</strong> Path to the field that triggered the event</li>
+                    <li><strong>EventType:</strong> Type of event (Click, Change, etc.)</li>
+                </ul>
+            </div>
+
+            <h4>Finding Values in EventInfo</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get single values</span>
+<span class="keyword">string</span> name = info.<span class="type">FindFirstValue</span>(<span class="string">"Name"</span>);
+<span class="keyword">int</span> age = info.<span class="type">FindFirstIntValue</span>(<span class="string">"Age"</span>);
+<span class="keyword">bool</span> isActive = info.<span class="type">FindFirstBoolValue</span>(<span class="string">"IsActive"</span>);
+<span class="keyword">double</span> price = info.<span class="type">FindFirstDoubleValue</span>(<span class="string">"Price"</span>);
+<span class="type">DateTime</span> date = info.<span class="type">FindFirstDateTimeValue</span>(<span class="string">"CreatedDate"</span>);
+
+<span class="comment">// Get multiple values at once</span>
+<span class="keyword">var</span> values = info.<span class="type">FindFirstValues</span>(<span class="string">"Name"</span>, <span class="string">"Email"</span>, <span class="string">"Phone"</span>);</pre>
+            </div>
+
+            <h3>OnChangeDimension() - Handle Field Changes</h3>
+            <p>Called when a field value changes in a form. Use this to implement validation, calculations, or dynamic behavior.</p>
+
+            <div class="method-signature">
+                public virtual bool OnChangeDimension(ChangeInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnChangeDimension</span>(<span class="type">ChangeInfo</span> info)
+{
+    <span class="comment">// ChangeName is the field that changed</span>
+    <span class="keyword">if</span> (info.<span class="type">ChangeName</span> == <span class="string">"Quantity"</span>)
+    {
+        <span class="keyword">var</span> quantity = info.<span class="type">AfterValue</span>.<span class="type">ToInt</span>();
+        <span class="keyword">var</span> price = info.<span class="type">FindFirstDoubleValue</span>(<span class="string">"Price"</span>);
+        
+        <span class="comment">// Calculate total automatically</span>
+        <span class="keyword">var</span> total = quantity * price;
+        
+        <span class="type">DocsWhere</span>(<span class="string">"Orders"</span>, info.<span class="type">DocID</span>)
+            .<span class="type">Update</span>(<span class="string">"{'Total':@@Total}"</span>, total);
+        
+        <span class="type">RefreshForm</span>();
+        
+        <span class="keyword">return true</span>;
+    }
+
+    <span class="keyword">if</span> (info.<span class="type">ChangeName</span> == <span class="string">"Email"</span>)
+    {
+        <span class="keyword">var</span> email = info.<span class="type">AfterValue</span>.<span class="type">ToString</span>();
+        
+        <span class="comment">// Validate email format</span>
+        <span class="keyword">if</span> (!email.<span class="type">Contains</span>(<span class="string">"@@"</span>))
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Please enter a valid email address"</span>);
+            <span class="keyword">return false</span>; <span class="comment">// Reject the change</span>
+        }
+    }
+
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 ChangeInfo Properties:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>ChangeName:</strong> Name of the field that changed</li>
+                    <li><strong>BeforeValue:</strong> Previous value</li>
+                    <li><strong>AfterValue:</strong> New value</li>
+                    <li><strong>ChangeType:</strong> Type of change (Update, Insert, Delete)</li>
+                </ul>
+            </div>
+
+            <h3>OnOpenForm() - Form Opening Event</h3>
+            <p>Called before a form opens. Use it to prepare data or prevent form opening.</p>
+
+            <div class="method-signature">
+                public virtual bool OnOpenForm(FormInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnOpenForm</span>(<span class="type">FormInfo</span> info)
+{
+    <span class="comment">// Check if user has permission</span>
+    <span class="keyword">if</span> (info.<span class="type">Collection</span>.<span class="type">Name</span> == <span class="string">"AdminPanel"</span>)
+    {
+        <span class="keyword">if</span> (!<span class="type">User</span>.<span class="type">IsAdmin</span>)
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Access denied. Admin rights required."</span>);
+            <span class="keyword">return false</span>; <span class="comment">// Prevent opening</span>
+        }
+    }
+
+    <span class="comment">// Load related data before showing form</span>
+    <span class="keyword">if</span> (info.<span class="type">Collection</span>.<span class="type">Name</span> == <span class="string">"OrderDetails"</span>)
+    {
+        <span class="keyword">var</span> orderId = info.<span class="type">DocID</span>;
+        <span class="comment">// Prepare order items, customer info, etc.</span>
+    }
+
+    <span class="keyword">return true</span>; <span class="comment">// Allow form to open</span>
+}</pre>
+            </div>
+
+            <h3>OnCloseForm() - Form Closing Event</h3>
+            <p>Called before a form closes. Use it to save changes or confirm closing.</p>
+
+            <div class="method-signature">
+                public virtual bool OnCloseForm(FormInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnCloseForm</span>(<span class="type">FormInfo</span> info)
+{
+    <span class="comment">// Ask for confirmation before closing</span>
+    <span class="keyword">var</span> hasChanges = <span class="comment">/* check if form has unsaved changes */</span> <span class="keyword">true</span>;
+    
+    <span class="keyword">if</span> (hasChanges)
+    {
+        <span class="type">MessageBox</span>(
+            <span class="string">"You have unsaved changes. Close anyway?"</span>,
+            <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+            result =>
+            {
+                <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                {
+                    <span class="type">CloseForm</span>();
+                }
+            });
+        
+        <span class="keyword">return false</span>; <span class="comment">// Wait for user confirmation</span>
+    }
+
+    <span class="keyword">return true</span>; <span class="comment">// Allow closing</span>
+}</pre>
+            </div>
+
+            <h3>OnComputedDimension() - Dynamic Field Values</h3>
+            <p>Called when a computed field needs to be calculated. Use variables like @@VariableName in your data.</p>
+
+            <div class="method-signature">
+                public virtual object OnComputedDimension(ComputedInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override object</span> <span class="type">OnComputedDimension</span>(<span class="type">ComputedInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"FullName"</span>)
+    {
+        <span class="keyword">var</span> firstName = info.<span class="type">FindFirstValue</span>(<span class="string">"FirstName"</span>);
+        <span class="keyword">var</span> lastName = info.<span class="type">FindFirstValue</span>(<span class="string">"LastName"</span>);
+        
+        <span class="keyword">return</span> <span class="string">$"</span>{firstName} {lastName}<span class="string">"</span>;
+    }
+
+    <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"Age"</span>)
+    {
+        <span class="keyword">var</span> birthDate = info.<span class="type">FindFirstDateTimeValue</span>(<span class="string">"BirthDate"</span>);
+        
+        <span class="keyword">return</span> <span class="type">DateTime</span>.<span class="type">Now</span>.<span class="type">Year</span> - birthDate.<span class="type">Year</span>;
+    }
+
+    <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"OrderTotal"</span>)
+    {
+        <span class="keyword">var</span> quantity = info.<span class="type">FindFirstIntValue</span>(<span class="string">"Quantity"</span>);
+        <span class="keyword">var</span> price = info.<span class="type">FindFirstDoubleValue</span>(<span class="string">"Price"</span>);
+        
+        <span class="keyword">return</span> quantity * price;
+    }
+
+    <span class="keyword">return</span> <span class="keyword">null</span>; <span class="comment">// Variable not found</span>
+}</pre>
+            </div>
+
+            <h3>OnSecurityDimension() - Access Control</h3>
+            <p>Control access to data based on user permissions.</p>
+
+            <div class="method-signature">
+                public virtual bool OnSecurityDimension(SecurityInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnSecurityDimension</span>(<span class="type">SecurityInfo</span> info)
+{
+    <span class="comment">// Only admins can delete</span>
+    <span class="keyword">if</span> (info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Delete</span>)
+    {
+        <span class="keyword">return</span> <span class="type">User</span>.<span class="type">IsAdmin</span>;
+    }
+
+    <span class="comment">// Users can only edit their own data</span>
+    <span class="keyword">if</span> (info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Update</span>)
+    {
+        <span class="keyword">var</span> ownerId = info.<span class="type">FindFirstValue</span>(<span class="string">"OwnerID"</span>);
+        <span class="keyword">return</span> ownerId == <span class="type">User</span>.<span class="type">ID</span>.<span class="type">ToString</span>();
+    }
+
+    <span class="keyword">return true</span>; <span class="comment">// Allow by default</span>
+}</pre>
+            </div>
+
+            <h3>OnEnumDimension() - Dynamic Dropdown Lists</h3>
+            <p>Provide options for dropdown lists dynamically.</p>
+
+            <div class="method-signature">
+                public virtual List<string> OnEnumDimension(EnumInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override</span> <span class="type">List</span><<span class="keyword">string</span>> <span class="type">OnEnumDimension</span>(<span class="type">EnumInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"Countries"</span>)
+    {
+        <span class="keyword">return new</span> <span class="type">List</span><<span class="keyword">string</span>>
+        {
+            <span class="string">"USA"</span>, <span class="string">"Canada"</span>, <span class="string">"UK"</span>, <span class="string">"Germany"</span>
+        };
+    }
+
+    <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"Categories"</span>)
+    {
+        <span class="comment">// Load from database</span>
+        <span class="keyword">var</span> categories = <span class="type">DocsOf</span>(<span class="string">"Categories"</span>)
+            .<span class="type">Select</span><<span class="keyword">string</span>>(<span class="string">"{'Name':$}"</span>);
+        
+        <span class="keyword">return</span> categories.<span class="type">ToList</span>();
+    }
+
+    <span class="keyword">return new</span> <span class="type">List</span><<span class="keyword">string</span>>();
+}</pre>
+            </div>
+
+            <h3>OnTimerDimension() - Periodic Tasks</h3>
+            <p>Called at regular intervals for background tasks.</p>
+
+            <div class="method-signature">
+                public virtual bool OnTimerDimension(TimerInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnTimerDimension</span>(<span class="type">TimerInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"RefreshData"</span>)
+    {
+        <span class="comment">// Refresh data every 30 seconds</span>
+        <span class="keyword">var</span> newData = <span class="type">DocsOf</span>(<span class="string">"RealTimeData"</span>)
+            .<span class="type">Select</span><<span class="type">DataItem</span>>();
+        
+        <span class="type">RefreshForm</span>();
+        
+        <span class="keyword">return true</span>;
+    }
+
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <h3>OnUploadFiles() - File Upload Handler</h3>
+            <p>Handle file uploads from users.</p>
+
+            <div class="method-signature">
+                public virtual bool OnUploadFiles(IEnumerable<UploadFileInfo> fileInfos)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnUploadFiles</span>(<span class="type">IEnumerable</span><<span class="type">UploadFileInfo</span>> fileInfos)
+{
+    <span class="keyword">foreach</span> (<span class="keyword">var</span> fileInfo <span class="keyword">in</span> fileInfos)
+    {
+        <span class="type">Log</span>(<span class="string">$"Uploaded: </span>{fileInfo.<span class="type">FileName</span>}<span class="string">"</span>);
+        <span class="type">Log</span>(<span class="string">$"New name: </span>{fileInfo.<span class="type">NewFileName</span>}<span class="string">"</span>);
+        <span class="type">Log</span>(<span class="string">$"Size: </span>{fileInfo.<span class="type">Length</span>}<span class="string"> bytes"</span>);
+        
+        <span class="comment">// Save file information to database</span>
+        <span class="type">AddDoc</span>(<span class="string">"Files"</span>, <span class="keyword">new</span>
+        {
+            <span class="type">FileName</span> = fileInfo.<span class="type">FileName</span>,
+            <span class="type">StoredName</span> = fileInfo.<span class="type">NewFileName</span>,
+            <span class="type">Size</span> = fileInfo.<span class="type">Length</span>,
+            <span class="type">UploadDate</span> = <span class="type">GetNowDate</span>()
+        });
+    }
+    
+    <span class="keyword">return true</span>;
+}</pre>
+            </div>
+
+            <h3>OnReceiveMessage() - Inter-Application Communication</h3>
+            <p>Receive messages from other applications.</p>
+
+            <div class="method-signature">
+                public virtual bool OnReceiveMessage(MessageInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnReceiveMessage</span>(<span class="type">MessageInfo</span> info)
+{
+    <span class="type">Log</span>(<span class="string">$"Message from </span>{info.<span class="type">FromAppName</span>}<span class="string">: </span>{info.<span class="type">Message</span>}<span class="string">"</span>);
+    
+    <span class="comment">// Handle message based on sender</span>
+    <span class="keyword">if</span> (info.<span class="type">FromAppName</span> == <span class="string">"NotificationService"</span>)
+    {
+        <span class="keyword">var</span> notification = info.<span class="type">Message</span>.<span class="type">ToString</span>();
+        <span class="type">MessageBox</span>(notification);
+    }
+    
+    <span class="keyword">return true</span>;
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Sending Messages:</strong> Use SendMessage() to communicate with other applications: <code>SendMessage("OtherApp", myData)</code>
+            </div>
+
+            <h3>OnAuthDimension() - Authentication Handler</h3>
+            <p>Handle authentication events like login, logout, or registration.</p>
+
+            <div class="method-signature">
+                public virtual bool OnAuthDimension(AuthInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnAuthDimension</span>(<span class="type">AuthInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"Login"</span>)
+    {
+        <span class="keyword">var</span> username = info.<span class="type">FindFirstValue</span>(<span class="string">"Username"</span>);
+        <span class="keyword">var</span> password = info.<span class="type">FindFirstValue</span>(<span class="string">"Password"</span>);
+        
+        <span class="comment">// Validate credentials</span>
+        <span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> 
+        {
+            <span class="type">Username</span> = username,
+            <span class="type">Password</span> = password
+        })
+        .<span class="type">Select</span><<span class="type">User</span>>()
+        .<span class="type">FirstOrDefault</span>();
+        
+        <span class="keyword">if</span> (user != <span class="keyword">null</span>)
+        {
+            <span class="comment">// Set current user</span>
+            <span class="type">Context</span>.<span class="type">User</span> = user;
+            <span class="type">MessageBox</span>(<span class="string">"Login successful!"</span>);
+            <span class="keyword">return true</span>;
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Invalid credentials"</span>);
+            <span class="keyword">return false</span>;
+        }
+    }
+    
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"Register"</span>)
+    {
+        <span class="keyword">var</span> username = info.<span class="type">FindFirstValue</span>(<span class="string">"Username"</span>);
+        <span class="keyword">var</span> email = info.<span class="type">FindFirstValue</span>(<span class="string">"Email"</span>);
+        
+        <span class="comment">// Check if username exists</span>
+        <span class="keyword">var</span> exists = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> { <span class="type">Username</span> = username })
+            .<span class="type">Any</span>();
+        
+        <span class="keyword">if</span> (exists)
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Username already taken"</span>);
+            <span class="keyword">return false</span>;
+        }
+        
+        <span class="comment">// Create new user</span>
+        <span class="type">AddDoc</span>(<span class="string">"Users"</span>, info.<span class="type">Collection</span>.<span class="type">ToJson</span>(info.<span class="type">DocID</span>));
+        <span class="type">MessageBox</span>(<span class="string">"Registration successful!"</span>);
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 AuthInfo Properties:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Action:</strong> Auth action (Login, Register, Logout, etc.)</li>
+                    <li><strong>Collection:</strong> Form collection with user data</li>
+                    <li><strong>DocID:</strong> Document ID</li>
+                    <li><strong>AttrPath:</strong> Path to relevant field</li>
+                </ul>
+            </div>
+
+            <h3>OnCodeConfirmed() - Confirmation Code Handler</h3>
+            <p>Called when a user confirms a code sent via SMS or email.</p>
+
+            <div class="method-signature">
+                public virtual bool OnCodeConfirmed(CodeConfirmedInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnCodeConfirmed</span>(<span class="type">CodeConfirmedInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">EventType</span> == <span class="string">"PhoneVerification"</span>)
+    {
+        <span class="comment">// Mark phone as verified</span>
+        <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, info.<span class="type">DocID</span>)
+            .<span class="type">Update</span>(<span class="string">"{'PhoneVerified':true}"</span>);
+        
+        <span class="type">MessageBox</span>(<span class="string">"Phone number verified successfully!"</span>);
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">if</span> (info.<span class="type">EventType</span> == <span class="string">"EmailVerification"</span>)
+    {
+        <span class="comment">// Mark email as verified</span>
+        <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, info.<span class="type">DocID</span>)
+            .<span class="type">Update</span>(<span class="string">"{'EmailVerified':true}"</span>);
+        
+        <span class="type">MessageBox</span>(<span class="string">"Email verified successfully!"</span>);
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">if</span> (info.<span class="type">EventType</span> == <span class="string">"TwoFactorAuth"</span>)
+    {
+        <span class="comment">// Complete login process</span>
+        <span class="type">Log</span>(<span class="string">"Two-factor authentication successful"</span>);
+        <span class="type">ShowTaskList</span>();
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 CodeConfirmedInfo Properties:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>EventType:</strong> Type of verification event</li>
+                    <li><strong>Collection:</strong> Collection being verified</li>
+                    <li><strong>DocID:</strong> Document ID</li>
+                    <li><strong>Tag:</strong> Additional tag/context for verification</li>
+                </ul>
+            </div>
+
+            <h3>OnMenuDimension() - Menu Handler</h3>
+            <p>Handle menu actions and customize menu behavior.</p>
+
+            <div class="method-signature">
+                public virtual bool OnMenuDimension(MenuInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnMenuDimension</span>(<span class="type">MenuInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"Export"</span>)
+    {
+        <span class="comment">// Export current data</span>
+        <span class="keyword">var</span> data = info.<span class="type">Collection</span>.<span class="type">ToJson</span>(info.<span class="type">DocID</span>);
+        <span class="type">WriteFileText</span>(<span class="string">"export.json"</span>, data);
+        <span class="type">MessageBox</span>(<span class="string">"Data exported successfully!"</span>);
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"Print"</span>)
+    {
+        <span class="comment">// Generate printable report</span>
+        <span class="type">Log</span>(<span class="string">"Generating print report..."</span>);
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <h3>OnMenuItemsDimension() - Dynamic Menu Items</h3>
+            <p>Provide dynamic menu items based on context.</p>
+
+            <div class="method-signature">
+                public virtual List
+                <MenuItem> OnMenuItemsDimension(MenuInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override</span> <span class="type">List</span><<span class="type">MenuItem</span>> <span class="type">OnMenuItemsDimension</span>(<span class="type">MenuInfo</span> info)
+{
+    <span class="keyword">var</span> menuItems = <span class="keyword">new</span> <span class="type">List</span><<span class="type">MenuItem</span>>();
+    
+    <span class="comment">// Add different items based on user role</span>
+    <span class="keyword">if</span> (<span class="type">User</span>.<span class="type">IsAdmin</span>)
+    {
+        menuItems.<span class="type">Add</span>(<span class="keyword">new</span> <span class="type">MenuItem</span> 
+        { 
+            <span class="type">Name</span> = <span class="string">"Admin Panel"</span>,
+            <span class="type">Action</span> = <span class="string">"OpenAdminPanel"</span> 
+        });
+        
+        menuItems.<span class="type">Add</span>(<span class="keyword">new</span> <span class="type">MenuItem</span> 
+        { 
+            <span class="type">Name</span> = <span class="string">"View Logs"</span>,
+            <span class="type">Action</span> = <span class="string">"ViewLogs"</span> 
+        });
+    }
+    
+    <span class="comment">// Add context-specific items</span>
+    <span class="keyword">if</span> (info.<span class="type">Collection</span>.<span class="type">Name</span> == <span class="string">"Orders"</span>)
+    {
+        menuItems.<span class="type">Add</span>(<span class="keyword">new</span> <span class="type">MenuItem</span> 
+        { 
+            <span class="type">Name</span> = <span class="string">"Generate Invoice"</span>,
+            <span class="type">Action</span> = <span class="string">"GenerateInvoice"</span> 
+        });
+    }
+    
+    <span class="keyword">return</span> menuItems;
+}</pre>
+            </div>
+
+            <h3>OnMovePageDimension() - Pagination Handler</h3>
+            <p>Control pagination behavior when user navigates between pages.</p>
+
+            <div class="method-signature">
+                public virtual bool OnMovePageDimension(MoveInfo info)
+            </div>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnMovePageDimension</span>(<span class="type">MoveInfo</span> info)
+{
+    <span class="comment">// Log page navigation</span>
+    <span class="type">Log</span>(<span class="string">$"Moving to page </span>{info.<span class="type">CurrentPage</span>}<span class="string">"</span>);
+    
+    <span class="comment">// Check if user can navigate</span>
+    <span class="keyword">if</span> (info.<span class="type">IsNextPage</span>)
+    {
+        <span class="comment">// Validate before moving to next page</span>
+        <span class="keyword">var</span> isValid = <span class="type">ValidateCurrentPage</span>(info);
+        
+        <span class="keyword">if</span> (!isValid)
+        {
+            <span class="type">MessageBox</span>(<span class="string">"Please complete all required fields"</span>);
+            <span class="keyword">return false</span>; <span class="comment">// Prevent navigation</span>
+        }
+    }
+    
+    <span class="comment">// Custom logic for specific pages</span>
+    <span class="keyword">if</span> (info.<span class="type">CurrentPage</span> == <span class="number">3</span>)
+    {
+        <span class="comment">// Load additional data for page 3</span>
+        <span class="type">LoadPageData</span>(<span class="number">3</span>);
+    }
+    
+    <span class="keyword">return true</span>; <span class="comment">// Allow navigation</span>
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 MoveInfo Properties:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>CurrentPage:</strong> Current page number</li>
+                    <li><strong>IsPrevPage:</strong> True if navigating to previous page</li>
+                    <li><strong>IsNextPage:</strong> True if navigating to next page</li>
+                    <li><strong>Collection:</strong> Collection being paginated</li>
+                    <li><strong>DocID:</strong> Current document ID</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Return Values:</strong> Return <code>false</code> from event handlers to prevent the action. Return <code>true</code> to allow it or indicate the event was handled successfully.
+            </div>
+        </div>
+
+        <!-- Article 3: Query Methods -->
+        <div class="article" id="query-methods">
+            <h2>3. Query Methods</h2>
+
+            <p>BaseApplication provides convenient wrapper methods for database operations. All these methods are documented in the Query Guide, but here's a quick reference.</p>
+
+            <h3>Reading Data</h3>
+
+            <h4>DocsOf() - Get All Documents</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get all users</span>
+<span class="keyword">var</span> users = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">Select</span><<span class="type">User</span>>();
+
+<span class="comment">// Count documents</span>
+<span class="keyword">var</span> count = <span class="type">DocsOf</span>(<span class="string">"Orders"</span>)
+    .<span class="type">Count</span>();</pre>
+            </div>
+
+            <h4>DocsWhere() - Filter Documents</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find by ID</span>
+<span class="keyword">var</span> user = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="number">123</span>)
+    .<span class="type">Select</span><<span class="type">User</span>>()
+    .<span class="type">FirstOrDefault</span>();
+
+<span class="comment">// Find by criteria</span>
+<span class="keyword">var</span> activeUsers = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'IsActive':true}"</span>)
+    .<span class="type">Select</span><<span class="type">User</span>>();
+
+<span class="comment">// Find by object</span>
+<span class="keyword">var</span> admins = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> { <span class="type">Role</span> = <span class="string">"Admin"</span> })
+    .<span class="type">Select</span><<span class="type">User</span>>();</pre>
+            </div>
+
+            <h4>FirstDocOf() - Get First Document</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get first document from collection</span>
+<span class="keyword">var</span> settings = <span class="type">FirstDocOf</span>(<span class="string">"Settings"</span>)
+    .<span class="type">Select</span><<span class="type">AppSettings</span>>()
+    .<span class="type">FirstOrDefault</span>();</pre>
+            </div>
+
+            <h3>Writing Data</h3>
+
+            <h4>AddDoc() - Create New Document</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add with JSON</span>
+<span class="keyword">uint</span> newId = <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'John','Age':30}"</span>);
+
+<span class="comment">// Add with object</span>
+<span class="keyword">uint</span> id = <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> 
+{
+    <span class="type">Name</span> = <span class="string">"Jane"</span>,
+    <span class="type">Age</span> = <span class="number">25</span>,
+    <span class="type">Email</span> = <span class="string">"jane@@example.com"</span>
+});</pre>
+            </div>
+
+            <h4>DocsWhere() - Update Documents</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Update specific document</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId)
+    .<span class="type">Update</span>(<span class="string">"{'Age':31}"</span>);
+
+<span class="comment">// Update multiple documents</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Status':'Inactive'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Status':'Archived'}"</span>);
+
+<span class="comment">// Add to array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId)
+    .<span class="type">Update</span>(<span class="string">"{'Tags':[Add,'VIP']}"</span>);</pre>
+            </div>
+
+            <h4>DelDoc() - Delete Document</h4>
+            <div class="code-block csharp">
+                <pre><span class="type">DelDoc</span>(<span class="string">"Users"</span>, userId);</pre>
+            </div>
+
+            <h3>Form Operations</h3>
+
+            <h4>CreateNewDocFor() - Create Document in Form</h4>
+            <div class="code-block csharp">
+                <pre><span class="comment">// Open form to create new user</span>
+<span class="type">CreateNewDocFor</span>(<span class="string">"UserTemplate"</span>, <span class="string">"Users"</span>)
+    .<span class="type">OpenForm</span>(<span class="string">"New User"</span>, result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="type">MessageBox</span>(<span class="string">"User created!"</span>);
+        }
+    });</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Note:</strong> See the Query Guide document for complete documentation of all query operators and methods.
+            </div>
+        </div>
+
+        <!-- Article 4: UI Methods -->
+        <div class="article" id="ui-methods">
+            <h2>4. UI & User Interaction</h2>
+
+            <h3>MessageBox() - Show Messages</h3>
+            <p>Display messages to the user with different button combinations.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Simple message (Cancel button only)</span>
+<span class="type">MessageBox</span>(<span class="string">"Operation completed successfully"</span>);
+
+<span class="comment">// OK button</span>
+<span class="type">MessageBox</span>(<span class="string">"Welcome!"</span>, <span class="type">MessageBoxButtonType</span>.<span class="type">Ok</span>);
+
+<span class="comment">// Yes/No buttons with callback</span>
+<span class="type">MessageBox</span>(
+    <span class="string">"Delete this item?"</span>,
+    <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+    result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="comment">// User clicked Yes</span>
+            <span class="type">DelDoc</span>(<span class="string">"Items"</span>, itemId);
+        }
+    });
+
+<span class="comment">// With custom title</span>
+<span class="type">MessageBox</span>(
+    <span class="string">"Changes saved"</span>,
+    <span class="string">"Success"</span>,
+    <span class="type">MessageBoxButtonType</span>.<span class="type">Ok</span>);</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 MessageBoxButtonType Options:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Cancel:</strong> Only Cancel button (default)</li>
+                    <li><strong>Ok:</strong> Only OK button</li>
+                    <li><strong>OkCancel:</strong> OK and Cancel buttons</li>
+                    <li><strong>YesNo:</strong> Yes and No buttons</li>
+                </ul>
+            </div>
+
+            <h3>InputBox() - Get User Input</h3>
+            <p>Prompt the user to enter text.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Simple input</span>
+<span class="type">InputBox</span>(
+    <span class="string">"Enter your name:"</span>,
+    result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="keyword">var</span> name = result.<span class="type">FindFirstValue</span>(<span class="string">"Enter your name:"</span>);
+            <span class="type">MessageBox</span>(<span class="string">$"Hello, </span>{name}<span class="string">!"</span>);
+        }
+    });
+
+<span class="comment">// With title and default value</span>
+<span class="type">InputBox</span>(
+    <span class="string">"New filename:"</span>,
+    <span class="string">"Rename File"</span>,
+    result =>
+    {
+        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+        {
+            <span class="keyword">var</span> newName = result.<span class="type">FindFirstValue</span>(<span class="string">"New filename:"</span>);
+            <span class="comment">// Rename file...</span>
+        }
+    },
+    <span class="string">"document.txt"</span>); <span class="comment">// default value</span></pre>
+            </div>
+
+            <h3>Form Control Methods</h3>
+
+            <h4>CloseForm()</h4>
+            <p>Close the currently active form.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">CloseForm</span>();</pre>
+            </div>
+
+            <h4>SaveForm()</h4>
+            <p>Save the current form (triggers save handlers).</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">SaveForm</span>();</pre>
+            </div>
+
+            <h4>RefreshForm()</h4>
+            <p>Refresh the current form to show updated data.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// After updating data</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, userId)
+    .<span class="type">Update</span>(<span class="string">"{'Status':'Active'}"</span>);
+
+<span class="type">RefreshForm</span>(); <span class="comment">// Show the changes</span></pre>
+            </div>
+
+            <h4>CloseAllForms()</h4>
+            <p>Close all open forms.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">CloseAllForms</span>();</pre>
+            </div>
+
+            <h4>CloseIfOpenedForm() / SaveIfOpenedForm()</h4>
+            <p>Conditionally close or save a specific form if it's open.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Close user form if it's open</span>
+<span class="type">CloseIfOpenedForm</span>(<span class="string">"UserDetails"</span>);
+
+<span class="comment">// Save settings form if it's open</span>
+<span class="type">SaveIfOpenedForm</span>(<span class="string">"Settings"</span>);</pre>
+            </div>
+
+            <h3>Password Protection</h3>
+
+            <h4>UsePassword()</h4>
+            <p>Protect actions with password verification.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">UsePassword</span>(<span class="string">"secret123"</span>, () =>
+{
+    <span class="comment">// This code only runs if password is correct</span>
+    <span class="type">FirstDocOf</span>(<span class="string">"AdminPanel"</span>)
+        .<span class="type">OpenForm</span>(<span class="string">"Admin Panel"</span>);
+});</pre>
+            </div>
+        </div>
+
+        <!-- Article 5: File Operations -->
+        <div class="article" id="file-operations">
+            <h2>5. File Operations</h2>
+
+            <h3>Reading Files</h3>
+
+            <h4>ReadFileText()</h4>
+            <p>Read text content from a file.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> content = <span class="type">ReadFileText</span>(<span class="string">"config.json"</span>);
+<span class="keyword">var</span> data = <span class="type">JsonConvert</span>.<span class="type">Deserialize</span>(content);</pre>
+            </div>
+
+            <h4>ReadFileBytes()</h4>
+            <p>Read binary content from a file.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">byte</span>[] imageData = <span class="type">ReadFileBytes</span>(<span class="string">"logo.png"</span>);</pre>
+            </div>
+
+            <h3>Writing Files</h3>
+
+            <h4>WriteFileText()</h4>
+            <p>Write text content to a file.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> settings = <span class="keyword">new</span> { <span class="type">Theme</span> = <span class="string">"Dark"</span>, <span class="type">Language</span> = <span class="string">"en"</span> };
+<span class="keyword">var</span> json = <span class="type">JsonConvert</span>.<span class="type">Serialize</span>(settings);
+
+<span class="type">WriteFileText</span>(<span class="string">"settings.json"</span>, json);</pre>
+            </div>
+
+            <h4>WriteFileBytes()</h4>
+            <p>Write binary content to a file.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">WriteFileBytes</span>(<span class="string">"backup.dat"</span>, dataBytes);</pre>
+            </div>
+
+            <h3>File Paths</h3>
+
+            <h4>GetFilesPath()</h4>
+            <p>Get the base path where application files are stored.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> basePath = <span class="type">GetFilesPath</span>();
+<span class="type">Log</span>(<span class="string">$"Files stored in: </span>{basePath}<span class="string">"</span>);</pre>
+            </div>
+
+            <h4>GetFilePath()</h4>
+            <p>Get full path to a specific file.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> fullPath = <span class="type">GetFilePath</span>(<span class="string">"data.csv"</span>);</pre>
+            </div>
+
+            <h4>GetFileUrl()</h4>
+            <p>Get URL to access a file through the web interface.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> imageUrl = <span class="type">GetFileUrl</span>(<span class="string">"profile.jpg"</span>);
+<span class="comment">// Returns: https://yourserver/files/YourApp/profile.jpg</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 6: Utility Methods -->
+        <div class="article" id="utility-methods">
+            <h2>6. Utility Methods</h2>
+
+            <h3>Logging</h3>
+
+            <h4>Log()</h4>
+            <p>Log messages for debugging and monitoring.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Simple message</span>
+<span class="type">Log</span>(<span class="string">"Application started"</span>);
+
+<span class="comment">// Multiple values</span>
+<span class="type">Log</span>(<span class="string">"User:"</span>, userName, <span class="string">"Age:"</span>, userAge);
+
+<span class="comment">// With formatting</span>
+<span class="type">Log</span>(<span class="string">"Processing {0} items"</span>, count);</pre>
+            </div>
+
+            <h3>Date & Time</h3>
+
+            <h4>GetNowDate()</h4>
+            <p>Get the current date and time in the server's timezone.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> now = <span class="type">GetNowDate</span>();
+
+<span class="type">AddDoc</span>(<span class="string">"Events"</span>, <span class="keyword">new</span> 
+{
+    <span class="type">Name</span> = <span class="string">"UserLogin"</span>,
+    <span class="type">Timestamp</span> = now
+});</pre>
+            </div>
+
+            <h3>Caching</h3>
+
+            <h4>UseCache()</h4>
+            <p>Cache expensive operations to improve performance.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Cache for 15 minutes (default)</span>
+<span class="keyword">var</span> categories = <span class="type">UseCache</span>(() =>
+{
+    <span class="keyword">return</span> <span class="type">DocsOf</span>(<span class="string">"Categories"</span>)
+        .<span class="type">Select</span><<span class="type">Category</span>>()
+        .<span class="type">ToList</span>();
+});
+
+<span class="comment">// Cache for custom duration</span>
+<span class="keyword">var</span> stats = <span class="type">UseCache</span>(
+    () => <span class="type">CalculateStatistics</span>(),
+    <span class="type">TimeSpan</span>.<span class="type">FromHours</span>(<span class="number">1</span>)
+);
+
+<span class="comment">// Named cache</span>
+<span class="keyword">var</span> data = <span class="type">UseCache</span>(
+    () => <span class="type">LoadData</span>(),
+    <span class="type">TimeSpan</span>.<span class="type">FromMinutes</span>(<span class="number">30</span>),
+    <span class="string">"MyDataCache"</span>
+);
+
+<span class="comment">// Force refresh</span>
+<span class="keyword">var</span> freshData = <span class="type">UseCache</span>(
+    () => <span class="type">LoadData</span>(),
+    <span class="type">TimeSpan</span>.<span class="type">FromMinutes</span>(<span class="number">30</span>),
+    <span class="string">"MyDataCache"</span>,
+    isForceUpdate: <span class="keyword">true</span>
+);</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Performance Tip:</strong> Use caching for data that doesn't change frequently, like categories, settings, or statistics.
+            </div>
+
+            <h3>DQL Helper</h3>
+
+            <h4>DQL()</h4>
+            <p>Build dynamic query language strings with parameters.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> name = <span class="string">"John"</span>;
+<span class="keyword">var</span> age = <span class="number">30</span>;
+
+<span class="comment">// Create JSON with parameters</span>
+<span class="keyword">var</span> json = <span class="type">DQL</span>(<span class="string">"{'Name':@@</b>Name,'Age':@@Age}"</span>, name, age);
+
+<span class="comment">// Use in queries</span>
+<span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="type">DQL</span>(<span class="string">"{'Name':@@Name}"</span>, name));</pre>
+            </div>
+
+            <h3>User Management</h3>
+
+            <h4>ResetToGuest()</h4>
+            <p>Reset the user session to guest user (logout).</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Logout and remove auto-login</span>
+<span class="type">ResetToGuest</span>(<span class="keyword">true</span>);
+
+<span class="comment">// Logout but keep auto-login</span>
+<span class="type">ResetToGuest</span>(<span class="keyword">false</span>);</pre>
+            </div>
+
+            <h3>Code Confirmation</h3>
+
+            <h4>ConfirmCode()</h4>
+            <p>Verify SMS or email confirmation codes.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> isValid = <span class="type">ConfirmCode</span>(<span class="string">"Users"</span>, userId, code);
+
+<span class="keyword">if</span> (isValid)
+{
+    <span class="type">MessageBox</span>(<span class="string">"Code confirmed!"</span>);
+}
+<span class="keyword">else</span>
+{
+    <span class="type">MessageBox</span>(<span class="string">"Invalid code"</span>);
+}</pre>
+            </div>
+
+            <h3>Localization</h3>
+
+            <h4>GetLocalizedValue()</h4>
+            <p>Get localized text based on current user language.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> welcomeText = <span class="type">GetLocalizedValue</span>(<span class="string">"Welcome"</span>);
+<span class="comment">// Returns "Welcome" for English, "Ласкаво просимо" for Ukrainian</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 7: Advanced Features -->
+        <div class="article" id="advanced">
+            <h2>7. Advanced Features</h2>
+
+            <h3>Transactions</h3>
+            <p>Execute multiple database operations atomically.</p>
+
+            <h4>BeginTran() / CommitTran() / RollbackTran()</h4>
+            <div class="code-block csharp">
+                <pre><span class="keyword">try</span>
+{
+    <span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+    
+    <span class="comment">// Multiple operations</span>
+    <span class="keyword">var</span> orderId = <span class="type">AddDoc</span>(<span class="string">"Orders"</span>, orderData);
+    <span class="type">AddDoc</span>(<span class="string">"OrderItems"</span>, itemsData);
+    <span class="type">DocsWhere</span>(<span class="string">"Products"</span>, productId)
+        .<span class="type">Update</span>(<span class="string">"{'Stock':Sub(1)}"</span>);
+    
+    <span class="type">CommitTran</span>(); <span class="comment">// All succeed together</span>
+}
+<span class="keyword">catch</span>
+{
+    <span class="type">RollbackTran</span>(); <span class="comment">// Undo all changes</span>
+    <span class="keyword">throw</span>;
+}</pre>
+            </div>
+
+            <div class="info">
+                <strong>📌 Transaction Types:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>TranType.ReadCommited:</strong> Default isolation level</li>
+                    <li><strong>TranType.Serializable:</strong> Highest isolation (slowest)</li>
+                    <li><strong>TranType.ReadUncommitted:</strong> Lowest isolation (fastest)</li>
+                </ul>
+            </div>
+
+            <h3>Context Management</h3>
+
+            <h4>ExecuteWithSaveContext()</h4>
+            <p>Execute code while preserving the current context state.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> result = <span class="type">ExecuteWithSaveContext</span>(<span class="type">Context</span>, () =>
+{
+    <span class="comment">// Change collection or context here</span>
+    <span class="type">Client</span>.<span class="type">SetDefaultCollection</span>(<span class="string">"TempData"</span>);
+    
+    <span class="comment">// Do operations...</span>
+    <span class="keyword">var</span> data = <span class="type">DocsOf</span>(<span class="string">"TempData"</span>).<span class="type">Select</span>();
+    
+    <span class="keyword">return</span> data;
+    
+    <span class="comment">// Context automatically restored after this block</span>
+});</pre>
+            </div>
+
+            <h3>Additional Helper Methods</h3>
+
+            <h4>NotImplementedMessageBox()</h4>
+            <p>Quick way to show "Not Implemented" message.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+{
+    <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"NewFeature"</span>)
+    {
+        <span class="type">NotImplementedMessageBox</span>();
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">return false</span>;
+}</pre>
+            </div>
+
+            <h4>CreateRenderForm()</h4>
+            <p>Override this to customize form rendering.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public override</span> <span class="type">BaseRenderForm</span> <span class="type">CreateRenderForm</span>(<span class="type">DOMForm</span> form)
+{
+    <span class="comment">// Return custom render form implementation</span>
+    <span class="keyword">return new</span> <span class="type">CustomRenderForm</span>(<span class="keyword">this</span>, form);
+}</pre>
+            </div>
+
+            <h4>SetUserContext()</h4>
+            <p>Set the current user context (internal use).</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">SetUserContext</span>();</pre>
+            </div>
+
+            <h4>SetGlobalDimensions()</h4>
+            <p>Apply global dimensions to a collection.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(documentStorage);
+
+<span class="comment">// Set all global dimensions</span>
+<span class="type">SetGlobalDimensions</span>(collection);
+
+<span class="comment">// Set specific dimensions only</span>
+<span class="type">SetGlobalDimensions</span>(collection, dimType => 
+    dimType != <span class="type">DimensionType</span>.<span class="type">Security</span>);</pre>
+            </div>
+
+            <h3>REST API Integration</h3>
+
+            <h4>Using REST Client</h4>
+            <p>Make HTTP requests to external APIs.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// GET request</span>
+<span class="keyword">var</span> response = <span class="type">REST</span>.<span class="type">Get</span>(<span class="string">"https://api.example.com/users"</span>);
+
+<span class="comment">// POST request</span>
+<span class="keyword">var</span> result = <span class="type">REST</span>.<span class="type">Post</span>(
+    <span class="string">"https://api.example.com/users"</span>,
+    <span class="keyword">new</span> { <span class="type">Name</span> = <span class="string">"John"</span>, <span class="type">Email</span> = <span class="string">"john@@example.com"</span> }
+);
+
+<span class="comment">// With headers</span>
+<span class="type">REST</span>.<span class="type">AddHeader</span>(<span class="string">"Authorization"</span>, <span class="string">"Bearer token123"</span>);
+<span class="keyword">var</span> data = <span class="type">REST</span>.<span class="type">Get</span>(<span class="string">"https://api.example.com/protected"</span>);</pre>
+            </div>
+
+            <h3>AI Integration</h3>
+
+            <h4>Using AI Client</h4>
+            <p>Integrate AI capabilities into your application.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Generate text</span>
+<span class="keyword">var</span> prompt = <span class="string">"Write a welcome message for new users"</span>;
+<span class="keyword">var</span> message = <span class="type">AI</span>.<span class="type">Generate</span>(prompt);
+
+<span class="type">MessageBox</span>(message);</pre>
+            </div>
+
+            <h3>Inter-Application Messaging</h3>
+
+            <h4>SendMessage()</h4>
+            <p>Send messages to other applications.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Send to specific app</span>
+<span class="type">SendMessage</span>(<span class="string">"NotificationService"</span>, <span class="keyword">new</span> 
+{
+    <span class="type">Type</span> = <span class="string">"Alert"</span>,
+    <span class="type">Message</span> = <span class="string">"New order received"</span>
+});
+
+<span class="comment">// Notify all open instances</span>
+<span class="type">SendMessage</span>(
+    <span class="string">"Dashboard"</span>,
+    <span class="keyword">new</span> { <span class="type">Action</span> = <span class="string">"Refresh"</span> },
+    isNotifyAllOpenApps: <span class="keyword">true</span>
+);
+
+<span class="comment">// Auto-open app if not running</span>
+<span class="type">SendMessage</span>(
+    <span class="string">"ReportGenerator"</span>,
+    reportData,
+    isOpenAppToNotify: <span class="keyword">true</span>
+);</pre>
+            </div>
+
+            <h3>Power Management (Windows)</h3>
+
+            <h4>GetPowerInfo()</h4>
+            <p>Get battery and power status on Windows devices.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">var</span> power = <span class="type">GetPowerInfo</span>();
+
+<span class="type">Log</span>(<span class="string">$"Battery: </span>{power.<span class="type">BatteryPercent</span>}<span class="string">%"</span>);
+<span class="type">Log</span>(<span class="string">$"Plugged in: </span>{power.<span class="type">IsOnline</span>}<span class="string">"</span>);
+<span class="type">Log</span>(<span class="string">$"Time remaining: </span>{power.<span class="type">BatteryLifeTime</span>}<span class="string">"</span>);</pre>
+            </div>
+
+            <h3>Properties Reference</h3>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>SessionID</td>
+                    <td>Guid</td>
+                    <td>Unique identifier for current session</td>
+                </tr>
+                <tr>
+                    <td>Client</td>
+                    <td>FractalPlatformClient</td>
+                    <td>Database client for queries</td>
+                </tr>
+                <tr>
+                    <td>REST</td>
+                    <td>RESTClient</td>
+                    <td>HTTP client for REST APIs</td>
+                </tr>
+                <tr>
+                    <td>AI</td>
+                    <td>AIClient</td>
+                    <td>AI service client</td>
+                </tr>
+                <tr>
+                    <td>Context</td>
+                    <td>Context</td>
+                    <td>Current execution context</td>
+                </tr>
+                <tr>
+                    <td>InternalContext</td>
+                    <td>Context</td>
+                    <td>Internal context (private)</td>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td>User</td>
+                    <td>Current user information</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>string</td>
+                    <td>Application name (class name without "Application")</td>
+                </tr>
+                <tr>
+                    <td>DatabaseName</td>
+                    <td>string</td>
+                    <td>Default database name</td>
+                </tr>
+                <tr>
+                    <td>HasDatabase</td>
+                    <td>bool</td>
+                    <td>Whether database is configured</td>
+                </tr>
+                <tr>
+                    <td>Instance</td>
+                    <td>FractalPlatformInstance</td>
+                    <td>Platform instance reference</td>
+                </tr>
+                <tr>
+                    <td>Logs</td>
+                    <td>List<string>
+                    </td>
+                    <td>Application log messages</td>
+                </tr>
+            </table>
+
+            <h3>Complete Example Application</h3>
+            <p>Here's a complete example showing many features together:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">public class</span> <span class="type">TaskManagerApplication</span> : <span class="type">BaseApplication</span>
+{
+    <span class="keyword">public override void</span> <span class="type">OnStart</span>()
+    {
+        <span class="comment">// Check if user is logged in</span>
+        <span class="keyword">if</span> (<span class="type">User</span>.<span class="type">IsGuest</span>)
+        {
+            <span class="comment">// Show login form</span>
+            <span class="type">FirstDocOf</span>(<span class="string">"LoginForm"</span>)
+                .<span class="type">OpenForm</span>(<span class="string">"Login"</span>);
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="comment">// Show main task list</span>
+            <span class="type">ShowTaskList</span>();
+        }
+    }
+
+    <span class="keyword">private void</span> <span class="type">ShowTaskList</span>()
+    {
+        <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, <span class="keyword">new</span> { <span class="type">OwnerID</span> = <span class="type">User</span>.<span class="type">ID</span> })
+            .<span class="type">OrderBy</span>(<span class="string">"{'DueDate':$}"</span>)
+            .<span class="type">OpenForm</span>(<span class="string">"My Tasks"</span>);
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnEventDimension</span>(<span class="type">EventInfo</span> info)
+    {
+        <span class="keyword">switch</span> (info.<span class="type">Action</span>)
+        {
+            <span class="keyword">case</span> <span class="string">"AddTask"</span>:
+                <span class="type">CreateNewDocFor</span>(<span class="string">"TaskTemplate"</span>, <span class="string">"Tasks"</span>)
+                    .<span class="type">OpenForm</span>(<span class="string">"New Task"</span>, result =>
+                    {
+                        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                        {
+                            <span class="type">RefreshForm</span>();
+                            <span class="type">MessageBox</span>(<span class="string">"Task created!"</span>);
+                        }
+                    });
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"CompleteTask"</span>:
+                <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>)
+                    .<span class="type">Update</span>(<span class="string">"{'Status':'Completed','CompletedDate':@@Date}"</span>, 
+                              <span class="type">GetNowDate</span>());
+                <span class="type">RefreshForm</span>();
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"DeleteTask"</span>:
+                <span class="type">MessageBox</span>(
+                    <span class="string">"Delete this task?"</span>,
+                    <span class="type">MessageBoxButtonType</span>.<span class="type">YesNo</span>,
+                    result =>
+                    {
+                        <span class="keyword">if</span> (result.<span class="type">Result</span>)
+                        {
+                            <span class="type">DelDoc</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>);
+                            <span class="type">CloseForm</span>();
+                        }
+                    });
+                <span class="keyword">return true</span>;
+
+            <span class="keyword">case</span> <span class="string">"Logout"</span>:
+                <span class="type">ResetToGuest</span>();
+                <span class="type">CloseAllForms</span>();
+                <span class="type">OnStart</span>();
+                <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnChangeDimension</span>(<span class="type">ChangeInfo</span> info)
+    {
+        <span class="comment">// Auto-calculate priority based on due date</span>
+        <span class="keyword">if</span> (info.<span class="type">ChangeName</span> == <span class="string">"DueDate"</span>)
+        {
+            <span class="keyword">var</span> dueDate = info.<span class="type">AfterValue</span>.<span class="type">ToDateTime</span>();
+            <span class="keyword">var</span> daysUntilDue = (dueDate - <span class="type">GetNowDate</span>()).<span class="type">Days</span>;
+
+            <span class="keyword">string</span> priority = daysUntilDue < <span class="number">1</span> ? <span class="string">"Urgent"</span> :
+                               daysUntilDue < <span class="number">7</span> ? <span class="string">"High"</span> :
+                               <span class="string">"Normal"</span>;
+
+            <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, info.<span class="type">DocID</span>)
+                .<span class="type">Update</span>(<span class="type">DQL</span>(<span class="string">"{'Priority':@@Priority}"</span>, priority));
+
+            <span class="type">RefreshForm</span>();
+            <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public override object</span> <span class="type">OnComputedDimension</span>(<span class="type">ComputedInfo</span> info)
+    {
+        <span class="keyword">if</span> (info.<span class="type">Variable</span> == <span class="string">"DaysRemaining"</span>)
+        {
+            <span class="keyword">var</span> dueDate = info.<span class="type">FindFirstDateTimeValue</span>(<span class="string">"DueDate"</span>);
+            <span class="keyword">var</span> days = (dueDate - <span class="type">GetNowDate</span>()).<span class="type">Days</span>;
+            
+            <span class="keyword">return</span> days > <span class="number">0</span> ? <span class="string">$"</span>{days}<span class="string"> days left"</span> : <span class="string">"Overdue"</span>;
+        }
+
+        <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnSecurityDimension</span>(<span class="type">SecurityInfo</span> info)
+    {
+        <span class="comment">// Users can only modify their own tasks</span>
+        <span class="keyword">if</span> (info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Update</span> ||
+            info.<span class="type">OperationType</span> == <span class="type">OperationType</span>.<span class="type">Delete</span>)
+        {
+            <span class="keyword">var</span> ownerId = info.<span class="type">FindFirstValue</span>(<span class="string">"OwnerID"</span>);
+            <span class="keyword">return</span> ownerId == <span class="type">User</span>.<span class="type">ID</span>.<span class="type">ToString</span>();
+        }
+
+        <span class="keyword">return true</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnTimerDimension</span>(<span class="type">TimerInfo</span> info)
+    {
+        <span class="comment">// Check for overdue tasks every minute</span>
+        <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"CheckOverdue"</span>)
+        {
+            <span class="keyword">var</span> overdueTasks = <span class="type">DocsWhere</span>(<span class="string">"Tasks"</span>, 
+                <span class="string">"{'DueDate':Less(@@Now),'Status':'Active'}"</span>,
+                <span class="type">GetNowDate</span>())
+                .<span class="type">Count</span>();
+
+            <span class="keyword">if</span> (overdueTasks > <span class="number">0</span>)
+            {
+                <span class="type">Log</span>(<span class="string">$"Warning: </span>{overdueTasks}<span class="string"> overdue tasks"</span>);
+            }
+
+            <span class="keyword">return true</span>;
+        }
+
+        <span class="keyword">return false</span>;
+    }
+
+    <span class="keyword">public override bool</span> <span class="type">OnAuthDimension</span>(<span class="type">AuthInfo</span> info)
+    {
+        <span class="keyword">if</span> (info.<span class="type">Action</span> == <span class="string">"Login"</span>)
+        {
+            <span class="keyword">var</span> username = info.<span class="type">FindFirstValue</span>(<span class="string">"Username"</span>);
+            <span class="keyword">var</span> password = info.<span class="type">FindFirstValue</span>(<span class="string">"Password"</span>);
+            
+            <span class="comment">// Validate and login user</span>
+            <span class="keyword">return</span> <span class="type">ValidateAndLogin</span>(username, password);
+        }
+        
+        <span class="keyword">return false</span>;
+    }
+}</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Best Practices Summary:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Keep OnStart() lightweight - defer heavy operations</li>
+                    <li>Return true from event handlers when you handle the event</li>
+                    <li>Use transactions for multi-step operations</li>
+                    <li>Cache expensive queries with UseCache()</li>
+                    <li>Validate user input in OnChangeDimension()</li>
+                    <li>Implement security checks in OnSecurityDimension()</li>
+                    <li>Use Log() for debugging and monitoring</li>
+                    <li>Provide user feedback with MessageBox() and RefreshForm()</li>
+                    <li>Handle errors gracefully with try-catch blocks</li>
+                    <li>Use meaningful action names in your UI dimensions</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Common Pitfalls:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Forgetting to return true after handling events (causes event to propagate)</li>
+                    <li>Not refreshing forms after updates (users won't see changes)</li>
+                    <li>Performing heavy operations in OnStart() (slow startup)</li>
+                    <li>Not checking user permissions before operations</li>
+                    <li>Forgetting to commit or rollback transactions</li>
+                    <li>Not handling null values in computed dimensions</li>
+                    <li>Blocking UI with long-running operations</li>
+                    <li>Not providing user feedback for actions</li>
+                </ul>
+            </div>
+
+            <h3>Event Handler Return Values Summary</h3>
+            <table>
+                <tr>
+                    <th>Event Handler</th>
+                    <th>Return true</th>
+                    <th>Return false</th>
+                </tr>
+                <tr>
+                    <td>OnEventDimension</td>
+                    <td>Event handled</td>
+                    <td>Event not handled, continue propagation</td>
+                </tr>
+                <tr>
+                    <td>OnChangeDimension</td>
+                    <td>Change accepted</td>
+                    <td>Change rejected/not handled</td>
+                </tr>
+                <tr>
+                    <td>OnOpenForm</td>
+                    <td>Allow form to open</td>
+                    <td>Prevent form from opening</td>
+                </tr>
+                <tr>
+                    <td>OnCloseForm</td>
+                    <td>Allow form to close</td>
+                    <td>Prevent form from closing</td>
+                </tr>
+                <tr>
+                    <td>OnSecurityDimension</td>
+                    <td>Allow access</td>
+                    <td>Deny access</td>
+                </tr>
+                <tr>
+                    <td>OnTimerDimension</td>
+                    <td>Timer event handled</td>
+                    <td>Timer event not handled</td>
+                </tr>
+                <tr>
+                    <td>OnAuthDimension</td>
+                    <td>Authentication successful</td>
+                    <td>Authentication failed</td>
+                </tr>
+                <tr>
+                    <td>OnMovePageDimension</td>
+                    <td>Allow navigation</td>
+                    <td>Prevent navigation</td>
+                </tr>
+                <tr>
+                    <td>OnMenuDimension</td>
+                    <td>Menu action handled</td>
+                    <td>Menu action not handled</td>
+                </tr>
+                <tr>
+                    <td>OnUploadFiles</td>
+                    <td>Upload processed</td>
+                    <td>Upload rejected</td>
+                </tr>
+                <tr>
+                    <td>OnReceiveMessage</td>
+                    <td>Message handled</td>
+                    <td>Message not handled</td>
+                </tr>
+                <tr>
+                    <td>OnCodeConfirmed</td>
+                    <td>Code confirmation handled</td>
+                    <td>Code confirmation not handled</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

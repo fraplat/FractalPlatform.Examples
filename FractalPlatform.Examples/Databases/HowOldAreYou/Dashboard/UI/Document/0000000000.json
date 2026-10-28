@@ -1,0 +1,16 @@
+{
+  "Style": "Save:Analyze;Cancel:false",
+  "Label": {
+    "ControlType": "Label"
+  },
+  "Question": {
+    "Visible": false
+  },
+  "EnterNumber": {
+    "ControlType": "TextBox",
+    "Style": "Type:Captcha"
+  },
+  "Photo": {
+    "ControlType": "UploadFile"
+  }
+}

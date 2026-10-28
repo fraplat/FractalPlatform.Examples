@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Transactions Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* JSON Syntax highlighting */
+        .json .string { color: #98c379; }
+        .json .number { color: #d19a66; }
+        .json .boolean { color: #56b6c2; }
+        .json .null { color: #56b6c2; }
+        .json .comma { color: #abb2bf; }
+        .json .brace { color: #abb2bf; }
+        .json .bracket { color: #abb2bf; }
+        .json .key { color: #e06c75; }
+        
+        /* C# Syntax highlighting */
+        .csharp .keyword { color: #c678dd; }
+        .csharp .string { color: #98c379; }
+        .csharp .number { color: #d19a66; }
+        .csharp .comment { color: #5c6370; font-style: italic; }
+        .csharp .type { color: #61afef; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Fractal Platform Transactions Guide</h1>
+            <p>Master database transactions and data consistency</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#sample-data">0. Sample Data</a></li>
+                <li><a href="#what-are-transactions">1. What Are Transactions?</a></li>
+                <li><a href="#isolation-levels">2. Transaction Isolation Levels</a></li>
+                <li><a href="#basic-transactions">3. Basic Transaction Operations</a></li>
+                <li><a href="#single-document">4. Transactions with Single Document</a></li>
+                <li><a href="#multiple-documents">5. Transactions with Multiple Documents</a></li>
+                <li><a href="#multiple-collections">6. Transactions with Multiple Collections</a></li>
+                <li><a href="#concurrent-transactions">7. Concurrent Transactions</a></li>
+                <li><a href="#best-practices">8. Best Practices</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 0: Sample Data -->
+        <div class="article" id="sample-data">
+            <h2>0. Sample Data</h2>
+            <p>Throughout this guide, we'll work with two collections: "Users" and "Cars", each containing one document.</p>
+
+            <h3>Users Collection - Document (ID: 0000000001)</h3>
+            <div class="code-block json">
+                <pre><span class="brace">{</span>
+    <span class="key">"Age"</span><span class="comma">: </span><span class="number">20</span><span class="comma">,</span>
+    <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Bob"</span><span class="comma">,</span>
+    <span class="key">"Car"</span><span class="comma">: </span><span class="brace">{</span>
+        <span class="key">"Engine"</span><span class="comma">: </span><span class="number">2</span><span class="comma">,</span>
+        <span class="key">"Model"</span><span class="comma">: </span><span class="string">"Subaru"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Childs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="number">3</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Ted"</span><span class="comma">,</span>
+            <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">4</span><span class="comma">, </span><span class="number">5</span><span class="comma">, </span><span class="number">6</span><span class="bracket">]</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="number">5</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Mike"</span><span class="comma">,</span>
+            <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">7</span><span class="comma">, </span><span class="number">8</span><span class="comma">, </span><span class="number">9</span><span class="bracket">]</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Jobs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Microsoft"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Engineer"</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Google"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Engineer"</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Amazon"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Manager"</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">1</span><span class="comma">, </span><span class="number">2</span><span class="comma">, </span><span class="number">3</span><span class="bracket">]</span>
+<span class="brace">}</span></pre>
+            </div>
+
+            <h3>Cars Collection - Document (ID: 0000000001)</h3>
+            <div class="code-block json">
+                <pre><span class="brace">{</span>
+    <span class="key">"Company"</span><span class="comma">: </span><span class="string">"VW"</span><span class="comma">,</span>
+    <span class="key">"Car"</span><span class="comma">: </span><span class="string">"Touran"</span><span class="comma">,</span>
+    <span class="key">"Engine"</span><span class="comma">: </span><span class="string">"2.0"</span>
+<span class="brace">}</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Key Points:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Users collection:</strong> Contains Bob's complete profile with nested objects and arrays</li>
+                    <li><strong>Cars collection:</strong> Contains a VW Touran vehicle record</li>
+                    <li>We'll use these documents to demonstrate transaction behavior</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 1: What Are Transactions -->
+        <div class="article" id="what-are-transactions">
+            <h2>1. What Are Transactions?</h2>
+
+            <h3>Definition</h3>
+            <p>A transaction is a sequence of database operations that are treated as a single unit of work. Think of it like a shopping cart - you add items, review them, and then either complete the purchase (commit) or cancel everything (rollback).</p>
+
+            <h3>ACID Properties</h3>
+            <p>Transactions follow the ACID principles:</p>
+
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><strong>Atomicity</strong></td>
+                    <td>All operations succeed or all fail</td>
+                    <td>If updating age fails, name update is also cancelled</td>
+                </tr>
+                <tr>
+                    <td><strong>Consistency</strong></td>
+                    <td>Database remains in valid state</td>
+                    <td>Data relationships are preserved</td>
+                </tr>
+                <tr>
+                    <td><strong>Isolation</strong></td>
+                    <td>Transactions don't interfere with each other</td>
+                    <td>Two users can update different records simultaneously</td>
+                </tr>
+                <tr>
+                    <td><strong>Durability</strong></td>
+                    <td>Committed changes are permanent</td>
+                    <td>Data survives system crashes</td>
+                </tr>
+            </table>
+
+            <h3>Why Use Transactions?</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Data Integrity:</strong> Ensure all related changes happen together</li>
+                <li><strong>Error Recovery:</strong> Rollback if something goes wrong</li>
+                <li><strong>Concurrency Control:</strong> Handle multiple users safely</li>
+                <li><strong>Consistency:</strong> Keep your data in a valid state</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Real-World Example:</strong> When transferring money between bank accounts, you want to ensure that money is deducted from one account and added to another as a single operation. If either fails, both should be cancelled.
+            </div>
+        </div>
+
+        <!-- Article 2: Isolation Levels -->
+        <div class="article" id="isolation-levels">
+            <h2>2. Transaction Isolation Levels</h2>
+
+            <p>Fractal Platform supports three transaction isolation levels that control how transactions interact with each other:</p>
+
+            <h3>Read Committed</h3>
+            <p>The most basic isolation level. A transaction only sees data that has been committed by other transactions.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Use Case:</strong> General-purpose queries where you don't need strict consistency. Fast and allows good concurrency.
+            </div>
+
+            <table>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+                <tr>
+                    <td>✅ Prevents dirty reads<br>✅ Good performance<br>✅ High concurrency</td>
+                    <td>❌ Non-repeatable reads possible<br>❌ Phantom reads possible</td>
+                </tr>
+            </table>
+
+            <h3>Repeatable Read</h3>
+            <p>Ensures that if you read data twice in the same transaction, you'll get the same result. The data is locked for reading.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Use Case:</strong> Financial calculations, reports where data must remain consistent throughout the transaction.
+            </div>
+
+            <table>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+                <tr>
+                    <td>✅ Prevents dirty reads<br>✅ Prevents non-repeatable reads<br>✅ Data consistency guaranteed</td>
+                    <td>❌ Lower concurrency<br>❌ Possible lock conflicts<br>❌ Phantom reads possible</td>
+                </tr>
+            </table>
+
+            <h3>Snapshot</h3>
+            <p>Each transaction works with a snapshot of the database as it existed at the start of the transaction. No locks are needed for reading.</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">Snapshot</span>);</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Use Case:</strong> Long-running reports, complex queries where you need consistent data without blocking other transactions.
+            </div>
+
+            <table>
+                <tr>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+                <tr>
+                    <td>✅ No read locks needed<br>✅ Prevents all anomalies<br>✅ Best consistency<br>✅ Good for long transactions</td>
+                    <td>❌ Higher memory usage<br>❌ Possible update conflicts</td>
+                </tr>
+            </table>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> The isolation level affects how your transaction sees changes made by other transactions and how it locks data. Choose based on your specific needs for consistency vs. performance.
+            </div>
+        </div>
+
+        <!-- Article 3: Basic Operations -->
+        <div class="article" id="basic-transactions">
+            <h2>3. Basic Transaction Operations</h2>
+
+            <h3>Implicit Transactions</h3>
+            <p>Every query in Fractal Platform runs in an implicit transaction. This means each operation is automatically committed:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// This operation runs in an implicit transaction</span>
+<span class="keyword">var</span> count = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="number">1</span>)
+                  .<span class="type">Count</span>();
+<span class="comment">// Result: 1 (Bob's document exists)</span></pre>
+            </div>
+
+            <h3>Explicit Transactions</h3>
+            <p>For complex operations, you can create explicit transactions with full control:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// 1. Begin transaction</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// 2. Perform operations</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':30}"</span>);
+
+<span class="comment">// 3. Commit or rollback</span>
+<span class="type">Client</span>.<span class="type">CommitTran</span>();  <span class="comment">// Save changes</span>
+<span class="comment">// OR</span>
+<span class="type">Client</span>.<span class="type">RollbackTran</span>(); <span class="comment">// Cancel changes</span></pre>
+            </div>
+
+            <h3>Commit - Saving Changes</h3>
+            <p>When you commit a transaction, all changes become permanent:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// Update Bob's age</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);
+
+<span class="comment">// Changes are visible inside transaction</span>
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                  .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// users[0].Age == 25</span>
+
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Changes are now permanent</span>
+users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+              .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// users[0].Age == 25 (still 25 after commit)</span></pre>
+            </div>
+
+            <h3>Rollback - Cancelling Changes</h3>
+            <p>Rollback undoes all changes made during the transaction:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// Update Bob's age</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':30}"</span>);
+
+<span class="comment">// Changes are visible inside transaction</span>
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                  .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// users[0].Age == 30</span>
+
+<span class="type">Client</span>.<span class="type">RollbackTran</span>();
+
+<span class="comment">// Changes are cancelled - original value restored</span>
+users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+              .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// users[0].Age == 20 (original value)</span></pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Best Practice:</strong> Always use try-catch blocks with transactions to ensure proper cleanup, and always either commit or rollback before the transaction ends.
+            </div>
+        </div>
+
+        <!-- Article 4: Single Document -->
+        <div class="article" id="single-document">
+            <h2>4. Transactions with Single Document</h2>
+
+            <h3>Reading in a Transaction</h3>
+            <p>All three isolation levels support reading documents within a transaction:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Read Committed</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="keyword">var</span> count = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="number">1</span>)
+                  .<span class="type">Count</span>();
+<span class="comment">// Result: 1 (Bob exists)</span>
+
+count = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="number">555</span>)
+              .<span class="type">Count</span>();
+<span class="comment">// Result: 0 (document 555 doesn't exist)</span>
+
+<span class="type">Client</span>.<span class="type">CommitTran</span>();</pre>
+            </div>
+
+            <h3>Writing with Commit</h3>
+            <p>Update data and save changes permanently:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+
+<span class="comment">// Update Bob's age</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+<span class="comment">// Verify inside transaction</span>
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                  .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">20</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Verify after commit - changes are permanent</span>
+users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+              .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">20</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+<span class="comment">// Age is still 20</span></pre>
+            </div>
+
+            <h3>Writing with Rollback</h3>
+            <p>Update data but cancel the changes:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">Snapshot</span>);
+
+<span class="comment">// Update Bob's age to 25</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);
+
+<span class="comment">// Verify inside transaction - shows new value</span>
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                  .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">25</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+
+<span class="type">Client</span>.<span class="type">RollbackTran</span>();
+
+<span class="comment">// Verify after rollback - original value restored</span>
+users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+              .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">20</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+<span class="comment">// Age is back to 20</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Key Insight:</strong> Inside a transaction, you always see your own changes. The isolation level determines what you see from other transactions and when locks are acquired.
+            </div>
+        </div>
+
+        <!-- Article 5: Multiple Documents -->
+        <div class="article" id="multiple-documents">
+            <h2>5. Transactions with Multiple Documents</h2>
+
+            <h3>Adding Documents with Rollback</h3>
+            <p>When you add a document in a transaction and rollback, the document is not created:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// Add a new user</span>
+<span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>);
+
+<span class="comment">// Count inside transaction</span>
+<span class="keyword">var</span> count = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                .<span class="type">Count</span>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, count);
+<span class="comment">// We see 2 documents: Bob and Tim</span>
+
+<span class="type">Client</span>.<span class="type">RollbackTran</span>();
+
+<span class="comment">// Count after rollback</span>
+count = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+            .<span class="type">Count</span>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">1</span>, count);
+<span class="comment">// Back to 1 document: only Bob remains</span></pre>
+            </div>
+
+            <h3>Adding Documents with Commit</h3>
+            <p>When you add a document and commit, it becomes permanent:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+
+<span class="comment">// Add a new user and save the ID</span>
+<span class="keyword">var</span> newDocID = <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>);
+
+<span class="comment">// Count inside transaction</span>
+<span class="keyword">var</span> count = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                  .<span class="type">Count</span>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, count);
+
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Count after commit</span>
+count = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+            .<span class="type">Count</span>();
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, count);
+<span class="comment">// Still 2 documents - Tim was permanently added</span>
+
+<span class="comment">// Clean up - delete the new document</span>
+<span class="type">DelDoc</span>(<span class="string">"Users"</span>, newDocID);</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> When adding multiple documents in a transaction, either all are created (on commit) or none are created (on rollback). This maintains atomicity.
+            </div>
+
+            <h3>Multiple Operations in One Transaction</h3>
+            <p>You can perform multiple operations on different documents:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">Snapshot</span>);
+
+<span class="comment">// Update Bob</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);
+
+<span class="comment">// Add Tim</span>
+<span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim','Age':30}"</span>);
+
+<span class="comment">// Both operations are in the same transaction</span>
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+<span class="comment">// Both changes are saved together</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 6: Multiple Collections -->
+        <div class="article" id="multiple-collections">
+            <h2>6. Transactions with Multiple Collections</h2>
+
+            <h3>Cross-Collection Rollback</h3>
+            <p>Transactions can span multiple collections. If rolled back, changes in all collections are cancelled:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// Add document to Users collection</span>
+<span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>);
+
+<span class="comment">// Add document to Cars collection</span>
+<span class="type">AddDoc</span>(<span class="string">"Cars"</span>, <span class="string">"{'Model':'Tesla'}"</span>);
+
+<span class="comment">// Verify both collections inside transaction</span>
+<span class="keyword">var</span> userCount = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                      .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, userCount);
+<span class="comment">// Users: Bob + Tim = 2</span>
+
+<span class="keyword">var</span> carCount = <span class="type">DocsOf</span>(<span class="string">"Cars"</span>)
+                    .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, carCount);
+<span class="comment">// Cars: VW Touran + Tesla = 2</span>
+
+<span class="type">Client</span>.<span class="type">RollbackTran</span>();
+
+<span class="comment">// Verify after rollback - both additions cancelled</span>
+userCount = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">1</span>, userCount);
+<span class="comment">// Back to 1: only Bob</span>
+
+carCount = <span class="type">DocsOf</span>(<span class="string">"Cars"</span>)
+               .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">1</span>, carCount);
+<span class="comment">// Back to 1: only VW Touran</span></pre>
+            </div>
+
+            <h3>Cross-Collection Commit</h3>
+            <p>When committing, all changes across all collections are saved together:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+
+<span class="comment">// Add to Users</span>
+<span class="keyword">var</span> newUserID = <span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>);
+
+<span class="comment">// Add to Cars</span>
+<span class="keyword">var</span> newCarID = <span class="type">AddDoc</span>(<span class="string">"Cars"</span>, <span class="string">"{'Model':'Tesla'}"</span>);
+
+<span class="comment">// Verify inside transaction</span>
+<span class="keyword">var</span> userCount = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                      .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, userCount);
+
+<span class="keyword">var</span> carCount = <span class="type">DocsOf</span>(<span class="string">"Cars"</span>)
+                    .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, carCount);
+
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Verify after commit - both additions permanent</span>
+userCount = <span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+                .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, userCount);
+
+carCount = <span class="type">DocsOf</span>(<span class="string">"Cars"</span>)
+               .<span class="type">Count</span>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">2</span>, carCount);
+
+<span class="comment">// Clean up</span>
+<span class="type">DelDoc</span>(<span class="string">"Users"</span>, newUserID);
+<span class="type">DelDoc</span>(<span class="string">"Cars"</span>, newCarID);</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Atomicity Across Collections:</strong> When working with multiple collections, transactions ensure that either all changes succeed or all fail together. This is crucial for maintaining data consistency across related collections.
+            </div>
+        </div>
+
+        <!-- Article 7: Concurrent Transactions -->
+        <div class="article" id="concurrent-transactions">
+            <h2>7. Concurrent Transactions</h2>
+
+            <h3>Read Committed Isolation</h3>
+            <p>With Read Committed, transactions see committed data from other transactions:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Initial state: Bob's age is 25</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);
+
+<span class="comment">// Client 1: Start transaction</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">ReadCommited</span>);
+
+<span class="comment">// Client 1: Update Bob's age to 20</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+<span class="comment">// Client 1: Sees their own changes</span>
+<span class="keyword">var</span> users = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                  .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">20</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+
+<span class="comment">// Client 2: Sees old committed data (25)</span>
+users = otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                   .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="number">25</span>, users[<span class="number">0</span>].<span class="type">Age</span>.<span class="type">Value</span>);
+
+<span class="comment">// Client 1: Rollback changes</span>
+<span class="type">Client</span>.<span class="type">RollbackTran</span>();</pre>
+            </div>
+
+            <h3>Repeatable Read with Locks</h3>
+            <p>Repeatable Read locks data for reading. Other transactions cannot modify locked data:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Set error handling for locks</span>
+<span class="type">TranManager</span>.<span class="type">IsRaiseErrorOnLock</span> = <span class="boolean">true</span>;
+
+<span class="comment">// Client 1: Start Repeatable Read transaction</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+
+<span class="comment">// Client 1: Read Bob's age (locks the data)</span>
+<span class="keyword">var</span> age = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                .<span class="type">Value</span>(<span class="string">"{'Age':$}"</span>);
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="string">"25"</span>, age);
+
+<span class="comment">// Client 2: Try to update locked data - FAILS</span>
+otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+           .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="boolean">true</span>, otherClient.<span class="type">Context</span>.<span class="type">HasError</span>);
+<span class="comment">// Update blocked because Client 1 has a read lock</span>
+
+otherClient.<span class="type">Context</span>.<span class="type">ResetError</span>();
+
+<span class="comment">// Client 1: Commit and release lock</span>
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Client 2: Now update succeeds</span>
+otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+           .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+age = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+          .<span class="type">Value</span>(<span class="string">"{'Age':$}"</span>);
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="string">"20"</span>, age);</pre>
+            </div>
+
+            <h3>Snapshot Isolation</h3>
+            <p>Snapshot isolation prevents write conflicts but allows concurrent reads:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Initial state: Bob's age is 25</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);
+
+<span class="comment">// Client 1: Start Snapshot transaction</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">Snapshot</span>);
+
+<span class="comment">// Client 2: Try to update - FAILS (write lock)</span>
+otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+           .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="boolean">true</span>, otherClient.<span class="type">Context</span>.<span class="type">HasError</span>);
+
+otherClient.<span class="type">Context</span>.<span class="type">ResetError</span>();
+
+<span class="comment">// Client 1: Update data in snapshot</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+      .<span class="type">Update</span>(<span class="string">"{'Age':20}"</span>);
+
+<span class="comment">// Client 1: Commit</span>
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// Client 2: Can now read updated value</span>
+<span class="keyword">var</span> age = otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+                       .<span class="type">Value</span>(<span class="string">"{'Age':$}"</span>);
+<span class="type">Assert</span>.<span class="type">AreEqual</span>(<span class="string">"20"</span>, age);</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Lock Conflicts:</strong> When TranManager.IsRaiseErrorOnLock is true, operations that encounter locks will fail with an error instead of waiting. This helps detect and handle concurrent access issues.
+            </div>
+        </div>
+
+        <!-- Article 8: Best Practices -->
+        <div class="article" id="best-practices">
+            <h2>8. Best Practices</h2>
+
+            <h3>Choose the Right Isolation Level</h3>
+            <table>
+                <tr>
+                    <th>Use Case</th>
+                    <th>Recommended Level</th>
+                    <th>Reason</th>
+                </tr>
+                <tr>
+                    <td>Simple reads</td>
+                    <td>Read Committed</td>
+                    <td>Fast, good concurrency</td>
+                </tr>
+                <tr>
+                    <td>Financial calculations</td>
+                    <td>Repeatable Read</td>
+                    <td>Prevents data changes during calculation</td>
+                </tr>
+                <tr>
+                    <td>Long reports</td>
+                    <td>Snapshot</td>
+                    <td>Consistent view without blocking</td>
+                </tr>
+                <tr>
+                    <td>Batch updates</td>
+                    <td>Read Committed</td>
+                    <td>Balance between consistency and performance</td>
+                </tr>
+            </table>
+
+            <h3>Keep Transactions Short</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// ❌ BAD - Long transaction</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+<span class="keyword">var</span> users = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// ... lots of processing ...</span>
+<span class="comment">// ... user interaction ...</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>).<span class="type">Update</span>(<span class="string">"{'Age':30}"</span>);
+<span class="type">Client</span>.<span class="type">CommitTran</span>();
+
+<span class="comment">// ✅ GOOD - Short transaction</span>
+<span class="keyword">var</span> users = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">Select</span><<span class="type">UserInfo</span>>();
+<span class="comment">// ... processing outside transaction ...</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>).<span class="type">Update</span>(<span class="string">"{'Age':30}"</span>);
+<span class="type">Client</span>.<span class="type">CommitTran</span>();</pre>
+            </div>
+
+            <h3>Always Handle Errors</h3>
+            <div class="code-block csharp">
+                <pre><span class="comment">// ✅ GOOD - Proper error handling</span>
+<span class="keyword">try</span>
+{
+    <span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+    
+    <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+          .<span class="type">Update</span>(<span class="string">"{'Age':30}"</span>);
+    
+    <span class="type">AddDoc</span>(<span class="string">"Cars"</span>, <span class="string">"{'Model':'Tesla'}"</span>);
+    
+    <span class="type">Client</span>.<span class="type">CommitTran</span>();
+}
+<span class="keyword">catch</span> (<span class="type">Exception</span> ex)
+{
+    <span class="type">Client</span>.<span class="type">RollbackTran</span>();
+    <span class="comment">// Log error and handle appropriately</span>
+}</pre>
+            </div>
+
+            <h3>Avoid Deadlocks</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Access resources in the same order</strong> across all transactions</li>
+                <li><strong>Keep transactions short</strong> to reduce lock duration</li>
+                <li><strong>Use lower isolation levels</strong> when appropriate</li>
+                <li><strong>Handle lock errors gracefully</strong> and retry when needed</li>
+            </ul>
+
+            <h3>Test with Concurrent Access</h3>
+            <p>Always test your application with multiple simultaneous users to identify potential concurrency issues:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Create a second client for testing</span>
+<span class="keyword">var</span> context = <span class="type">CreateUserContext</span>();
+<span class="keyword">var</span> otherClient = <span class="type">CreateClient</span>(context, <span class="type">Instance</span>);
+
+<span class="comment">// Test concurrent operations</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+<span class="comment">// ... Client 1 operations ...</span>
+
+<span class="comment">// Attempt conflicting operation from Client 2</span>
+otherClient.<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+           .<span class="type">Update</span>(<span class="string">"{'Age':40}"</span>);
+
+<span class="comment">// Check for conflicts</span>
+<span class="keyword">if</span> (otherClient.<span class="type">Context</span>.<span class="type">HasError</span>)
+{
+    <span class="comment">// Handle the error appropriately</span>
+}</pre>
+            </div>
+
+            <h3>Document Your Transaction Strategy</h3>
+            <p>Always document which isolation level you're using and why:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Using Repeatable Read to ensure consistent totals</span>
+<span class="comment">// during financial report generation</span>
+<span class="type">Client</span>.<span class="type">BeginTran</span>(<span class="type">TranType</span>.<span class="type">RepeatableRead</span>);
+<span class="keyword">var</span> total = <span class="type">CalculateOrderTotal</span>();
+<span class="type">Client</span>.<span class="type">CommitTran</span>();</pre>
+            </div>
+
+            <div class="success">
+                <strong>✅ Golden Rules:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Keep transactions as short as possible</li>
+                    <li>Always use try-catch with proper rollback</li>
+                    <li>Choose the appropriate isolation level for your use case</li>
+                    <li>Test with concurrent access scenarios</li>
+                    <li>Monitor for lock conflicts and deadlocks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @Footer.Partial
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Next-generation Low-Code Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+</head>
+
+<body>
+    @StartForm
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Simple Development, Powerful Testing</h1>
+                <p>Automate your web application testing with real user scenarios</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="how-it-works">
+            <h3>Why Testing Matters</h3>
+            <p>When you start using Fractal, you quickly notice how easy it is to build apps, how clean the aspect-functional code looks, and how configurable the components are.</p>
+            <p>But that simplicity is backed by complex, low-level algorithms — and they require strong testing tools.</p>
+            <p>As a development platform, Fractal puts special emphasis on testing. It’s essential to maintain backward compatibility with all previously deployed apps.</p>
+            <p>It’s extremely frustrating when a stable, well-tested app suddenly breaks after a platform update.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Auto & Load Testing Built In</h3>
+            <p>Fractal includes built-in support for unit tests, integration tests, and most importantly — auto and load tests.</p>
+            <p>With just a few clicks, developers can record real user scenarios as reusable macro scripts.</p>
+            <p>Each scenario is made of steps. At each step, Fractal captures the user's <strong>action</strong> and the resulting <strong>UI response</strong>.</p>
+            <p>This approach validates the real-life behavior of your app and helps catch bugs early when core workflows break.</p>
+            <p>Fractal also handles tricky cases like time-based data and random GUIDs using a smart "time-back machine" strategy.</p>
+            <br>
+            <div class="section-image">
+                <img src="@BaseFilesUrl/autotesting1.png" alt="Auto Testing Overview" />
+            </div>
+            <br>
+            <p>Fractal also supports load testing. It simulates real-world, high-concurrency environments so you can ensure your app performs under pressure.</p>
+            <p>This helps developers build robust applications that remain stable even under peak load conditions.</p>
+        </div>
+        <div class="how-it-works">
+            <h3>View Scenario Details</h3>
+            <p>Double-click any test scenario to view full details.</p>
+            <br>
+            <div class="section-image">
+                <img src="@BaseFilesUrl/autotesting2.png" alt="Test Scenario Details" />
+            </div>
+            <br>
+            <p>Here you can view execution times and customize settings — for example, how strictly each step's result is compared to the reference output.</p>
+            <p>The example above uses the second-strictest level, meaning all attributes and values on the page must match exactly.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Our Commitment to Stability</h3>
+            <p>At Fractal, our goal is twofold:</p>
+            <br>
+            <ul>
+                <li>Make it easy to write powerful auto & load tests for your app.</li>
+                <li>Guarantee your app continues to work perfectly after every platform update.</li>
+            </ul>
+            <p>Currently, Fractal's platform stability is verified by <strong>37 usage scenarios</strong>.
+            </p>
+        </div>
+    </section>
+
+    @Footer.Partial
+
+    @EndForm
+</body>
+
+</html>

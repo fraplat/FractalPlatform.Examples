@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Next-generation Low-Code Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+</head>
+
+<body>
+    @StartForm
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Speed Is the Real Benchmark</h1>
+                <p>Syntax, framework, even development time — none of that matters as much as raw performance.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="how-it-works">
+            <h3>Let's Be Honest — Does the Stack Matter?</h3>
+            <p>You could build the same app in your regular stack in 2 weeks instead of 2 days with Fractal — the world won’t change because of it.</p>
+            <p>Is Fractal code easier to read? That’s subjective. A developer who spent 10 years in Perl might find their syntax more comfortable.</p>
+            <p>More flexible for changes? Maybe, but if you already know all your app’s requirements — and don’t expect a major pivot — that might not matter either.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>But There’s One Thing That Always Matters</h3>
+            <p>Performance. Speed. The thing that users feel immediately.</p>
+            <p>Even a small delay in the UI separates a $30 phone from a $1200 one. Speed is brand. Once users get used to a fast, responsive interface, even a single unnecessary progress bar becomes annoying.</p>
+            <p>Today, I’m proud to say: none of the 23 apps we’ve built on Fractal have a single progress bar.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>It's Just the Beginning</h3>
+            <p>Most apps so far are internal or test projects — they have features, but not massive loads. Optimization is still ahead. Fractal is like a racecar that just hit the track — fast, but with room for engineering improvements.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Fractal Portal: A Mature Example</h3>
+            <p>One of our most advanced apps is the <strong>Fractal Portal</strong>.</p>
+            <br>
+            <ul>
+                <li>Jira-like project management</li>
+                <li>Slack-style messaging</li>
+                <li>Built-in blog system</li>
+                <li>Deployment & monitoring tools for Fractal Cloud</li>
+                <li>Student portal for training & exams</li>
+                <li>12 permission domains</li>
+                <li>Fully translated into 7 languages</li>
+                <li>Domain model exceeds 300+ relational tables</li>
+            </ul>
+        </div>
+
+        <div class="how-it-works">
+            <h3>How Fast Does It Work?</h3>
+            <p>Right now, average page load time is about <strong>100ms</strong>. On a warm cache, it's just <strong>12–15ms</strong>.</p>
+            <br>
+            <div class="section-image">
+                <img src="@BaseFilesUrl/performance.png" alt="Performance Screenshot" />
+            </div>
+            <br>
+            <p>Sounds great, but let’s be honest — these results are not from an optimized setup. The server is a 10-year-old laptop with a mobile CPU that wants to go to sleep every second.</p>
+            <p>Traffic goes through two routers, two Wi-Fi networks — no fiber involved. Average ping is around 8–10ms. Page generation time? ~1ms. The rest is networking overhead.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>More Testing Will Reveal Bugs</h3>
+            <p>I'm sure once we hit real-world production, we'll uncover performance issues. That’s normal.</p>
+            <p>But Fractal has already crossed the line — it’s no longer a broken-down cart. Even with imperfections, it’s a smoking racecar — already better than any horse in the stable.</p>
+        </div>
+    </section>
+
+    @Footer.Partial
+
+    @EndForm
+</body>
+
+</html>

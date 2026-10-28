@@ -1,0 +1,14 @@
+{
+  "Квартира": {
+    "Index": 1
+  },
+  "Показник": {
+    "Index": 2
+  },
+  "History": {
+    "Index": 3
+  },
+  "NoApartmentsInMonth": {
+    "Index": 4
+  }
+}

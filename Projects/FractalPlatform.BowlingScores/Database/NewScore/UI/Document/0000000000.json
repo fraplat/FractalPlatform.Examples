@@ -1,0 +1,9 @@
+{
+  "Style": "Save:Add",
+  "Image": {
+    "ControlType": "UploadFile"
+  },
+  "Label": {
+    "ControlType": "Label"
+  }
+}

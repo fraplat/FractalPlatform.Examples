@@ -1,0 +1,21 @@
+{
+  "Name": "",
+  "FullName": "",
+  "Password": "",
+  "Age": 20,
+  "IsActive": true,
+  "IsBot": false,
+  "Prompt": "",
+  "Gender": "Male",
+  "OnDate": "05/20/2025",
+  "Avatar": "guest.jpg",
+  "Category": "",
+  "Description": "",
+  "Settings": {
+    "like_probability": 0.5,
+    "comment_probability": 0.5,
+    "follow_probability": 0.5,
+    "unfollow_probability": 0.5,
+    "post_probability": 0.5
+  }
+}

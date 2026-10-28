@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Agency - Web Development Platform</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    @StartForm
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">Fractal<span>Agency</span></a>
+            <ul class="nav-links">
+                <li><a href="@BaseAppUrl/#problems">Problems</a></li>
+                <li><a href="@BaseAppUrl/#services">Services</a></li>
+                <li><a href="@BaseAppUrl/#process">Process</a></li>
+                <li><a href="@BaseAppUrl/#portfolio">Portfolio</a></li>
+                <li><a href="@BaseAppUrl/#pricing">Pricing</a></li>
+                <li><a href="@BaseAppUrl/#faq">FAQ</a></li>
+                <li><a href="@BaseAppUrl/?tag=audit">Contacts</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="audit-form-page">
+        <!-- Header Section -->
+        <section class="header">
+            <div class="container">
+                <div class="header-content text-center">
+                    <h1>Get a Professional Audit of Your Web Project — Start Building 7× Faster on Fractal Platform</h1>
+                    <p data-aos="fade-up" data-aos-delay="300">
+                        Let us analyze your project idea and provide you with a comprehensive audit including
+                        technical recommendations, timeline estimates, and development roadmap.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="audit-form-section">
+            <div class="container">
+                <control attr="">
+                    <div class="audit-form" id="auditForm">
+                        <div class="form-group" data-aos="fade-up">
+                            <label for="projectName" class="form-label">
+                                What's your name or name of your organization?
+                            </label>
+                            <input type="text" class="form-input" placeholder="e.g., John Smith" required @UserName.TextBox>
+                        </div>
+                        <div class="form-group" data-aos="fade-up">
+                            <label for="projectName" class="form-label">
+                                What's the name of your project or idea?
+                            </label>
+                            <input type="text" class="form-input" placeholder="e.g., NextGen E-commerce Platform" required @ProjectName.TextBox>
+                        </div>
+
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                            <label for="projectDomain" class="form-label">
+                                What industry or domain is your project related to?
+                            </label>
+                            <input type="text" class="form-input" placeholder="e.g., E-commerce, Healthcare, Fintech, Education" required @ProjectDomain.TextBox>
+                        </div>
+
+                        <!-- Project Description -->
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                            <label for="projectDescription" class="form-label">
+                                Tell us what your project is about.
+                            </label>
+                            <textarea class="form-textarea" rows="6" placeholder="Describe your project vision, main goals, target audience, and key functionality you want to implement..." required @Description.RichTextBox></textarea>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                            <label for="projectFiles" class="form-label">
+                                Upload your project documentation (one file or one archive).
+                                <span class="form-sublabel">
+                                    You can upload a single file (e.g., PDF, Word document) or a single archive (.zip, .rar, etc.)
+                                    that includes all relevant designs, diagrams, or other materials that help us understand your vision.
+                                </span>
+                            </label>
+                            <div id="uploadedFileNames" class="uploaded-file-names"></div>
+                            <div class="file-upload-container">
+                                <input id="projectFiles" type="file" class="file-input" accept=".pdf,.doc,.docx,.zip,.rar,.7z,.tar,.gz,.png,.jpg,.jpeg,.fig,.sketch" @SpecsFilePath.UploadFile>
+                                <label for="projectFiles" class="file-upload-label">
+                                    <span class="file-upload-icon">📁</span>
+                                    <span class="file-upload-text">
+                                        Attach your file or archive here
+                                    </span>
+                                    <span class="file-upload-hint">
+                                        Click to browse or drag & drop your file
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <!-- Features -->
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                            <label class="form-label">
+                                What features do you need in your project?
+                            </label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="User roles" @Features.UserRoles.CheckBox>
+                                    <label for="userRoles">User roles</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Admin panel" @Features.AdminPanel.CheckBox>
+                                    <label for="adminPanel">Admin panel</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Payments" @Features.Payments.CheckBox>
+                                    <label for="payments">Payments</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Notifications" @Features.Notifications.CheckBox>
+                                    <label for="notifications">Notifications</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Reports" @Features.Reports.CheckBox>
+                                    <label for="reports">Reports</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="High Load" @Features.HighLoad.CheckBox>
+                                    <label for="highLoad">High Load</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Big Database" @Features.BigDatabase.CheckBox>
+                                    <label for="bigDatabase">Big Database</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Localizations" @Features.Localizations.CheckBox>
+                                    <label for="localizations">Localizations</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Migrations" @Features.Migrations.CheckBox>
+                                    <label for="migrations">Migrations</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Auto-Testing" @Features.AutoTesting.CheckBox>
+                                    <label for="autoTesting">Auto-Testing</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Long-Term Support" @Features.LongTermSupport.CheckBox>
+                                    <label for="longTermSupport">Long-Term Support</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" value="Web design important" @Features.WebDesignImportant.CheckBox>
+                                    <label for="webDesign">Web design important</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hosting -->
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                            <label class="form-label">
+                                Where do you plan to host your project?
+                            </label>
+                            <div class="checkbox-grid">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="myHosting" value="Hosting in my clouds" @Hosting.InMyClouds.CheckBox>
+                                    <label for="myHosting">Hosting in my clouds</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="fractalHosting" value="Hosting in Fractal clouds" @Hosting.InFractalClouds.CheckBox>
+                                    <label for="fractalHosting">Hosting in Fractal clouds</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="form-group" data-aos="fade-up" data-aos-delay="600">
+                            <label class="form-label">
+                                How can we reach you for clarifications?
+                            </label>
+                            <div class="contact-fields">
+                                <div class="form-field">
+                                    <label for="email" class="field-label">Email:</label>
+                                    <input type="email" class="form-input" placeholder="your.email@example.com" required @Contacts.Email.TextBox>
+                                </div>
+                                <div class="form-field">
+                                    <label for="messenger" class="field-label">Messenger:</label>
+                                    <input type="text" class="form-input" placeholder="@telegram_username, Skype ID, or WhatsApp number" @Contacts.Messenger.TextBox>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-submit" data-aos="fade-up" data-aos-delay="700">
+                            <button type="submit" class="btn btn-primary" onclick="@SavePageScript">
+                                Get Free Project Audit
+                            </button>
+                            <p class="submit-note">
+                                We'll analyze your project and get back to you within 24 hours with detailed recommendations.
+                            </p>
+                        </div>
+                        </form>
+                    </div>
+                </control>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© @Year Fractal Agency. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.getElementById("projectFiles").addEventListener("change", function() {
+            const fileList = this.files;
+            const output = document.getElementById("uploadedFileNames");
+            output.innerHTML = "";
+
+            if (fileList.length === 0) {
+                output.innerHTML = "<span>No file selected</span>";
+            } else {
+                for (let i = 0; i < fileList.length; i++) {
+                    const fileName = fileList[i].name;
+                    output.innerHTML += `<span>📄 ${fileName}</span>`;
+                }
+            }
+        });
+    </script>
+    @EndForm
+</body>
+
+</html>

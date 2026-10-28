@@ -1,0 +1,22 @@
+{
+  "IsRawPage": true,
+  "Layout": "Posts",
+  "Name": {
+    "ReadOnly": true
+  },
+  "OnDate": {
+    "ReadOnly": true
+  },
+  "Follow": {
+    "Visible": false
+  },
+  "Unfollow": {
+    "Visible": false
+  },
+  "Text": {
+    "ControlType": "RichTextBox"
+  },
+  "Picture": {
+    "ControlType": "UploadFile"
+  }
+}

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Controls & Components Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        .json .string { color: #98c379; }
+        .json .number { color: #d19a66; }
+        .json .boolean { color: #56b6c2; }
+        .json .null { color: #56b6c2; }
+        .json .comma { color: #abb2bf; }
+        .json .brace { color: #abb2bf; }
+        .json .bracket { color: #abb2bf; }
+        .json .key { color: #e06c75; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        .info {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .info strong {
+            color: #7b1fa2;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .control-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .control-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .badge-control {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .badge-component {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Fractal Platform Controls & Components</h1>
+            <p>A complete guide to building forms on your low-code platform</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#intro">0. Introduction</a></li>
+                <li><a href="#basics">1. Understanding Controls vs Components</a></li>
+                <li><a href="#text-controls">2. Text & Input Controls</a></li>
+                <li><a href="#selection-controls">3. Selection Controls</a></li>
+                <li><a href="#data-display">4. Data Display Controls</a></li>
+                <li><a href="#media-controls">5. Media Controls</a></li>
+                <li><a href="#datetime-controls">6. Date & Time Controls</a></li>
+                <li><a href="#components">7. Components</a></li>
+                <li><a href="#charts">8. Chart Components</a></li>
+                <li><a href="#advanced">9. Advanced Components</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 0: Introduction -->
+        <div class="article" id="intro">
+            <h2>0. Introduction</h2>
+
+            <h3>What Are Controls and Components?</h3>
+            <p>In Fractal Platform, you build forms by placing <strong>controls</strong> and <strong>components</strong> on them. These are UI elements that connect to your JSON data and provide interactive functionality.</p>
+
+            <div class="info">
+                <strong>🎯 Key Concepts:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Document (Source):</strong> The JSON data that feeds your control</li>
+                    <li><strong>UI Dimension:</strong> Defines what type of control/component to render and its properties</li>
+                    <li><strong>Controls:</strong> Built on a single JSON attribute</li>
+                    <li><strong>Components:</strong> Built on multiple JSON attributes or a hierarchy</li>
+                </ul>
+            </div>
+
+            <h3>How Controls Work</h3>
+            <p>Every control needs two things:</p>
+
+            <div class="code-block json">
+                <pre><span class="comment">// 1. Document - Your data source</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Hello World"</span><span class="brace">}</span>
+
+<span class="comment">// 2. UI - How to display it</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Label"</span><span class="brace">}}</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Quick Example:</strong> If you want to show text on your form, you put "Hello World" in your Document and set ControlType to "Label" in your UI. That's it!
+            </div>
+        </div>
+
+        <!-- Article 1: Basics -->
+        <div class="article" id="basics">
+            <h2>1. Understanding Controls vs Components</h2>
+
+            <h3>What's the Difference?</h3>
+
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Controls</th>
+                    <th>Components</th>
+                </tr>
+                <tr>
+                    <td><strong>Data Structure</strong></td>
+                    <td>Single attribute</td>
+                    <td>Multiple attributes or hierarchy</td>
+                </tr>
+                <tr>
+                    <td><strong>Example Data</strong></td>
+                    <td>"Bob" or 25 or true</td>
+                    <td>{Name: "Bob", Age: 25}</td>
+                </tr>
+                <tr>
+                    <td><strong>Complexity</strong></td>
+                    <td>Simple</td>
+                    <td>Complex</td>
+                </tr>
+                <tr>
+                    <td><strong>Use Cases</strong></td>
+                    <td>Text fields, checkboxes, buttons</td>
+                    <td>Charts, maps, grids, comments</td>
+                </tr>
+            </table>
+
+            <h3>Control Example</h3>
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> TextBox</h4>
+                <p><strong>Description:</strong> Simple text input field</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Just a string</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"This is TextBox"</span><span class="brace">}</span>
+
+<span class="comment">// UI - Specify it's a TextBox</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"TextBox"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <h3>Component Example</h3>
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Chart</h4>
+                <p><strong>Description:</strong> Bar chart with multiple data points</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Complex object with title and data</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="brace">{</span>
+      <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Bar"</span><span class="comma">,</span>
+      <span class="key">"X"</span><span class="comma">: </span><span class="string">"Bars"</span><span class="comma">,</span>
+      <span class="key">"Y"</span><span class="comma">: </span><span class="string">"Value"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Columns"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"One"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">10</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Two"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">20</span><span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI - Specify Chart type and style</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Chart"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Bar"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 2: Text Controls -->
+        <div class="article" id="text-controls">
+            <h2>2. Text & Input Controls</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Label</h4>
+                <p><strong>Description:</strong> Display read-only text</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"This is Label"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Label"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Headers, descriptions, or any text that users shouldn't edit.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Link</h4>
+                <p><strong>Description:</strong> Clickable hyperlink</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Click here"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Link"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> TextBox</h4>
+                <p><strong>Description:</strong> Single-line text input</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Type here..."</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"TextBox"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Names, email addresses, short answers.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> TextBox - Password</h4>
+                <p><strong>Description:</strong> Password input (hidden characters)</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"secretpassword"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"TextBox"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Password"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> TextBox - Captcha</h4>
+                <p><strong>Description:</strong> Bot protection input field</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Enter number here"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"TextBox"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Captcha"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> RichTextBox</h4>
+                <p><strong>Description:</strong> Multi-line text area</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Long text here..."</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"RichTextBox"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Comments, descriptions, or any long text.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Phone</h4>
+                <p><strong>Description:</strong> Phone number input with formatting</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"+380981112233"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Phone"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 3: Selection Controls -->
+        <div class="article" id="selection-controls">
+            <h2>3. Selection Controls</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> CheckBox</h4>
+                <p><strong>Description:</strong> Boolean yes/no checkbox</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="boolean">true</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"CheckBox"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Accept terms, enable/disable features, yes/no questions.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> RadioButton</h4>
+                <p><strong>Description:</strong> Choose one option from multiple choices</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Option1"</span><span class="comma">: </span><span class="boolean">true</span><span class="comma">,</span>
+    <span class="key">"Option2"</span><span class="comma">: </span><span class="boolean">false</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"RadioButton"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Gender selection, shipping method, payment type.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> ComboBox</h4>
+                <p><strong>Description:</strong> Dropdown list to choose from predefined values</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Selected value</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"One"</span><span class="brace">}</span>
+
+<span class="comment">// Enum - Available options</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"Items"</span><span class="comma">: </span><span class="bracket">[</span><span class="string">"One"</span><span class="comma">, </span><span class="string">"Two"</span><span class="comma">, </span><span class="string">"Three"</span><span class="bracket">]</span><span class="brace">}}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"ComboBox"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="info">
+                    <strong>📝 Note:</strong> ComboBox requires an Enum dimension that defines the list of available items.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Button</h4>
+                <p><strong>Description:</strong> Regular clickable button</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Click Me"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Button"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Button - Link</h4>
+                <p><strong>Description:</strong> Button styled as a link</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Go Back"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Button"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Link"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Button - Submit</h4>
+                <p><strong>Description:</strong> Submit button that sends form data</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"Save"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Button"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Submit"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Submit button sends all changed values in the form to the server.
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 4: Data Display -->
+        <div class="article" id="data-display">
+            <h2>4. Data Display Controls</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Grid</h4>
+                <p><strong>Description:</strong> Display data in table format</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Array of objects</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span>
+    <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Bob"</span><span class="comma">, </span><span class="key">"Age"</span><span class="comma">: </span><span class="number">15</span><span class="brace">}</span><span class="comma">,</span>
+    <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Rebeca"</span><span class="comma">, </span><span class="key">"Age"</span><span class="comma">: </span><span class="number">20</span><span class="brace">}</span>
+  <span class="bracket">]</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Grid"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> User lists, product catalogs, any tabular data.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Grid - Link</h4>
+                <p><strong>Description:</strong> Grid where rows are clickable links</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span>
+    <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Bob"</span><span class="comma">, </span><span class="key">"Age"</span><span class="comma">: </span><span class="number">15</span><span class="brace">}</span><span class="comma">,</span>
+    <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Rebeca"</span><span class="comma">, </span><span class="key">"Age"</span><span class="comma">: </span><span class="number">20</span><span class="brace">}</span>
+  <span class="bracket">]</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Grid"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Link"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> TreeView</h4>
+                <p><strong>Description:</strong> Hierarchical tree structure</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span>
+    <span class="brace">{</span><span class="key">"Parent"</span><span class="comma">: </span><span class="null">null</span><span class="comma">, </span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"MyParent"</span><span class="comma">, </span><span class="key">"Text"</span><span class="comma">: </span><span class="string">"My Parent"</span><span class="brace">}</span><span class="comma">,</span>
+    <span class="brace">{</span><span class="key">"Parent"</span><span class="comma">: </span><span class="string">"MyParent"</span><span class="comma">, </span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"MyChildA"</span><span class="comma">, </span><span class="key">"Text"</span><span class="comma">: </span><span class="string">"My Child A"</span><span class="brace">}</span><span class="comma">,</span>
+    <span class="brace">{</span><span class="key">"Parent"</span><span class="comma">: </span><span class="string">"MyParent"</span><span class="comma">, </span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"MyChildB"</span><span class="comma">, </span><span class="key">"Text"</span><span class="comma">: </span><span class="string">"My Child B"</span><span class="brace">}</span>
+  <span class="bracket">]</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"TreeView"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Folder structures, organization charts, category hierarchies.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Raw</h4>
+                <p><strong>Description:</strong> Render raw HTML</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"<b>Bold text</b>"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Raw"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Security Warning:</strong> Be careful with Raw control as it can execute HTML/JavaScript. Only use with trusted content.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> UploadFile</h4>
+                <p><strong>Description:</strong> File upload button</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">""</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"UploadFile"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 5: Media Controls -->
+        <div class="article" id="media-controls">
+            <h2>5. Media Controls</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Picture</h4>
+                <p><strong>Description:</strong> Display an image</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - URL to image</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"https://example.com/image.jpg"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Picture"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Picture - QRCode</h4>
+                <p><strong>Description:</strong> Generate QR code from text</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Text to encode</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"https://mywebsite.com"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Picture"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:QRCode"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Sharing links, contact information, WiFi credentials.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Video - mp4</h4>
+                <p><strong>Description:</strong> Embedded video player</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Video file name or URL</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"MyVideo.mp4"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Media"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Video - Youtube</h4>
+                <p><strong>Description:</strong> Embedded YouTube video</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - YouTube URL</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"https://www.youtube.com/watch?v=LhOSM6uCWxk"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Media"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Youtube"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Audio - mp3</h4>
+                <p><strong>Description:</strong> Audio player</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"MyAudio.mp3"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Media"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Audio"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 6: DateTime Controls -->
+        <div class="article" id="datetime-controls">
+            <h2>6. Date & Time Controls</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Calendar</h4>
+                <p><strong>Description:</strong> Date picker</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Date in YYYY-MM-DD format</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"2023-01-01"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Calendar"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Birthdays, deadlines, appointment scheduling.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-control">CONTROL</span> Time</h4>
+                <p><strong>Description:</strong> Time picker</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Time in HH:MM format</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"12:30"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Time"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 7: Components -->
+        <div class="article" id="components">
+            <h2>7. Components</h2>
+
+            <p>Components are more complex than controls because they work with structured data containing multiple fields. Let's explore each component in detail.</p>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Tags</h4>
+                <p><strong>Description:</strong> Display multiple tags/labels</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Array of strings</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span><span class="string">"JavaScript"</span><span class="comma">, </span><span class="string">"React"</span><span class="comma">, </span><span class="string">"Node.js"</span><span class="bracket">]</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Tags"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Skills, categories, keywords, labels.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Likes</h4>
+                <p><strong>Description:</strong> Like button that adds user name to array</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Array of usernames who liked</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span><span class="string">"Alice"</span><span class="comma">, </span><span class="string">"Bob"</span><span class="bracket">]</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Likes"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="info">
+                    <strong>📝 How it works:</strong> When a user clicks the like button, their username is automatically added to the Control array.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Messages</h4>
+                <p><strong>Description:</strong> List of messages (simple chat)</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Array of message objects</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span>
+    <span class="brace">{</span>
+      <span class="key">"OnDate"</span><span class="comma">: </span><span class="string">"2023-01-01"</span><span class="comma">,</span>
+      <span class="key">"Text"</span><span class="comma">: </span><span class="string">"Hello World!"</span><span class="comma">,</span>
+      <span class="key">"Who"</span><span class="comma">: </span><span class="string">"Guest"</span>
+    <span class="brace">}</span>
+  <span class="bracket">]</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Messages"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Simple chat interface, message boards, notifications.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Comments</h4>
+                <p><strong>Description:</strong> Rich comment system with avatars and pictures</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Array of comment objects</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="bracket">[</span>
+    <span class="brace">{</span>
+      <span class="key">"Avatar"</span><span class="comma">: </span><span class="string">"Guest.png"</span><span class="comma">,</span>
+      <span class="key">"OnDate"</span><span class="comma">: </span><span class="string">"2023-01-01"</span><span class="comma">,</span>
+      <span class="key">"Picture"</span><span class="comma">: </span><span class="string">"Message.jpg"</span><span class="comma">,</span>
+      <span class="key">"Text"</span><span class="comma">: </span><span class="string">"Great post!"</span><span class="comma">,</span>
+      <span class="key">"Who"</span><span class="comma">: </span><span class="string">"Guest"</span>
+    <span class="brace">}</span>
+  <span class="bracket">]</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Comments"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Blog comments, product reviews, social media posts.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Address</h4>
+                <p><strong>Description:</strong> Structured address input</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Address object</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Country"</span><span class="comma">: </span><span class="string">"Ukraine"</span><span class="comma">,</span>
+    <span class="key">"City"</span><span class="comma">: </span><span class="string">"Kyiv"</span><span class="comma">,</span>
+    <span class="key">"District"</span><span class="comma">: </span><span class="string">"Shevchenkivskyi"</span><span class="comma">,</span>
+    <span class="key">"Street"</span><span class="comma">: </span><span class="string">"Khreshchatyk"</span><span class="comma">,</span>
+    <span class="key">"House"</span><span class="comma">: </span><span class="string">"1"</span><span class="comma">,</span>
+    <span class="key">"Appartment"</span><span class="comma">: </span><span class="string">"10"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Address"</span><span class="brace">}}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> GPS</h4>
+                <p><strong>Description:</strong> GPS coordinates display on map</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Coordinates as string "lat,lng"</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="string">"50.450001,30.523333"</span><span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"GPS"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Format:</strong> Latitude and longitude separated by comma.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> BrowserParams</h4>
+                <p><strong>Description:</strong> Receive browser parameters like GPS coordinates</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Will be filled automatically</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Lat"</span><span class="comma">: </span><span class="string">""</span><span class="comma">,</span>
+    <span class="key">"Lng"</span><span class="comma">: </span><span class="string">""</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"BrowserParams"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="info">
+                    <strong>📝 Note:</strong> This component automatically requests and fills location data from the user's browser.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Code Editor</h4>
+                <p><strong>Description:</strong> Syntax-highlighted code editor</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Code editor configuration</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Text"</span><span class="comma">: </span><span class="string">"{\"Attr\":10}"</span><span class="comma">,</span>
+    <span class="key">"Type"</span><span class="comma">: </span><span class="string">"json"</span><span class="comma">,</span>
+    <span class="key">"FontSize"</span><span class="comma">: </span><span class="number">14</span><span class="comma">,</span>
+    <span class="key">"IsFormat"</span><span class="comma">: </span><span class="boolean">true</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Code"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Supported Types:</strong> json, html, csharp (and more programming languages).
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 8: Charts -->
+        <div class="article" id="charts">
+            <h2>8. Chart Components</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Line Graph Chart</h4>
+                <p><strong>Description:</strong> Display data as line graphs</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Graph data with multiple lines</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="brace">{</span>
+      <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Sales Over Time"</span><span class="comma">,</span>
+      <span class="key">"X"</span><span class="comma">: </span><span class="string">"Month"</span><span class="comma">,</span>
+      <span class="key">"Y"</span><span class="comma">: </span><span class="string">"Revenue"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Lines"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span>
+        <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Product A"</span><span class="comma">,</span>
+        <span class="key">"Points"</span><span class="comma">: </span><span class="bracket">[</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">1</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">10</span><span class="brace">}</span><span class="comma">,</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">2</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">20</span><span class="brace">}</span><span class="comma">,</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">3</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">15</span><span class="brace">}</span>
+        <span class="bracket">]</span>
+      <span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span>
+        <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Product B"</span><span class="comma">,</span>
+        <span class="key">"Points"</span><span class="comma">: </span><span class="bracket">[</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">1</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">5</span><span class="brace">}</span><span class="comma">,</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">2</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">15</span><span class="brace">}</span><span class="comma">,</span>
+          <span class="brace">{</span><span class="key">"X"</span><span class="comma">: </span><span class="number">3</span><span class="comma">, </span><span class="key">"Y"</span><span class="comma">: </span><span class="number">25</span><span class="brace">}</span>
+        <span class="bracket">]</span>
+      <span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Chart"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:LineGraphs"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Trends over time, stock prices, temperature changes.
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Bar Chart</h4>
+                <p><strong>Description:</strong> Vertical bar chart</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Simple bar chart</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="brace">{</span>
+      <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Sales by Product"</span><span class="comma">,</span>
+      <span class="key">"X"</span><span class="comma">: </span><span class="string">"Products"</span><span class="comma">,</span>
+      <span class="key">"Y"</span><span class="comma">: </span><span class="string">"Units Sold"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Columns"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Product A"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">100</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Product B"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">150</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Product C"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">80</span><span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Chart"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Bar"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Bar Group Chart</h4>
+                <p><strong>Description:</strong> Grouped bar chart for comparing categories</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document - Grouped bars by category</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="brace">{</span>
+      <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Sales Comparison"</span><span class="comma">,</span>
+      <span class="key">"X"</span><span class="comma">: </span><span class="string">"Quarter"</span><span class="comma">,</span>
+      <span class="key">"Y"</span><span class="comma">: </span><span class="string">"Revenue"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Columns"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Online"</span><span class="comma">, </span><span class="key">"Group"</span><span class="comma">: </span><span class="string">"Q1"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">100</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Retail"</span><span class="comma">, </span><span class="key">"Group"</span><span class="comma">: </span><span class="string">"Q1"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">150</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Online"</span><span class="comma">, </span><span class="key">"Group"</span><span class="comma">: </span><span class="string">"Q2"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">120</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Retail"</span><span class="comma">, </span><span class="key">"Group"</span><span class="comma">: </span><span class="string">"Q2"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">180</span><span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Chart"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Bar"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Comparing multiple metrics across categories (e.g., sales by channel per quarter).
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Pie Chart</h4>
+                <p><strong>Description:</strong> Circular chart showing proportions</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="string">"Market Share"</span><span class="comma">,</span>
+    <span class="key">"Parts"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Company A"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">40</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Company B"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">30</span><span class="brace">}</span><span class="comma">,</span>
+      <span class="brace">{</span><span class="key">"Name"</span><span class="comma">: </span><span class="string">"Company C"</span><span class="comma">, </span><span class="key">"Value"</span><span class="comma">: </span><span class="number">30</span><span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Chart"</span><span class="comma">,</span>
+    <span class="key">"Style"</span><span class="comma">: </span><span class="string">"Type:Pie"</span>
+  <span class="brace">}</span>
+<span class="brace">}</span></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Use Case:</strong> Market share, budget allocation, survey results.
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 9: Advanced -->
+        <div class="article" id="advanced">
+            <h2>9. Advanced Components</h2>
+
+            <div class="control-card">
+                <h4><span class="badge badge-component">COMPONENT</span> Map</h4>
+                <p><strong>Description:</strong> Interactive map with markers</p>
+
+                <div class="code-block json">
+                    <pre><span class="comment">// Document</span>
+<span class="brace">{</span>
+  <span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span>
+    <span class="key">"Title"</span><span class="comma">: </span><span class="string">"Office Locations"</span><span class="comma">,</span>
+    <span class="key">"Key"</span><span class="comma">: </span><span class="string">""</span><span class="comma">,</span>
+    <span class="key">"Zoom"</span><span class="comma">: </span><span class="number">15</span><span class="comma">,</span>
+    <span class="key">"Center"</span><span class="comma">: </span><span class="brace">{</span>
+      <span class="key">"Lat"</span><span class="comma">: </span><span class="string">"50.4329658690059"</span><span class="comma">,</span>
+      <span class="key">"Lng"</span><span class="comma">: </span><span class="string">"30.57958332067064"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Points"</span><span class="comma">: </span><span class="bracket">[</span>
+      <span class="brace">{</span>
+        <span class="key">"Lat"</span><span class="comma">: </span><span class="string">"50.4329658690059"</span><span class="comma">,</span>
+        <span class="key">"Lng"</span><span class="comma">: </span><span class="string">"30.57958332067064"</span>
+      <span class="brace">}</span>
+    <span class="bracket">]</span>
+  <span class="brace">}</span>
+<span class="brace">}</span>
+
+<span class="comment">// UI</span>
+<span class="brace">{</span><span class="key">"Control"</span><span class="comma">: </span><span class="brace">{</span><span class="key">"ControlType"</span><span class="comma">: </span><span class="string">"Map"</span><span class="brace">}}</span></pre>
+                </div>
+
+                <div class="info">
+                    <strong>📝 Fields:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li><strong>Title:</strong> Map title</li>
+                        <li><strong>Key:</strong> API key (if required by map provider)</li>
+                        <li><strong>Zoom:</strong> Zoom level (1-20)</li>
+                        <li><strong>Center:</strong> Map center coordinates</li>
+                        <li><strong>Points:</strong> Array of marker locations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Summary Tables</h3>
+
+            <h4>Control vs Component Quick Reference</h4>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Examples</th>
+                    <th>Data Structure</th>
+                </tr>
+                <tr>
+                    <td><strong>Controls</strong></td>
+                    <td>Label, TextBox, Button, CheckBox, Calendar</td>
+                    <td>Single value: string, number, boolean, date</td>
+                </tr>
+                <tr>
+                    <td><strong>Components</strong></td>
+                    <td>Chart, Map, Messages, Comments, Address</td>
+                    <td>Complex object with multiple fields and arrays</td>
+                </tr>
+            </table>
+
+            <h4>All Controls at a Glance</h4>
+            <table>
+                <tr>
+                    <th>Control Name</th>
+                    <th>Category</th>
+                    <th>Data Type</th>
+                    <th>Use Case</th>
+                </tr>
+                <tr>
+                    <td>Label</td>
+                    <td>Text</td>
+                    <td>string</td>
+                    <td>Display read-only text</td>
+                </tr>
+                <tr>
+                    <td>TextBox</td>
+                    <td>Input</td>
+                    <td>string</td>
+                    <td>Single-line text input</td>
+                </tr>
+                <tr>
+                    <td>RichTextBox</td>
+                    <td>Input</td>
+                    <td>string</td>
+                    <td>Multi-line text input</td>
+                </tr>
+                <tr>
+                    <td>CheckBox</td>
+                    <td>Selection</td>
+                    <td>boolean</td>
+                    <td>Yes/No choice</td>
+                </tr>
+                <tr>
+                    <td>RadioButton</td>
+                    <td>Selection</td>
+                    <td>object</td>
+                    <td>Choose one option</td>
+                </tr>
+                <tr>
+                    <td>ComboBox</td>
+                    <td>Selection</td>
+                    <td>string</td>
+                    <td>Dropdown list</td>
+                </tr>
+                <tr>
+                    <td>Button</td>
+                    <td>Action</td>
+                    <td>string</td>
+                    <td>Trigger actions</td>
+                </tr>
+                <tr>
+                    <td>Calendar</td>
+                    <td>DateTime</td>
+                    <td>string (date)</td>
+                    <td>Pick a date</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>DateTime</td>
+                    <td>string (time)</td>
+                    <td>Pick a time</td>
+                </tr>
+                <tr>
+                    <td>Picture</td>
+                    <td>Media</td>
+                    <td>string (URL)</td>
+                    <td>Display images</td>
+                </tr>
+                <tr>
+                    <td>Grid</td>
+                    <td>Data Display</td>
+                    <td>array</td>
+                    <td>Tabular data</td>
+                </tr>
+            </table>
+
+            <h4>All Components at a Glance</h4>
+            <table>
+                <tr>
+                    <th>Component Name</th>
+                    <th>Category</th>
+                    <th>Key Fields</th>
+                    <th>Use Case</th>
+                </tr>
+                <tr>
+                    <td>Chart (Bar)</td>
+                    <td>Visualization</td>
+                    <td>Title, Columns</td>
+                    <td>Bar charts</td>
+                </tr>
+                <tr>
+                    <td>Chart (Pie)</td>
+                    <td>Visualization</td>
+                    <td>Title, Parts</td>
+                    <td>Proportions</td>
+                </tr>
+                <tr>
+                    <td>Chart (Line)</td>
+                    <td>Visualization</td>
+                    <td>Title, Lines, Points</td>
+                    <td>Trends over time</td>
+                </tr>
+                <tr>
+                    <td>Map</td>
+                    <td>Location</td>
+                    <td>Center, Points, Zoom</td>
+                    <td>Display locations</td>
+                </tr>
+                <tr>
+                    <td>Messages</td>
+                    <td>Communication</td>
+                    <td>OnDate, Text, Who</td>
+                    <td>Simple chat</td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td>Communication</td>
+                    <td>Avatar, Text, Who, Picture</td>
+                    <td>Rich comments</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>Location</td>
+                    <td>Country, City, Street</td>
+                    <td>Structured addresses</td>
+                </tr>
+                <tr>
+                    <td>Code</td>
+                    <td>Development</td>
+                    <td>Text, Type, FontSize</td>
+                    <td>Code editing</td>
+                </tr>
+                <tr>
+                    <td>Tags</td>
+                    <td>Display</td>
+                    <td>Array of strings</td>
+                    <td>Show labels/tags</td>
+                </tr>
+            </table>
+
+            <div class="tip">
+                <strong>💡 Pro Tips:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Start with simple controls before moving to complex components</li>
+                    <li>Always match your data structure to the control/component requirements</li>
+                    <li>Use the Style property to customize control behavior</li>
+                    <li>Test your forms with sample data before deploying</li>
+                    <li>Components are more powerful but require more setup</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Common Mistakes:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Forgetting to set the ControlType in UI dimension</li>
+                    <li>Using wrong data structure (string for array, etc.)</li>
+                    <li>Not providing required fields for components</li>
+                    <li>Mixing up Document and UI configurations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

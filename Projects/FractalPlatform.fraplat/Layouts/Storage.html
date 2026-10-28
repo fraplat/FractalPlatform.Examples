@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Next-generation Low-Code Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+</head>
+
+<body>
+    @StartForm
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Storage: The Core of Fractal Platform</h1>
+                <p>Fractal is built on a rock-solid foundation. It started as a simple data engine and grew into a powerful self-contained ecosystem.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="how-it-works">
+            <h3>The Fastest Database in the World?</h3>
+            <p>If you ask a low-level engineer what's the fastest database, the honest answer is: pure data structures.</p>
+            <p>All traditional databases are just data structures + extra logic (overhead). Speed always comes down to CPU instructions per operation and how well they fit the hardware pipeline.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Example: ClickHouse Simplicity</h3>
+            <p>ClickHouse started with two consoles: one constantly writes data to disk, the other merges files. Simple, right? Any DB that adds unnecessary complexity will lose performance—especially on write operations.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>What is Storage in Fractal?</h3>
+            <p>Fractal doesn't use a traditional DBMS. Instead, it introduces the concept of a <strong>Storage</strong> — a minimal key-value engine, similar to what some DBs call an "Engine".</p>
+            <p>A working Storage can be built with just 300–400 lines of code. Each one can be specialized for:</p>
+            <br>
+            <ul>
+                <li>High-speed writing</li>
+                <li>Fast reads</li>
+                <li>Small documents</li>
+                <li>Large blob files</li>
+                <li>FIFO queues</li>
+                <li>Compression & encryption</li>
+                <li>Row- or column-based formats</li>
+            </ul>
+            <p>All of these Storage types can live under one application — a true hybrid DB inside your app.</p>
+            <br>
+            <div class="section-image">
+                <img src="@BaseFilesUrl/storage_roof.png" alt="Storage Architecture" />
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Deep Granularity</h3>
+            <p>In traditional databases, granularity often stops at the table or collection level. In Fractal, <strong>Storage can be as granular as a single field in a document</strong>.</p>
+            <br>
+            <div class="section-image">
+                <img src="@BaseFilesUrl/extended_storage.png" alt="Granular Storage Design" />
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Do You Need to Understand All of This?</h3>
+            <p>Not really. Just like in other databases, 95% of use cases are covered by the default, balanced Storage.</p>
+            <p>But when you're in that 5% of edge cases — with massive data or performance needs — you’ll have full control and flexibility.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>How Fast Can It Get?</h3>
+            <p>In synthetic benchmarks, specialized Storages can handle <strong>3–5 million operations/sec</strong> or more. They can even process petabytes of data like ClickHouse-style systems.</p>
+            <p>Why? Because Storage is just simple, low-level algorithmic logic.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Dimensions: Optional Features</h3>
+            <p>Things like Transactions, Undo, and Patch mechanics are implemented as <strong>Dimensions</strong> — modular layers you can turn on or off.</p>
+            <p>You decide how close you want to get to the theoretical hardware maximum.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h3>Need to Use Relational Databases?</h3>
+            <p>No problem — a Storage can act as a data adapter to MS SQL or PostgreSQL.</p>
+            <p>Typical setups: Storage (master) → PostgreSQL (replica), or PostgreSQL/MSSQL as the primary data source.</p>
+            <p>Switching from document-based to relational storage is easy — Fractal can automatically convert any JSON document into normalized relational tables.</p>
+        </div>
+    </section>
+    @Footer.Partial
+
+    @EndForm
+</body>
+
+</html>

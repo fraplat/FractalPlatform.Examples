@@ -1,0 +1,10 @@
+{
+  "Квартира": {
+    "IsRequired": true,
+    "Type": "int"
+  },
+  "Показник": {
+    "IsRequired": true,
+    "Type": "float"
+  }
+}

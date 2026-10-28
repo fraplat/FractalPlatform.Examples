@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesHub — Dashboard</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b0f19; color: #e2e8f0; min-height: 100vh; display: flex; }
+
+        /* Sidebar */
+        .sidebar { width: 250px; background: #111827; border-right: 1px solid #1e293b; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; }
+        .sidebar-logo { padding: 24px 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #1e293b; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+        .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #475569; padding: 16px 12px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #94a3b8; text-decoration: none; transition: all .15s; }
+        .nav-item:hover { background: #1e293b; color: #e2e8f0; }
+        .nav-item.active { background: rgba(99,102,241,.12); color: #818cf8; }
+        .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+        .nav-badge { margin-left: auto; background: #6366f1; color: #fff; font-size: 10px; padding: 2px 7px; border-radius: 10px; }
+        .sidebar-user { padding: 16px 20px; border-top: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+        .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #fff; }
+        .sidebar-user .info { flex: 1; }
+        .sidebar-user .info .name { font-size: 13px; font-weight: 600; }
+        .sidebar-user .info .role { font-size: 11px; color: #64748b; }
+
+        /* Main */
+        .main { margin-left: 250px; flex: 1; min-height: 100vh; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #1e293b; background: #0f1423; position: sticky; top: 0; z-index: 5; }
+        .topbar h1 { font-size: 20px; font-weight: 600; }
+        .topbar-right { display: flex; align-items: center; gap: 16px; }
+        .topbar-search { padding: 8px 14px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 13px; outline: none; width: 240px; }
+        .topbar-search::placeholder { color: #475569; }
+        .icon-btn { width: 36px; height: 36px; border-radius: 8px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 15px; }
+        .icon-btn .dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: #ef4444; border-radius: 50%; border: 2px solid #0f1423; }
+        .date-range { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; font-size: 13px; color: #94a3b8; cursor: pointer; }
+
+        .content { padding: 28px 32px; }
+
+        /* KPI Cards */
+        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px; }
+        .kpi-card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 22px; transition: border-color .2s; }
+        .kpi-card:hover { border-color: #334155; }
+        .kpi-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+        .kpi-header .label { font-size: 13px; color: #94a3b8; }
+        .kpi-header .icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .kpi-header .icon.blue { background: rgba(99,102,241,.12); color: #818cf8; }
+        .kpi-header .icon.green { background: rgba(34,197,94,.12); color: #22c55e; }
+        .kpi-header .icon.amber { background: rgba(245,158,11,.12); color: #f59e0b; }
+        .kpi-header .icon.rose { background: rgba(244,63,94,.12); color: #f43f5e; }
+        .kpi-value { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .kpi-change { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+        .kpi-change.up { color: #22c55e; }
+        .kpi-change.down { color: #f43f5e; }
+        .kpi-change span { color: #64748b; }
+
+        /* Charts Row */
+        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 22px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .card-header h3 { font-size: 15px; font-weight: 600; }
+        .card-tabs { display: flex; gap: 4px; }
+        .card-tabs button { padding: 5px 12px; border-radius: 6px; border: none; font-size: 12px; cursor: pointer; background: transparent; color: #64748b; }
+        .card-tabs button.active { background: rgba(99,102,241,.12); color: #818cf8; }
+
+        /* Fake Chart */
+        .chart-placeholder { height: 220px; display: flex; align-items: flex-end; gap: 8px; padding: 0 4px; }
+        .chart-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .chart-bar { width: 100%; border-radius: 4px 4px 0 0; transition: opacity .2s; }
+        .chart-bar:hover { opacity: .8; }
+        .chart-label { font-size: 10px; color: #475569; }
+
+        /* Donut placeholder */
+        .donut-placeholder { width: 180px; height: 180px; border-radius: 50%; border: 22px solid #1e293b; margin: 10px auto 20px; position: relative; }
+        .donut-placeholder::before { content: ''; position: absolute; top: -22px; left: -22px; width: 180px; height: 180px; border-radius: 50%; border: 22px solid transparent; border-top-color: #6366f1; border-right-color: #8b5cf6; transform: rotate(-30deg); }
+        .donut-placeholder::after { content: ''; position: absolute; top: -22px; left: -22px; width: 180px; height: 180px; border-radius: 50%; border: 22px solid transparent; border-bottom-color: #22c55e; transform: rotate(10deg); }
+        .donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+        .donut-center .val { font-size: 22px; font-weight: 700; }
+        .donut-center .lbl { font-size: 11px; color: #64748b; }
+        .legend { display: flex; flex-direction: column; gap: 10px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+        /* Table */
+        .table-card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 22px; }
+        table { width: 100%; border-collapse: collapse; }
+        thead th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #475569; padding: 10px 12px; border-bottom: 1px solid #1e293b; font-weight: 500; }
+        tbody td { padding: 12px; font-size: 13px; border-bottom: 1px solid #1e293b; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: rgba(99,102,241,.04); }
+        .status { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+        .status.completed { background: rgba(34,197,94,.12); color: #22c55e; }
+        .status.pending { background: rgba(245,158,11,.12); color: #f59e0b; }
+        .status.cancelled { background: rgba(244,63,94,.12); color: #f43f5e; }
+        .progress-bar { width: 80px; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+        .progress-bar .fill { height: 100%; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">SalesHub</div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="dashboard.html" class="nav-item active"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="data-entry.html" class="nav-item"><span class="nav-icon">📝</span> Data Entry</a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+            <a href="calculations.html" class="nav-item"><span class="nav-icon">🔢</span> Calculations</a>
+            <div class="nav-section">Management</div>
+            <a href="products.html" class="nav-item"><span class="nav-icon">📦</span> Products</a>
+            <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> Customers</a>
+            <a href="orders.html" class="nav-item"><span class="nav-icon">🛒</span> Orders <span class="nav-badge">12</span></a>
+            <div class="nav-section">System</div>
+            <a href="users.html" class="nav-item"><span class="nav-icon">🔑</span> User Management</a>
+            <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="avatar">JD</div>
+            <div class="info">
+                <div class="name">John Doe</div>
+                <div class="role">Manager</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main">
+        <header class="topbar">
+            <h1>Dashboard</h1>
+            <div class="topbar-right">
+                <input class="topbar-search" placeholder="Search anything…" type="text">
+                <div class="date-range">📅 Jan 1 – Jun 30, 2025</div>
+                <div class="icon-btn">🔔<span class="dot"></span></div>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="label">Total Revenue</span>
+                        <div class="icon blue">💰</div>
+                    </div>
+                    <div class="kpi-value">$284,520</div>
+                    <div class="kpi-change up">▲ 12.5% <span>vs last period</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="label">Orders</span>
+                        <div class="icon green">📦</div>
+                    </div>
+                    <div class="kpi-value">1,847</div>
+                    <div class="kpi-change up">▲ 8.3% <span>vs last period</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="label">Avg. Order Value</span>
+                        <div class="icon amber">📊</div>
+                    </div>
+                    <div class="kpi-value">$154.00</div>
+                    <div class="kpi-change up">▲ 3.8% <span>vs last period</span></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="label">Overdue Invoices</span>
+                        <div class="icon rose">⏰</div>
+                    </div>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-change down">▼ 5.1% <span>vs last period</span></div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-row">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Revenue Overview</h3>
+                        <div class="card-tabs">
+                            <button>Weekly</button>
+                            <button class="active">Monthly</button>
+                            <button>Quarterly</button>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:60%;background:#6366f1"></div><div class="chart-bar" style="height:40%;background:#22c55e"></div><span class="chart-label">Jan</span></div>
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:75%;background:#6366f1"></div><div class="chart-bar" style="height:55%;background:#22c55e"></div><span class="chart-label">Feb</span></div>
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:50%;background:#6366f1"></div><div class="chart-bar" style="height:35%;background:#22c55e"></div><span class="chart-label">Mar</span></div>
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:90%;background:#6366f1"></div><div class="chart-bar" style="height:70%;background:#22c55e"></div><span class="chart-label">Apr</span></div>
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:80%;background:#6366f1"></div><div class="chart-bar" style="height:60%;background:#22c55e"></div><span class="chart-label">May</span></div>
+                        <div class="chart-bar-group"><div class="chart-bar" style="height:95%;background:#6366f1"></div><div class="chart-bar" style="height:75%;background:#22c55e"></div><span class="chart-label">Jun</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Sales by Category</h3></div>
+                    <div style="position:relative;">
+                        <div class="donut-placeholder">
+                            <div class="donut-center">
+                                <div class="val">6</div>
+                                <div class="lbl">Categories</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><span class="legend-dot" style="background:#6366f1"></span> Electronics — 38%</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6"></span> Services — 24%</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Supplies — 18%</div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Other — 20%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="table-card">
+                <div class="card-header">
+                    <h3>Recent Orders</h3>
+                    <div class="card-tabs">
+                        <button class="active">All</button>
+                        <button>Completed</button>
+                        <button>Pending</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Fulfillment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color:#818cf8">#ORD-2847</td>
+                            <td>Acme Corp</td>
+                            <td>Enterprise License</td>
+                            <td>$12,400</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><div class="progress-bar"><div class="fill" style="width:100%;background:#22c55e"></div></div></td>
+                            <td style="color:#64748b">Jun 28, 2025</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#818cf8">#ORD-2846</td>
+                            <td>Globex Inc</td>
+                            <td>Bulk Supplies</td>
+                            <td>$3,250</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><div class="progress-bar"><div class="fill" style="width:60%;background:#f59e0b"></div></div></td>
+                            <td style="color:#64748b">Jun 27, 2025</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#818cf8">#ORD-2845</td>
+                            <td>Wayne Enterprises</td>
+                            <td>Consulting Hours</td>
+                            <td>$8,900</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><div class="progress-bar"><div class="fill" style="width:100%;background:#22c55e"></div></div></td>
+                            <td style="color:#64748b">Jun 26, 2025</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#818cf8">#ORD-2844</td>
+                            <td>Stark Industries</td>
+                            <td>Hardware Kit</td>
+                            <td>$1,780</td>
+                            <td><span class="status cancelled">Cancelled</span></td>
+                            <td><div class="progress-bar"><div class="fill" style="width:20%;background:#f43f5e"></div></div></td>
+                            <td style="color:#64748b">Jun 25, 2025</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#818cf8">#ORD-2843</td>
+                            <td>Umbrella LLC</td>
+                            <td>Annual Support</td>
+                            <td>$6,100</td>
+                            <td><span class="status completed">Completed</span></td>
+                            <td><div class="progress-bar"><div class="fill" style="width:100%;background:#22c55e"></div></div></td>
+                            <td style="color:#64748b">Jun 24, 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "Phrase": {
+    "IsRequired": true
+  },
+  "Trans": {
+    "IsRequired": true
+  },
+  "Word": {
+    "IsRequired": true
+  }
+}

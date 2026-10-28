@@ -1,0 +1,19 @@
+{
+  "Style": "Save:false;Cancel:false",
+  "Report": {
+    "Points": {
+      "ControlType": "Button"
+    },
+    "Strikes": {
+      "ControlType": "Button"
+    }
+  },
+  "Score": {
+    "NewScore": {
+      "ControlType": "Button"
+    },
+    "Scores": {
+      "ControlType": "Button"
+    }
+  }
+}

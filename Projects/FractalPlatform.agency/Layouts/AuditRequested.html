@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Fractal Agency</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="Home.html" class="logo">Fractal<span>Agency</span></a>
+            <ul class="nav-links">
+                <li><a href="@BaseAppUrl/#problems">Problems</a></li>
+                <li><a href="@BaseAppUrl/#services">Services</a></li>
+                <li><a href="@BaseAppUrl/#process">Process</a></li>
+                <li><a href="@BaseAppUrl/#portfolio">Portfolio</a></li>
+                <li><a href="@BaseAppUrl/#pricing">Pricing</a></li>
+                <li><a href="@BaseAppUrl/#faq">FAQ</a></li>
+                <li><a href="@BaseAppUrl/?tag=audit">Contacts</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="thank-you-page">
+        <!-- Thank You Section -->
+        <section class="thank-you-hero">
+            <div class="container">
+                <div class="thank-you-content text-center">
+                    <div class="success-icon" data-aos="zoom-in">
+                        <div class="checkmark-circle">
+                            <div class="checkmark"></div>
+                        </div>
+                    </div>
+                    <h1 data-aos="fade-up" data-aos-delay="300">Thank You!</h1>
+                    <p class="thank-you-message" data-aos="fade-up" data-aos-delay="500">
+                        Your project audit request has been successfully submitted.
+                    </p>
+                    <div class="thank-you-details" data-aos="fade-up" data-aos-delay="700">
+                        <h3>What happens next?</h3>
+                        <p>
+                            We'll analyze your project and get back to you within <strong>24 hours</strong>
+                            with detailed recommendations including:
+                        </p>
+                        <ul class="next-steps-list">
+                            <li>Technical architecture analysis</li>
+                            <li>Development timeline estimates</li>
+                            <li>Technology stack recommendations</li>
+                            <li>Project roadmap and milestones</li>
+                            <li>Budget estimation and pricing options</li>
+                        </ul>
+                    </div>
+                    <div class="thank-you-actions" data-aos="fade-up" data-aos-delay="900">
+                        <a href="/" class="btn btn-primary">
+                            Back to Home Page
+                        </a>
+                        <p class="contact-note">
+                            Have questions? Feel free to reach out to us directly at
+                            <a href="mailto:agency@fraplat.com" class="email-link">agency@fraplat.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© @Year Fractal Agency. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                offset: 100
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Checkmark animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.checkmark').style.animation = 'checkmark 0.6s ease-in-out forwards';
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+﻿{
+    "Code": "T-00005",
+    "Title": "Закопане термы",
+    "Type": "Walking",
+    "About": "Цена акционная 500 евро",
+    "Duration": "WithNights",
+    "FromCity": "Вроцлав",
+    "Country": "Польша",
+    "Periods": [
+        {
+            "FromDate": "04-01-2025",
+            "ToDate": "04-02-2025"
+        },
+        {
+            "FromDate": "04-07-2025",
+            "ToDate": "04-08-2025"
+        }
+    ],
+    "RequestTour": "Request tour",
+    "Price": "520 евро дети бесплатно",
+    "Description": "День 1, День 2 ...",
+    "Documents": ""
+}

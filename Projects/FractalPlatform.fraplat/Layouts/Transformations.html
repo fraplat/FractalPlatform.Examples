@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Transforms Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        /* Локальные стили только для этого руководства — префикс guide- */
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .guide-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .guide-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .guide-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .guide-nav {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .guide-nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .guide-nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .guide-nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .guide-nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .guide-article {
+            background: var(--white);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .guide-article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .guide-article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .guide-code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .guide-code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* Подсветка синтаксиса */
+        .csharp .keyword { color: #c678dd; }
+        .csharp .string { color: #98c379; }
+        .csharp .number { color: #d19a66; }
+        .csharp .comment { color: #5c6370; font-style: italic; }
+        .csharp .type { color: #61afef; }
+        
+        .json .string { color: #98c379; }
+        .json .number { color: #d19a66; }
+        .json .boolean { color: #56b6c2; }
+        .json .key { color: #e06c75; }
+        .json .brace, .json .bracket { color: #abb2bf; }
+        
+        .guide-tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .guide-tip strong {
+            color: #1976d2;
+        }
+        
+        .guide-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .guide-warning strong {
+            color: #ff6f00;
+        }
+        
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .guide-table th,
+        .guide-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .guide-table th {
+            background: #667eea;
+            color: white;
+        }
+        
+        .guide-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .guide-entity-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .guide-entity-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .guide-flow-diagram {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .guide-footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .guide-footer h3 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="guide-container">
+            <header class="guide-header">
+                <h1>🔄 Fractal Platform Transforms</h1>
+                <p>Understanding data transformations between basic entities</p>
+            </header>
+
+            <nav class="guide-nav">
+                <h2>📑 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">0. Overview</a></li>
+                    <li><a href="#basics">1. Basic Entities</a></li>
+                    <li><a href="#transforms">2. Transformations</a></li>
+                    <li><a href="#examples">3. Practical Examples</a></li>
+                </ul>
+            </nav>
+
+            <!-- Section 0: Overview -->
+            <div class="guide-article" id="overview">
+                <h2>0. Overview</h2>
+                <h3>What are Transforms?</h3>
+                <p>Transforms allow you to convert data between different formats in Fractal Platform. Think of it like translating between languages - the same information can be expressed in different ways depending on what you need to do with it.</p>
+                <h3>The Five Data Formats</h3>
+                <p>Fractal Platform works with five basic data formats, each optimized for different tasks:</p>
+                <table class="guide-table">
+                    <tr>
+                        <th>Format</th>
+                        <th>Description</th>
+                        <th>Best For</th>
+                    </tr>
+                    <tr>
+                        <td><strong>JSON</strong></td>
+                        <td>Text representation of data</td>
+                        <td>APIs, configuration files, human-readable data exchange</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objects</strong></td>
+                        <td>C# classes and objects</td>
+                        <td>Application logic, type-safe code, business rules</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AttrList</strong></td>
+                        <td>Flat list of attribute paths and values</td>
+                        <td>LINQ queries, attribute manipulation, granular control</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>Database-level container for documents</td>
+                        <td>Persisting data, database operations, large datasets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Collection</strong></td>
+                        <td>Storage with dimensions (metadata, validation, etc.)</td>
+                        <td>Forms, validation rules, complex data structures</td>
+                    </tr>
+                </table>
+                <h3>Transform Flow</h3>
+                <p>You can transform between any two formats. Here's how they connect:</p>
+                <div class="guide-flow-diagram">
+                    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                        <div style="padding: 15px 25px; background: #667eea; color: white; border-radius: 8px; font-weight: bold; font-size: 16px;">JSON</div>
+                        <span style="color: #667eea; font-size: 24px; font-weight: bold;">⟷</span>
+                        <div style="padding: 15px 25px; background: #764ba2; color: white; border-radius: 8px; font-weight: bold; font-size: 16px;">Objects</div>
+                        <span style="color: #667eea; font-size: 24px; font-weight: bold;">⟷</span>
+                        <div style="padding: 15px 25px; background: #667eea; color: white; border-radius: 8px; font-weight: bold; font-size: 16px;">AttrList</div>
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 40px; margin-top: 20px;">
+                        <span style="color: #667eea; font-size: 32px; font-weight: bold;">⇅</span>
+                        <span style="color: #667eea; font-size: 32px; font-weight: bold;">⇅</span>
+                        <span style="color: #667eea; font-size: 32px; font-weight: bold;">⇅</span>
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; margin-top: 20px;">
+                        <div style="padding: 15px 25px; background: #764ba2; color: white; border-radius: 8px; font-weight: bold; font-size: 16px;">Storage</div>
+                        <span style="color: #667eea; font-size: 24px; font-weight: bold;">⟷</span>
+                        <div style="padding: 15px 25px; background: #667eea; color: white; border-radius: 8px; font-weight: bold; font-size: 16px;">Collection</div>
+                    </div>
+                    <p style="margin-top: 25px; color: #666; font-size: 14px;">All formats are bidirectionally convertible</p>
+                </div>
+                <h3>Common Transform Patterns</h3>
+                <div class="guide-entity-box">
+                    <h4>🔄 Pattern 1: API to Database</h4>
+                    <p style="margin-top: 10px;"><strong>JSON</strong> (from API) → <strong>Objects</strong> (validate) → <strong>Storage</strong> (save to DB)</p>
+                </div>
+                <div class="guide-entity-box">
+                    <h4>🔄 Pattern 2: Database to Form</h4>
+                    <p style="margin-top: 10px;"><strong>Storage</strong> (from DB) → <strong>Collection</strong> (add validation) → <strong>Form Display</strong></p>
+                </div>
+                <div class="guide-entity-box">
+                    <h4>🔄 Pattern 3: Data Processing</h4>
+                    <p style="margin-top: 10px;"><strong>Storage</strong> (from DB) → <strong>AttrList</strong> (LINQ operations) → <strong>Objects</strong> (business logic)</p>
+                </div>
+                <div class="guide-tip">
+                    <strong>💡 Key Principle:</strong> Choose the format that makes your current task easiest. Don't worry about converting - Fractal Platform makes transforms simple and efficient.
+                </div>
+                <h3>Why Multiple Formats?</h3>
+                <p>Each format has specific advantages:</p>
+                <ul>
+                    <li><strong>JSON</strong> - Universal, works everywhere, human-readable</li>
+                    <li><strong>Objects</strong> - Type-safe, IntelliSense support, compile-time checking</li>
+                    <li><strong>AttrList</strong> - Granular control, powerful LINQ queries</li>
+                    <li><strong>Storage</strong> - Optimized for database, handles large datasets</li>
+                    <li><strong>Collection</strong> - Rich metadata, validation, multi-dimensional data</li>
+                </ul>
+                <div class="guide-warning">
+                    <strong>⚠️ Performance Note:</strong> While you can chain multiple transforms, consider performance for large datasets. Sometimes it's better to go directly from format A to format C rather than A → B → C.
+                </div>
+            </div>
+
+            <!-- Section 1: Basic Entities -->
+            <div class="guide-article" id="basics">
+                <h2>1. Basic Entities</h2>
+                <p>This document describes transformations between basic hierarchy entities in Fractal Platform. There are 5 basic entities that can describe a Document or list of Documents.</p>
+                <h3>1.1 JSON</h3>
+                <p>Text document that describes a hierarchy object.</p>
+                <div class="guide-code-block json">
+                    <pre><span class="brace">{</span>
+  <span class="key">"Name"</span>: <span class="string">"Bob"</span>,
+  <span class="key">"Age"</span>: <span class="number">21</span>,
+  <span class="key">"IsManager"</span>: <span class="boolean">false</span>
+<span class="brace">}</span></pre>
+                </div>
+                <h3>1.2 Objects</h3>
+                <p>List of C# objects in the Application.</p>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> objects = <span class="keyword">new</span>[]
+{
+    <span class="keyword">new</span> { <span class="type">Name</span> = <span class="string">"Bob"</span>, <span class="type">Age</span> = <span class="number">21</span>, <span class="type">IsManager</span> = <span class="boolean">false</span> },
+    <span class="keyword">new</span> { <span class="type">Name</span> = <span class="string">"Tim"</span>, <span class="type">Age</span> = <span class="number">25</span>, <span class="type">IsManager</span> = <span class="boolean">true</span> }
+};</pre>
+                </div>
+                <h3>1.3 AttrList</h3>
+                <p>List of attributes in the Document. Usually used when you want to do LINQ queries among Document attributes.</p>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> docID = <span class="number">1U</span>;
+<span class="keyword">var</span> attrs = <span class="keyword">new</span> <span class="type">AttrList</span>
+{
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span><<span class="type">AttrPath</span>, <span class="type">AttrValue</span>>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"Name"</span>, docID),
+                                        <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="string">"Bob"</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span><<span class="type">AttrPath</span>, <span class="type">AttrValue</span>>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"Age"</span>, docID),
+                                        <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="number">21</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span><<span class="type">AttrPath</span>, <span class="type">AttrValue</span>>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"IsManager"</span>, docID),
+                                        <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="boolean">false</span>))
+};</pre>
+                </div>
+                <div class="guide-tip">
+                    <strong>💡 Nested Attributes:</strong> Use backslash <code>\</code> for nested objects and <code>\[0]</code> for arrays.
+                </div>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// JSON: {"Name":"Bob","Params":{"Age":21},"Arr":[1,2]}</span>
+<span class="keyword">var</span> attrs = <span class="keyword">new</span> <span class="type">AttrList</span>
+{
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"Name"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="string">"Bob"</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">@"Params\Age"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="number">21</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">@"Arr\[0]"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="number">1</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">@"Arr\[1]"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="number">2</span>))
+};</pre>
+                </div>
+                <h3>1.4 Storage</h3>
+                <p>Container that contains list of Documents on Database level.</p>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Create standalone Storage</span>
+<span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>(<span class="string">"Document"</span>);
+storage.<span class="type">Init</span>();
+<span class="comment">// Read Storage from a Database</span>
+<span class="keyword">var</span> storage = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">ToStorage</span>();</pre>
+                </div>
+                <h3>1.5 Collection</h3>
+                <p>Container that contains list of Storages. Main Storage in the Collection is called <strong>Document</strong>. Other Storages around Document are called <strong>Dimension</strong>.</p>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Create standalone empty Collection</span>
+<span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(<span class="string">"MyCollection"</span>);
+<span class="comment">// Create collection based on a Storage</span>
+<span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>(<span class="string">"Document"</span>);
+storage.<span class="type">Init</span>();
+<span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(storage);
+<span class="comment">// Read collection from Database</span>
+<span class="keyword">var</span> collection = <span class="type">DocsOf</span>(<span class="string">"Users"</span>).<span class="type">ToCollection</span>();</pre>
+                </div>
+                <div class="guide-tip">
+                    <strong>💡 Fractal Structure:</strong> Each Dimension is based on a sub-Document and can have its own sub-Dimensions, forming a recursive fractal structure.
+                </div>
+            </div>
+
+            <!-- Section 2: Transformations -->
+            <div class="guide-article" id="transforms">
+                <h2>2. Transformations</h2>
+                <h3>2.1 JSON → Objects</h3>
+                <p>Deserialize JSON to C# objects.</p>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">public class</span> <span class="type">User</span>
+{
+    <span class="keyword">public string</span> <span class="type">Name</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public int</span> <span class="type">Age</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+    <span class="keyword">public bool</span> <span class="type">IsManager</span> { <span class="keyword">get</span>; <span class="keyword">set</span>; }
+}
+<span class="keyword">var</span> json = <span class="string">@"{
+    'Name': 'Bob',
+    'Age': 21,
+    'IsManager': false
+}"</span>;
+<span class="keyword">var</span> user = <span class="type">JsonConvert</span>.<span class="type">DeserializeObject</span><<span class="type">User</span>>(json);</pre>
+                </div>
+                <h3>2.2 JSON → AttrList</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> json = <span class="string">@"{'Name': 'Bob','Age': 21,'IsManager': false}"</span>;
+<span class="keyword">var</span> attrs = <span class="type">AttrList</span>.<span class="type">FromJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, json);</pre>
+                </div>
+                <h3>2.3 JSON → Storage</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> json = <span class="string">@"{'Name': 'Bob','Age': 21,'IsManager': false}"</span>;
+<span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>();
+storage.<span class="type">Init</span>();
+storage.<span class="type">FromJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, json, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>);</pre>
+                </div>
+                <h3>2.4 JSON → Collection</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> json = <span class="string">@"{'Name': 'Bob','Age': 21,'IsManager': false}"</span>;
+<span class="keyword">var</span> collection = <span class="type">Collection</span>.<span class="type">FromJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, json);</pre>
+                </div>
+                <h3>2.5 Objects → JSON</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="type">User</span>
+{
+    <span class="type">Name</span> = <span class="string">"Bob"</span>,
+    <span class="type">Age</span> = <span class="number">21</span>,
+    <span class="type">IsManager</span> = <span class="boolean">false</span>
+};
+<span class="keyword">var</span> json = user.<span class="type">ToJson</span>();</pre>
+                </div>
+                <h3>2.6 Objects → AttrList</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="type">User</span> { <span class="type">Name</span> = <span class="string">"Bob"</span>, <span class="type">Age</span> = <span class="number">21</span>, <span class="type">IsManager</span> = <span class="boolean">false</span> };
+<span class="keyword">var</span> attrs = user.<span class="type">ToAttrList</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>);</pre>
+                </div>
+                <h3>2.7 Objects → Storage</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="type">User</span> { <span class="type">Name</span> = <span class="string">"Bob"</span>, <span class="type">Age</span> = <span class="number">21</span>, <span class="type">IsManager</span> = <span class="boolean">false</span> };
+<span class="keyword">var</span> storage = user.<span class="type">ToStorage</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>);</pre>
+                </div>
+                <h3>2.8 Objects → Collection</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="type">User</span> { <span class="type">Name</span> = <span class="string">"Bob"</span>, <span class="type">Age</span> = <span class="number">21</span>, <span class="type">IsManager</span> = <span class="boolean">false</span> };
+<span class="keyword">var</span> collection = user.<span class="type">ToCollection</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>);</pre>
+                </div>
+                <h3>2.9 AttrList → JSON</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> docID = <span class="number">1U</span>;
+<span class="keyword">var</span> attrs = <span class="keyword">new</span> <span class="type">AttrList</span>
+{
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"Name"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="string">"Bob"</span>)),
+    <span class="keyword">new</span> <span class="type">KeyValuePair</span>(<span class="keyword">new</span> <span class="type">AttrPath</span>(<span class="string">"Age"</span>, docID), <span class="keyword">new</span> <span class="type">AttrValue</span>(<span class="number">21</span>))
+};
+<span class="keyword">var</span> json = attrs.<span class="type">ToJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>);</pre>
+                </div>
+                <h3>2.10 AttrList → Objects</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> attrs = <span class="comment">/* AttrList */</span>;
+<span class="keyword">var</span> user = attrs.<span class="type">ToObject</span><<span class="type">User</span>>();</pre>
+                </div>
+                <h3>2.11 AttrList → Storage</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> attrs = <span class="comment">/* AttrList */</span>;
+<span class="keyword">var</span> storage = attrs.<span class="type">ToStorage</span>();</pre>
+                </div>
+                <h3>2.12 AttrList → Collection</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> attrs = <span class="comment">/* AttrList */</span>;
+<span class="keyword">var</span> collection = attrs.<span class="type">ToCollection</span>();</pre>
+                </div>
+                <h3>2.13 Storage → JSON</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>();
+storage.<span class="type">Init</span>();
+<span class="keyword">var</span> json = storage.<span class="type">ToJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>);</pre>
+                </div>
+                <h3>2.14 Storage → Objects</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>();
+storage.<span class="type">Init</span>();
+<span class="keyword">var</span> users = storage.<span class="type">GetAll</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>)
+                   .<span class="type">Select</span><<span class="type">User</span>>();</pre>
+                </div>
+                <h3>2.15 Storage → AttrList</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>();
+storage.<span class="type">Init</span>();
+<span class="keyword">var</span> attrs = storage.<span class="type">ToAttrList</span>();</pre>
+                </div>
+                <h3>2.16 Storage → Collection</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> storage = <span class="keyword">new</span> <span class="type">BUFStorage</span>();
+storage.<span class="type">Init</span>();
+<span class="keyword">var</span> collection = storage.<span class="type">ToCollection</span>();</pre>
+                </div>
+                <h3>2.17 Collection → JSON</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(<span class="string">"Document"</span>);
+<span class="keyword">var</span> json = collection.<span class="type">ToJson</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>);</pre>
+                </div>
+                <h3>2.18 Collection → Objects</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(<span class="string">"Document"</span>);
+<span class="keyword">var</span> users = collection.<span class="type">GetAll</span>(<span class="type">Context</span>.<span class="type">SystemContext</span>)
+                      .<span class="type">Select</span><<span class="type">User</span>>();</pre>
+                </div>
+                <h3>2.19 Collection → AttrList</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(<span class="string">"Document"</span>);
+<span class="keyword">var</span> attrs = collection.<span class="type">ToAttrList</span>();</pre>
+                </div>
+                <h3>2.20 Collection → Storage</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="keyword">var</span> collection = <span class="keyword">new</span> <span class="type">Collection</span>(<span class="string">"Document"</span>);
+<span class="keyword">var</span> storage = collection.<span class="type">GetStorage</span>(<span class="type">DimensionType</span>.<span class="type">Document</span>);</pre>
+                </div>
+            </div>
+
+            <!-- Section 3: Practical Examples -->
+            <div class="guide-article" id="examples">
+                <h2>3. Practical Examples</h2>
+                <h3>Example 1: Open Form from JSON</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on Json</span>
+<span class="type">Collection</span>.<span class="type">FromJson</span>(context, <span class="string">"{'Name':'Bob','Age':21}"</span>)
+          .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 2: Open Form with Validation</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on Json + set Dimension</span>
+<span class="type">Collection</span>.<span class="type">FromJson</span>(context, <span class="string">"{'Name':'Bob','Age':21}"</span>)
+          .<span class="type">SetDimension</span>(context,
+                        <span class="type">DimensionType</span>.<span class="type">Validation</span>,
+                        <span class="string">"{'Age':{'MinValue':18,'MaxValue':120}}"</span>)
+          .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 3: Process Attributes with LINQ</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on Json + process attrs by LINQ</span>
+<span class="type">Collection</span>.<span class="type">FromJson</span>(context, <span class="string">"{'Arr':[1,2,3,4,5]}"</span>)
+          .<span class="type">ToAttrList</span>()
+          .<span class="type">Skip</span>(<span class="number">2</span>) <span class="comment">// skip 1,2 attributes</span>
+          .<span class="type">ToCollection</span>(context)
+          .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 4: Transform Database Data</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on Database + convert to attr list + update + open</span>
+<span class="type">DocsWhere</span>(<span class="string">"Numbers"</span>, <span class="keyword">new</span> { <span class="type">Number</span> = <span class="number">3</span> })
+      .<span class="type">ToCollection</span>()
+      .<span class="type">ToAttrList</span>()
+      .<span class="type">Select</span>(x => <span class="keyword">new</span>
+      {
+          <span class="type">Square</span> = x.<span class="type">Value</span>.<span class="type">GetUIntValue</span>() * x.<span class="type">Value</span>.<span class="type">GetUIntValue</span>()
+      }) <span class="comment">// transform json from {'Number':3} to {'Square':9}</span>
+      .<span class="type">ToCollection</span>(context)
+      .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 5: Open Form from C# Object</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on C# object</span>
+<span class="keyword">var</span> user = <span class="keyword">new</span>
+{
+    <span class="type">Name</span> = <span class="string">"Bob"</span>,
+    <span class="type">Age</span> = <span class="number">21</span>
+};
+user.<span class="type">ToCollection</span>(context, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>)
+    .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 6: Open Form from Multiple Objects</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on C# objects</span>
+<span class="keyword">var</span> users = <span class="keyword">new</span>[]
+{
+    <span class="keyword">new</span>
+    {
+        <span class="type">Name</span> = <span class="string">"Bob"</span>,
+        <span class="type">Age</span> = <span class="number">21</span>
+    },
+    <span class="keyword">new</span>
+    {
+        <span class="type">Name</span> = <span class="string">"Tim"</span>,
+        <span class="type">Age</span> = <span class="number">20</span>
+    }
+};
+users.<span class="type">ToCollection</span>(context, <span class="type">Constants</span>.<span class="type">FIRST_DOC_ID</span>)
+     .<span class="type">OpenForm</span>(context);</pre>
+                </div>
+                <h3>Example 7: Filter Objects Before Opening Form</h3>
+                <div class="guide-code-block csharp">
+                    <pre><span class="comment">// Open form based on C# objects + filter</span>
+<span class="keyword">var</span> users = <span class="keyword">new</span>[]
+{
+    <span class="keyword">new</span>
+    {
+        <span class="type">Name</span> = <span class="string">"Bob"</span>,
+        <span class="type">Age</span> = <span class="number">21</span>
+    },
+    <span class="keyword">new</span>
+    {
+        <span class="type">Name</span> = <span class="string">"Tim"</span>,
+        <span class="type">Age</span> = <span class="number">20</span>
+    }
+};
+users.<span class="type">ToCollection</span>(context)
+     .<span class="type">GetWhere</span>(context, <span class="string">"{'Age':21}"</span>)
+     .<span class="type">OpenForm</span>();</pre>
+                </div>
+                <div class="guide-tip">
+                    <strong>💡 Pro Tip:</strong> These examples demonstrate the flexibility of Fractal Platform's transform system. You can chain multiple transformations to achieve complex data processing workflows while maintaining clean, readable code.
+                </div>
+                <h3>Best Practices</h3>
+                <div class="guide-entity-box">
+                    <h4>✅ When to Use Each Format</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                        <li><strong>JSON</strong> - External APIs, configuration, logging</li>
+                        <li><strong>Objects</strong> - Business logic, calculations, type safety</li>
+                        <li><strong>AttrList</strong> - Complex queries, attribute-level operations</li>
+                        <li><strong>Storage</strong> - Database persistence, bulk operations</li>
+                        <li><strong>Collection</strong> - Forms, validation, multi-dimensional data</li>
+                    </ul>
+                </div>
+                <div class="guide-warning">
+                    <strong>⚠️ Performance Considerations:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                        <li>Avoid unnecessary transformations in tight loops</li>
+                        <li>Cache transformed results when possible</li>
+                        <li>Use Storage directly for large datasets</li>
+                        <li>Consider memory usage when working with Collections</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Footer.Partial
+</body>
+
+</html>

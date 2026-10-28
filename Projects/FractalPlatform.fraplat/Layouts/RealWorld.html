@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform - Next-generation Low-Code Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        /* Improve readability of text blocks inside sections */
+        section p {
+        max-width: 800px;
+        margin: 0 auto 1.5rem auto;
+        line-height: 1.8;
+        font-size: 1.125rem; /* ~18px */
+        font-weight: 400;
+        color: #2b2b2b;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        
+        /* Optional: slightly larger headers for better blog feel */
+        section h2 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+        }
+        
+        /* Add space under images */
+        .section-image {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        }
+        
+        .section-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+
+<body>
+    @StartForm
+
+    <header class="hero">
+        <div class="container">
+            <h1>Real World</h1>
+            <p>Mother of all demo apps</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Section 1 -->
+        <section>
+            <div class="container">
+                <div class="section-header">
+                    <h2>Real World Arena</h2>
+                    <p>The RealWorld project is the most popular benchmark for comparing web frameworks in real-life conditions.</p>
+                </div>
+                <p>It’s a community-driven initiative where developers build the same full-stack app — a Medium-like blogging platform — using different frontend and backend technologies. The app includes common features like user authentication, article publishing, comments, and a feed.</p>
+                <p>The goal is to compare how frameworks perform in real-world scenarios — how clean the code looks, how easy it is to work with, how fast it runs, and how much effort it takes to build and maintain.</p>
+                <p>Because RealWorld includes both frontend and backend, with real business logic and API communication, it’s complex enough to expose the real strengths and weaknesses of each technology. It also filters out no-code or template-based tools, which usually can't handle this level of depth.</p>
+                <p>In short, RealWorld helps the community see which tools are just easy to start with — and which ones can actually scale to real projects.</p>
+
+                <p style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/gothinkster/realworld" target="_blank" class="btn">View official RealWorld page on GitHub </a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section>
+            <div class="container">
+                <div class="section-header">
+                    <h2>Implementation</h2>
+                </div>
+                <p>As of today, Fractal Platform has the most compact Real World implementation among 100+ web technologies (34 kb sources only). Most importantly, it follows a clean architecture with clear separation of layers: HTML layout, business logic, and database.</p>
+                <p>On average, this implementation uses 7–15 times less code than typical web frameworks. Even compared to frameworks that mix HTML and business logic to reduce code size, Fractal still uses 2–3 times less code — and we believe such mixing is an architectural mistake.</p>
+                <p>For example, what do you do if a designer sends you a new HTML layout? You’ll have to slice it up again and mix it with business logic — a painful and error-prone task.</p>
+                <p>Less code on Fractal Platform doesn’t just mean fewer files — it means much faster development, cleaner and more readable code, fewer bugs, and even better app performance thanks to a smart runtime design.</p>
+
+                <p style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/fraplat/FractalPlatform.RealWorld" target="_blank" class="btn">View our RealWorld implementation on GitHub</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section>
+            <div class="container">
+                <div class="section-header">
+                    <h2>RealWorld Comparator</h2>
+                </div>
+                <p>This example gives a good sense of what truly efficient web development tools look like. But being efficient isn't just about saving time — it's also about having the time and energy left to do extra work if you want to.</p>
+                <p>We realized that building the RealWorld app on Fractal Platform took us just 2–3 days instead of several weeks. So we thought, why not go a bit further?</p>
+                <p>In just 2 more hours, we built a website that compares different RealWorld implementations. Now you can easily compare the Fractal Platform version with any of the 100+ other web frameworks you already know or use.</p>
+                <br>
+                <div class="section-image">
+                    <img src="@BaseFilesUrl/RealWorldComparator.jpg" alt="Comparison site screenshot">
+                </div>
+                <p style="text-align: center; margin-top: 2rem;">
+                    <a href="/RealWorldComparator" target="_blank" class="btn">Compare different RealWorld implementations</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    @Footer.Partial
+
+    @EndForm
+</body>
+
+</html>

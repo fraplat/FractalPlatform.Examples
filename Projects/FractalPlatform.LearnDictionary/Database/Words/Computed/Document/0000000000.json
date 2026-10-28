@@ -1,0 +1,8 @@
+{
+  "LearnedWords": {
+    "Formula": "@LearnedWordsVariable"
+  },
+  "TotalWords": {
+    "Formula": "@TotalWordsVariable"
+  }
+}

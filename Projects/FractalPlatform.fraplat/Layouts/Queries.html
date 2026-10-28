@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Platform Query Guide</title>
+    <link rel="stylesheet" href="@BaseFilesUrl/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        nav h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .article {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .article h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .article h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+        
+        /* JSON Syntax highlighting */
+        .json .string { color: #98c379; }
+        .json .number { color: #d19a66; }
+        .json .boolean { color: #56b6c2; }
+        .json .null { color: #56b6c2; }
+        .json .comma { color: #abb2bf; }
+        .json .brace { color: #abb2bf; }
+        .json .bracket { color: #abb2bf; }
+        .json .key { color: #e06c75; }
+        
+        /* C# Syntax highlighting */
+        .csharp .keyword { color: #c678dd; }
+        .csharp .string { color: #98c379; }
+        .csharp .number { color: #d19a66; }
+        .csharp .comment { color: #5c6370; font-style: italic; }
+        .csharp .type { color: #61afef; }
+        
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip strong {
+            color: #1976d2;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #ff6f00;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Fractal Platform Query Guide</h1>
+            <p>A beginner-friendly guide to database queries</p>
+        </header>
+
+        <nav>
+            <h2>📑 Quick Navigation</h2>
+            <ul>
+                <li><a href="#sample-data">0. Sample Data</a></li>
+                <li><a href="#basics">1. Query Basics</a></li>
+                <li><a href="#filtering">2. Filtering Data</a></li>
+                <li><a href="#conditions">3. Conditional Queries</a></li>
+                <li><a href="#arrays">4. Working with Arrays</a></li>
+                <li><a href="#inserting">5. Adding Data</a></li>
+                <li><a href="#updating">6. Updating Data</a></li>
+                <li><a href="#selecting">7. Selecting Specific Fields</a></li>
+                <li><a href="#deleting">8. Deleting Data</a></li>
+                <li><a href="#advanced">9. Advanced Operations</a></li>
+            </ul>
+        </nav>
+
+        <!-- Article 0: Sample Data -->
+        <div class="article" id="sample-data">
+            <h2>0. Sample Data - Users Collection</h2>
+            <p>Throughout this guide, we'll use a "Users" collection with 3 documents. Understanding this data will help you follow along with all the examples.</p>
+
+            <h3>Document 1: Bob (ID: 0000000001)</h3>
+            <div class="code-block json">
+                <pre><span class="brace">{</span>
+    <span class="key">"Birthday"</span><span class="comma">: </span><span class="string">"1990-01-01"</span><span class="comma">,</span>
+    <span class="key">"IsManager"</span><span class="comma">: </span><span class="boolean">true</span><span class="comma">,</span>
+    <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Bob"</span><span class="comma">,</span>
+    <span class="key">"Weight"</span><span class="comma">: </span><span class="number">70</span><span class="comma">,</span>
+    <span class="key">"Car"</span><span class="comma">: </span><span class="brace">{</span>
+        <span class="key">"Model"</span><span class="comma">: </span><span class="string">"Subaru"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Childs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="number">3</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Ted"</span><span class="comma">,</span>
+            <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">4</span><span class="comma">, </span><span class="number">5</span><span class="comma">, </span><span class="number">6</span><span class="bracket">]</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="number">5</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Mike"</span><span class="comma">,</span>
+            <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">7</span><span class="comma">, </span><span class="number">8</span><span class="comma">, </span><span class="number">9</span><span class="bracket">]</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="number">20</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Boby"</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Facet1"</span><span class="comma">: </span><span class="brace">{</span>
+        <span class="key">"Attr1"</span><span class="comma">: </span><span class="boolean">false</span><span class="comma">,</span>
+        <span class="key">"Attr2"</span><span class="comma">: </span><span class="boolean">true</span><span class="comma">,</span>
+        <span class="key">"Attr3"</span><span class="comma">: </span><span class="boolean">false</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Facet2"</span><span class="comma">: </span><span class="brace">{</span>
+        <span class="key">"Attr1"</span><span class="comma">: </span><span class="boolean">false</span><span class="comma">,</span>
+        <span class="key">"Attr2"</span><span class="comma">: </span><span class="boolean">true</span><span class="comma">,</span>
+        <span class="key">"Attr3"</span><span class="comma">: </span><span class="boolean">false</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Jobs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Microsoft"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Engineer"</span>
+        <span class="brace">}</span><span class="comma">,</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Amazon"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Manager"</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">1</span><span class="bracket">]</span>
+<span class="brace">}</span></pre>
+            </div>
+
+            <h3>Document 2: Ted (ID: 0000000002)</h3>
+            <div class="code-block json">
+                <pre><span class="brace">{</span>
+    <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Ted"</span><span class="comma">,</span>
+    <span class="key">"Weight"</span><span class="comma">: </span><span class="number">75</span><span class="comma">,</span>
+    <span class="key">"IsManager"</span><span class="comma">: </span><span class="boolean">true</span><span class="comma">,</span>
+    <span class="key">"Jobs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Company"</span><span class="comma">: </span><span class="string">"Microsoft"</span><span class="comma">,</span>
+            <span class="key">"Position"</span><span class="comma">: </span><span class="string">"Manager"</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span>
+<span class="brace">}</span></pre>
+            </div>
+
+            <h3>Document 3: Tim (ID: 0000000003)</h3>
+            <div class="code-block json">
+                <pre><span class="brace">{</span>
+    <span class="key">"Age"</span><span class="comma">: </span><span class="number">25</span><span class="comma">,</span>
+    <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Tim"</span><span class="comma">,</span>
+    <span class="key">"Car"</span><span class="comma">: </span><span class="brace">{</span>
+        <span class="key">"Engine"</span><span class="comma">: </span><span class="string">"3.0"</span><span class="comma">,</span>
+        <span class="key">"Model"</span><span class="comma">: </span><span class="string">"VW"</span>
+    <span class="brace">}</span><span class="comma">,</span>
+    <span class="key">"Childs"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Age"</span><span class="comma">: </span><span class="string">"5"</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Ted"</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Numbers"</span><span class="comma">: </span><span class="bracket">[</span><span class="number">7</span><span class="comma">, </span><span class="number">2</span><span class="comma">, </span><span class="number">3</span><span class="comma">, </span><span class="number">7</span><span class="bracket">]</span><span class="comma">,</span>
+    <span class="key">"Participants"</span><span class="comma">: </span><span class="bracket">[</span>
+        <span class="brace">{</span>
+            <span class="key">"Choose"</span><span class="comma">: </span><span class="null">null</span><span class="comma">,</span>
+            <span class="key">"Gender"</span><span class="comma">: </span><span class="string">"Boy"</span><span class="comma">,</span>
+            <span class="key">"Name"</span><span class="comma">: </span><span class="string">"Hello"</span><span class="comma">,</span>
+            <span class="key">"Questions"</span><span class="comma">: </span><span class="bracket">[</span>
+                <span class="string">"Question1"</span><span class="comma">,</span>
+                <span class="string">"Question2"</span><span class="comma">,</span>
+                <span class="string">"Question3"</span>
+            <span class="bracket">]</span>
+        <span class="brace">}</span>
+    <span class="bracket">]</span>
+<span class="brace">}</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Key Points:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><strong>Bob</strong> has 3 children, works at Microsoft and Amazon, and drives a Subaru</li>
+                    <li><strong>Ted</strong> is a manager at Microsoft with weight 75</li>
+                    <li><strong>Tim</strong> is 25 years old, drives a VW, and has 1 child</li>
+                    <li>Not all documents have the same fields - this is normal in NoSQL databases!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Article 1: Basics -->
+        <div class="article" id="basics">
+            <h2>1. Query Basics</h2>
+
+            <h3>What is a Query?</h3>
+            <p>A query is a way to ask your database for information. Think of it like asking questions to your data storage.</p>
+
+            <h3>Setting Up Your Collection</h3>
+            <p>Before you can query data, you need to specify which collection (table) you want to work with. In the new format, you pass the collection name directly to the query methods:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Old format (deprecated)</span>
+<span class="type">Client</span>.<span class="type">SetDefaultCollection</span>(<span class="string">"Users"</span>)
+    .<span class="type">GetDoc</span>(<span class="number">1</span>)
+
+<span class="comment">// New format</span>
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> A collection is like a folder that holds similar types of data. For example, all user information goes in the "Users" collection.
+            </div>
+
+            <h3>Getting a Single Document</h3>
+            <p>To get one specific document by its ID:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">Count</span>();</pre>
+            </div>
+
+            <p>This finds the first document and counts how many were found (should be 1 if it exists).</p>
+
+            <p>To get a document by specific ID:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="keyword">uint</span> docID = <span class="number">1</span>;
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, docID)
+    .<span class="type">Count</span>();</pre>
+            </div>
+
+            <h3>Getting All Documents</h3>
+            <p>To get everything from a collection:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">Count</span>();</pre>
+            </div>
+
+            <p>This returns all documents in the Users collection.</p>
+
+            <div class="tip">
+                <strong>💡 Result:</strong> This will return 3 documents (Bob, Ted, and Tim) in the initial state, 2 after some tests run.
+            </div>
+        </div>
+
+        <!-- Article 2: Filtering -->
+        <div class="article" id="filtering">
+            <h2>2. Filtering Data with GetWhere</h2>
+
+            <h3>Simple Filtering</h3>
+            <p>To find documents that match certain conditions, use <code>DocsWhere</code>:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> { <span class="type">Name</span> = <span class="string">"Bob"</span> })
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();</pre>
+            </div>
+
+            <p>This finds all users with the name "Bob".</p>
+
+            <div class="tip">
+                <strong>💡 Result:</strong> This returns 1 document - Bob's record from our Users collection.
+            </div>
+
+            <h3>Multiple Conditions</h3>
+            <p>You can filter by multiple fields at once:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> {
+    <span class="type">Name</span> = <span class="string">"Bob"</span>,
+    <span class="type">Car</span> = <span class="keyword">new</span> {
+        <span class="type">Model</span> = <span class="string">"Subaru"</span>
+    }
+})
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();</pre>
+            </div>
+
+            <p>This finds users named "Bob" who have a Subaru car. All conditions must match (AND logic).</p>
+
+            <div class="tip">
+                <strong>💡 Result:</strong> Returns Bob's document because he has a Car with Model "Subaru".
+            </div>
+
+            <h3>Using JSON Format</h3>
+            <p>You can also write filters as JSON strings:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Car':{'Engine':2}}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> JSON format is more flexible and allows you to use special operators we'll learn about later.
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Note:</strong> Bob's Car doesn't have an "Engine" field in the original data, but this example shows the syntax for nested queries.
+            </div>
+
+            <h3>Combining AND and OR</h3>
+            <p>Use <code>AndWhere</code> and <code>OrWhere</code> to combine conditions:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users named "Bob" AND age 20</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">AndWhere</span>(<span class="string">"{'Age':20}"</span>)
+    .<span class="type">Count</span>();
+
+<span class="comment">// Find users named "Bob" OR age 20</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">OrWhere</span>(<span class="string">"{'Age':20}"</span>)
+    .<span class="type">Count</span>();</pre>
+            </div>
+        </div>
+
+        <!-- Article 3: Conditions -->
+        <div class="article" id="conditions">
+            <h2>3. Conditional Queries</h2>
+
+            <h3>Comparison Operators</h3>
+            <p>You can use special operators to compare values:</p>
+
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Less()</td>
+                    <td>Less than</td>
+                    <td>Age < 21</td>
+                </tr>
+                <tr>
+                    <td>LessOrEqual()</td>
+                    <td>Less than or equal</td>
+                    <td>Age ≤ 20</td>
+                </tr>
+                <tr>
+                    <td>Great()</td>
+                    <td>Greater than</td>
+                    <td>Age > 10</td>
+                </tr>
+                <tr>
+                    <td>GreatOrEqual()</td>
+                    <td>Greater than or equal</td>
+                    <td>Age ≥ 20</td>
+                </tr>
+                <tr>
+                    <td>Not()</td>
+                    <td>Not equal to</td>
+                    <td>Age ≠ 20</td>
+                </tr>
+            </table>
+
+            <h3>Examples</h3>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users younger than 21</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':Less(21)}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Age: 20)</span>
+
+<span class="comment">// Find users 20 or older</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':GreatOrEqual(20)}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Age: 20)</span>
+
+<span class="comment">// Find users not age 20</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':Not(20)}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns 0 documents</span></pre>
+            </div>
+
+            <h3>Range Queries</h3>
+            <p>To find values between two numbers or dates:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Age between 20 and 21</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':Range(20,21)}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Age: 20)</span>
+
+<span class="comment">// Birthday between two dates</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Birthday':Range('1980-01-01','2000-01-01')}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Birthday: 1990-01-01)</span></pre>
+            </div>
+
+            <h3>Pattern Matching</h3>
+            <p>Use <code>Template()</code> to match patterns (like wildcards):</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find ages starting with '2' (like 20, 21, 29)</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':Template('2*')}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Age: 20)</span></pre>
+            </div>
+
+            <h3>Any of Multiple Values</h3>
+            <p>Use <code>Any()</code> to check if a value matches any of several options:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users with age 20 OR 21</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Age':Any(20,21)}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Age: 20)</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 4: Arrays -->
+        <div class="article" id="arrays">
+            <h2>4. Working with Arrays</h2>
+
+            <h3>Finding Items in Arrays</h3>
+            <p>To find documents where an array contains a specific value:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users who have number 2 in their Numbers array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Numbers':[2]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Numbers: [1,2,3] after updates)</span></pre>
+            </div>
+
+            <h3>Multiple Values (IN Logic)</h3>
+            <p>Check if ALL specified values exist in the array:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users who have BOTH 1 AND 2 in Numbers</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Numbers':[1,2]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (after updates, has [1,2,3])</span></pre>
+            </div>
+
+            <h3>ANY Logic</h3>
+            <p>Check if ANY of the specified values exist:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users who have 1 OR 5 in Numbers</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Numbers':[Any,1,5]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (has 1 in Numbers)</span></pre>
+            </div>
+
+            <h3>NOT IN Logic</h3>
+            <p>Check if a value does NOT exist in the array:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users who DON'T have 2 in Numbers</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Numbers':[Nin,2]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Initially returns 0, later returns Bob after 2 is deleted</span></pre>
+            </div>
+
+            <h3>Finding Objects in Arrays</h3>
+            <p>You can search for objects with specific properties:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users who have a child named "Ted"</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Childs':[{'Name':'Ted'}]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (has a child named Ted)</span>
+
+<span class="comment">// Find users with a Manager job position</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Jobs':[{'Position':'Manager'}]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (Amazon - Manager) and Ted (Microsoft - Manager)</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> When filtering array objects, the system looks for any item in the array that matches all the specified properties.
+            </div>
+
+            <h3>Counting Array Items</h3>
+            <p>To count how many items are in an array:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Count how many jobs a user has</span>
+<span class="type">FirstDocOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">Count</span>(<span class="string">"{'Jobs':[{'Company':$}]}")</span>;
+<span class="comment">// Result: Returns 3 (Bob has initially 2 jobs, then gets a 3rd)</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 5: Inserting -->
+        <div class="article" id="inserting">
+            <h2>5. Adding Data (Insert)</h2>
+
+            <h3>Adding a New Document</h3>
+            <p>To create a completely new document:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">AddDoc</span>(<span class="string">"Users"</span>, <span class="keyword">new</span> <span class="type">UserInfo</span> {
+    <span class="type">Name</span> = <span class="string">"Tim"</span>
+});</pre>
+            </div>
+
+            <h3>Adding Fields to Existing Documents</h3>
+            <p>Use <code>Update</code> to add new fields:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add age to Tim's document</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Age':15}"</span>);</pre>
+            </div>
+
+            <h3>Adding Arrays</h3>
+            <p>To add an array of values:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Numbers':[1,2,3]}"</span>);</pre>
+            </div>
+
+            <h3>Adding Objects</h3>
+            <p>To add nested objects:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Car':{'Engine':'2.0', 'Model':'VW'}}"</span>);</pre>
+            </div>
+
+            <h3>Adding Objects to Arrays</h3>
+            <p>To add an object as an item in an array:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Childs':[Add,{'Name':'Ted','Age':'5'}]}"</span>);</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Warning:</strong> Using Update with an array will replace the entire array. To add items to an existing array, see the "Updating Arrays" section.
+            </div>
+        </div>
+
+        <!-- Article 6: Updating -->
+        <div class="article" id="updating">
+            <h2>6. Updating Data</h2>
+
+            <h3>Updating Simple Fields</h3>
+            <p>To change the value of a field:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Age':25}"</span>);</pre>
+            </div>
+
+            <h3>Updating Nested Fields</h3>
+            <p>To update fields inside objects:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Car':{'Engine':'3.0'}}"</span>);</pre>
+            </div>
+
+            <h3>Math Operations</h3>
+            <p>You can add or subtract numbers:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add 1 to age</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Age':Add(1)}"</span>);
+
+<span class="comment">// Subtract 1 from age</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Age':Sub(1)}"</span>);</pre>
+            </div>
+
+            <h3>Adding Items to Arrays</h3>
+            <p>Use the <code>Add</code> operator to append items:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Add number 4 to the Numbers array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Numbers':[Add,4]}"</span>);
+
+<span class="comment">// Add a new child object</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Childs':[Add,{'Name':'Boby','Age':20}]}"</span>);</pre>
+            </div>
+
+            <h3>Updating Array Items by Index</h3>
+            <p>Use <code>@</code> with an index number to update specific positions:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Update the first item (index 0)</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Numbers':[@0,7]}"</span>);
+
+<span class="comment">// Update the last item</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Numbers':[Last,7]}"</span>);</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Arrays are zero-indexed, meaning the first item is at position 0, the second at position 1, and so on.
+            </div>
+        </div>
+
+        <!-- Article 7: Selecting -->
+        <div class="article" id="selecting">
+            <h2>7. Selecting Specific Fields</h2>
+
+            <h3>Getting All Fields</h3>
+            <p>By default, Select returns everything:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob's complete document with all fields:</span>
+    <span class="comment">// Name: "Bob", Birthday: "1990-01-01", Weight: 70,</span>
+    <span class="comment">// IsManager: true, Car, Childs, Jobs, Numbers, etc.</span></pre>
+            </div>
+
+            <h3>Selecting Specific Fields</h3>
+            <p>Use <code>$</code> to specify which fields you want:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Only get Car information</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>(<span class="string">"{'Car':{'Engine':$,'Model':$}}"</span>);
+    <span class="comment">// Result: Returns only Car data</span>
+    <span class="comment">// { Car: { Engine: "2", Model: "Subaru" } }</span>
+    <span class="comment">// Note: After updates, Engine will have value "2"</span></pre>
+            </div>
+
+            <h3>Extracting Nested Data</h3>
+            <p>Use <code>!</code> to extract nested objects directly:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get just the Car object as the result</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span>(<span class="string">"{'Car':!{'Engine':$}}"</span>);</pre>
+            </div>
+
+            <h3>Selecting Array Items</h3>
+            <p>Get specific items from arrays:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get the second number (index 1) from Bob</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>(<span class="string">"{'Numbers':[@1,$]}"</span>);
+    <span class="comment">// Result: Returns [2] (Bob's second number after updates)</span>
+
+<span class="comment">// Get the last number</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>(<span class="string">"{'Numbers':[Last,$]}"</span>);
+    <span class="comment">// Result: Returns [3] (Bob's last number)</span></pre>
+            </div>
+
+            <h3>Getting a Range of Array Items</h3>
+            <p>Use <code>P</code> (Portion) to get a slice:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get items from index 0 to 2 (first 2 items)</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>(<span class="string">"{'Numbers':[P,0,2,$]}"</span>);</pre>
+            </div>
+
+            <h3>Filtering and Selecting Arrays</h3>
+            <p>Combine filtering with the <code>R</code> (Result) operator:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Get only Manager jobs</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob','Jobs':[{'Position':'Manager'}]}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>(<span class="string">"{'Jobs':[R,{'Company':$,'Position':$}]}"</span>);
+    <span class="comment">// Result: Returns only Bob's Manager job</span>
+    <span class="comment">// Jobs: [{ Company: "Amazon", Position: "Manager" }]</span>
+    <span class="comment">// (Microsoft Engineer job is filtered out)</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> The R operator returns only array items that matched the filter, rather than the entire array.
+            </div>
+
+            <h3>Aggregate Functions</h3>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Count documents</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Count</span>();
+<span class="comment">// Result: 1</span>
+
+<span class="comment">// Sum values in an array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Sum</span>(<span class="string">"{'Numbers':[$]}"</span>);
+<span class="comment">// Result: 6 (sum of Bob's Numbers after updates: [1,2,3])</span></pre>
+            </div>
+        </div>
+
+        <!-- Article 8: Deleting -->
+        <div class="article" id="deleting">
+            <h2>8. Deleting Data</h2>
+
+            <h3>Deleting Fields</h3>
+            <p>To remove a field from a document:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Delete the Age field</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Age':$}"</span>);</pre>
+            </div>
+
+            <h3>Deleting Nested Fields</h3>
+            <p>To remove fields from nested objects:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Delete only the Engine from Car</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Car':{'Engine':$}}"</span>);</pre>
+            </div>
+
+            <h3>Deleting Array Items by Index</h3>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Delete the second item (index 1)</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Numbers':[@1,$]}"</span>);
+
+<span class="comment">// Delete the last item</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Numbers':[Last,$]}"</span>);</pre>
+            </div>
+
+            <h3>Deleting Specific Values from Arrays</h3>
+            <p>Remove items that match a specific value:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Delete the number 4 from the array</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Numbers':[4]}"</span>);</pre>
+            </div>
+
+            <h3>Deleting Objects from Arrays</h3>
+            <p>Remove objects that match certain criteria:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Delete all jobs at Google</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob','Jobs':[{'Company':'Google'}]}"</span>)
+    .<span class="type">Delete</span>(<span class="string">"{'Jobs':[$]}"</span>);</pre>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Warning:</strong> When deleting from arrays with filters, all matching items will be removed. Make sure your filter is specific enough!
+            </div>
+        </div>
+
+        <!-- Article 9: Advanced -->
+        <div class="article" id="advanced">
+            <h2>9. Advanced Operations</h2>
+
+            <h3>Skip and Take (Pagination)</h3>
+            <p>To get a specific subset of results:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Skip first document, take 1</span>
+<span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">Skip</span>(<span class="number">1</span>)
+    .<span class="type">Take</span>(<span class="number">1</span>)
+    .<span class="type">Count</span>();</pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Skip and Take are useful for pagination. For example, page 1 might Skip(0).Take(10), page 2 Skip(10).Take(10), etc.
+            </div>
+
+            <h3>Sorting Results</h3>
+            <p>Use OrderBy to sort your results:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Sort by Name ascending (A to Z)</span>
+<span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">OrderBy</span>(<span class="string">"{'Name':$}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+
+<span class="comment">// Sort by Name descending (Z to A)</span>
+<span class="type">DocsOf</span>(<span class="string">"Users"</span>)
+    .<span class="type">OrderByDesc</span>(<span class="string">"{'Name':$}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();</pre>
+            </div>
+
+            <h3>Complex AND/OR Combinations</h3>
+            <p>You can nest AND/OR conditions:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// (IsManager = true) AND (Weight = 70 OR Weight = 75)</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'IsManager':true}"</span>)
+    .<span class="type">AndWhere</span>(
+        <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Weight':70}"</span>)
+            .<span class="type">OrWhere</span>(<span class="string">"{'Weight':75}"</span>)
+    )
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Ted (Weight: 75, IsManager: true)</span></pre>
+            </div>
+
+            <h3>Faceted Search</h3>
+            <p>Search using multiple categories (facets):</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Find users matching both facet filters</span>
+<span class="type">DocsWhereFacet</span>(<span class="string">"Users"</span>, <span class="string">"{'Facet1':{'Attr1':true,'Attr2':true},'Facet2':{'Attr1':true,'Attr2':true}}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (when both Attr1 and Attr2 are true in facets)</span>
+
+<span class="comment">// Find with correct facet values</span>
+<span class="type">DocsWhereFacet</span>(<span class="string">"Users"</span>, <span class="string">"{'Facet1':{'Attr2':true},'Facet2':{'Attr2':true}}"</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();
+    <span class="comment">// Result: Returns Bob (both facets have Attr2: true)</span></pre>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> Faceted search is useful for e-commerce filters where users can select multiple categories (like size, color, brand).
+            </div>
+
+            <h3>Extracting Collections</h3>
+            <p>Convert query results into a new collection:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Extract all child objects into a new collection</span>
+<span class="keyword">var</span> coll = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">ToCollection</span>(<span class="string">"{'Childs':[!{'Name':$,'Age':$}]}"</span>);</pre>
+            </div>
+
+            <h3>Checking Existence</h3>
+            <p>Use <code>Any()</code> to check if documents exist:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Returns true if any matching documents exist</span>
+<span class="keyword">uint</span> docID = <span class="number">1</span>;
+<span class="keyword">var</span> exists = <span class="type">DocsWhere</span>(<span class="string">"Users"</span>, docID)
+    .<span class="type">AndWhere</span>(<span class="string">"{'Jobs':[{'Company':'Microsoft'}]}"</span>)
+    .<span class="type">Any</span>();</pre>
+            </div>
+
+            <h3>Working with Variables</h3>
+            <p>You can pass objects as variables using <code>@VariableName</code>:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">Update</span>(<span class="string">"{'Participants':[Add,@Participant]}"</span>,
+    <span class="keyword">new</span> <span class="type">Participant</span> {
+        <span class="type">Name</span> = <span class="string">"Hello"</span>,
+        <span class="type">Gender</span> = <span class="type">GenderType</span>.<span class="type">Boy</span>,
+        <span class="type">Questions</span> = <span class="keyword">new</span> <span class="type">List</span><<span class="keyword">string</span>> { <span class="string">"Q1"</span>, <span class="string">"Q2"</span> }
+    });</pre>
+            </div>
+
+            <h3>Chaining Operations</h3>
+            <p>You can chain multiple operations together:</p>
+
+            <div class="code-block csharp">
+                <pre><span class="comment">// Complex query chain</span>
+<span class="type">DocsWhere</span>(<span class="string">"Users"</span>, <span class="string">"{'Name':'Bob'}"</span>)
+    .<span class="type">AndWhere</span>(<span class="string">"{'Age':20}"</span>)
+    .<span class="type">OrWhere</span>(<span class="string">"{'Name':'Tim'}"</span>)
+    .<span class="type">OrderBy</span>(<span class="string">"{'Name':$}"</span>)
+    .<span class="type">Skip</span>(<span class="number">0</span>)
+    .<span class="type">Take</span>(<span class="number">10</span>)
+    .<span class="type">Select</span><<span class="type">UserInfo</span>>();</pre>
+            </div>
+        </div>
+    </div>
+    @Footer.Partial
+</body>
+
+</html>

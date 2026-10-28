@@ -1,0 +1,15 @@
+{
+  "Style": "Save:false;Cancel:false",
+  "NewDay": {
+    "ControlType": "Button"
+  },
+  "Days": {
+    "ControlType": "Button"
+  },
+  "Points": {
+    "ControlType": "Button"
+  },
+  "Report": {
+    "ControlType": "Button"
+  }
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalesHub — Customers</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0b0f19; color: #e2e8f0; min-height: 100vh; display: flex; }
+        .sidebar { width: 250px; background: #111827; border-right: 1px solid #1e293b; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; }
+        .sidebar-logo { padding: 24px 20px; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid #1e293b; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 2px; }
+        .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #475569; padding: 16px 12px 6px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #94a3b8; text-decoration: none; transition: all .15s; }
+        .nav-item:hover { background: #1e293b; color: #e2e8f0; }
+        .nav-item.active { background: rgba(99,102,241,.12); color: #818cf8; }
+        .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+        .sidebar-user { padding: 16px 20px; border-top: 1px solid #1e293b; display: flex; align-items: center; gap: 12px; }
+        .sidebar-user .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #fff; }
+        .sidebar-user .info { flex: 1; }
+        .sidebar-user .info .name { font-size: 13px; font-weight: 600; }
+        .sidebar-user .info .role { font-size: 11px; color: #64748b; }
+
+        .main { margin-left: 250px; flex: 1; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid #1e293b; background: #0f1423; position: sticky; top: 0; z-index: 5; }
+        .topbar h1 { font-size: 20px; font-weight: 600; }
+        .btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+
+        .content { padding: 28px 32px; }
+
+        /* Customer cards */
+        .customer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+        .customer-card { background: #111827; border: 1px solid #1e293b; border-radius: 14px; padding: 22px; transition: border-color .2s; }
+        .customer-card:hover { border-color: #334155; }
+        .customer-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .customer-avatar { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: #fff; }
+        .customer-info .cname { font-size: 15px; font-weight: 600; }
+        .customer-info .ctype { font-size: 12px; color: #64748b; }
+        .customer-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .cstat { background: #0b0f19; border-radius: 8px; padding: 10px 12px; }
+        .cstat .label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: .5px; }
+        .cstat .val { font-size: 16px; font-weight: 700; margin-top: 2px; }
+        .customer-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+        .tag { padding: 3px 10px; border-radius: 12px; font-size: 11px; background: #1e293b; color: #94a3b8; }
+        .customer-actions { display: flex; gap: 8px; }
+        .customer-actions button { flex: 1; padding: 7px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+        .cact-view { background: rgba(99,102,241,.1); border: none; color: #818cf8; }
+        .cact-edit { background: transparent; border: 1px solid #1e293b; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-logo">SalesHub</div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">Main</div>
+            <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="data-entry.html" class="nav-item"><span class="nav-icon">📝</span> Data Entry</a>
+            <a href="reports.html" class="nav-item"><span class="nav-icon">📈</span> Reports</a>
+            <a href="calculations.html" class="nav-item"><span class="nav-icon">🔢</span> Calculations</a>
+            <div class="nav-section">Management</div>
+            <a href="products.html" class="nav-item"><span class="nav-icon">📦</span> Products</a>
+            <a href="customers.html" class="nav-item active"><span class="nav-icon">👥</span> Customers</a>
+            <a href="orders.html" class="nav-item"><span class="nav-icon">🛒</span> Orders</a>
+            <div class="nav-section">System</div>
+            <a href="users.html" class="nav-item"><span class="nav-icon">🔑</span> User Management</a>
+            <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        </nav>
+        <div class="sidebar-user">
+            <div class="avatar">JD</div>
+            <div class="info"><div class="name">John Doe</div><div class="role">Manager</div></div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <h1>Customers</h1>
+            <div style="display:flex;gap:12px;">
+                <button class="btn btn-outline">↓ Export</button>
+                <button class="btn btn-primary">+ Add Customer</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="customer-grid">
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#6366f1,#818cf8)">AC</div>
+                        <div class="customer-info">
+                            <div class="cname">Acme Corp</div>
+                            <div class="ctype">Enterprise • Since 2021</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$152K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">47</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$3,234</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">2 days</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">VIP</span><span class="tag">NET-30</span><span class="tag">Software</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#22c55e,#4ade80)">WE</div>
+                        <div class="customer-info">
+                            <div class="cname">Wayne Enterprises</div>
+                            <div class="ctype">Enterprise • Since 2022</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$98K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">28</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$3,500</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">4 days</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">VIP</span><span class="tag">Consulting</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">GI</div>
+                        <div class="customer-info">
+                            <div class="cname">Globex Inc</div>
+                            <div class="ctype">SMB • Since 2023</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$41K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">62</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$661</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">1 day</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">Supplies</span><span class="tag">Recurring</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#f43f5e,#fb7185)">SI</div>
+                        <div class="customer-info">
+                            <div class="cname">Stark Industries</div>
+                            <div class="ctype">Enterprise • Since 2022</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$67K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">19</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$3,526</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">5 days</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">Hardware</span><span class="tag">NET-15</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)">UL</div>
+                        <div class="customer-info">
+                            <div class="cname">Umbrella LLC</div>
+                            <div class="ctype">SMB • Since 2024</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$22K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">8</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$2,750</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">6 days</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">Support</span><span class="tag">New</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-top">
+                        <div class="customer-avatar" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)">IT</div>
+                        <div class="customer-info">
+                            <div class="cname">Initech</div>
+                            <div class="ctype">SMB • Since 2024</div>
+                        </div>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="cstat"><div class="label">Lifetime Value</div><div class="val">$14K</div></div>
+                        <div class="cstat"><div class="label">Orders</div><div class="val">5</div></div>
+                        <div class="cstat"><div class="label">Avg. Order</div><div class="val">$2,800</div></div>
+                        <div class="cstat"><div class="label">Last Order</div><div class="val">7 days</div></div>
+                    </div>
+                    <div class="customer-tags">
+                        <span class="tag">Software</span>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="cact-view">View Profile</button>
+                        <button class="cact-edit">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

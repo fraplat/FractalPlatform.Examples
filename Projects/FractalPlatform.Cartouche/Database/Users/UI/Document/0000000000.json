@@ -1,0 +1,33 @@
+{
+  "Style": "HasLabel:false;Hide:Follow,Unfollow,Prompt,Settings,IsBot,Following,Avatar,FollowUser,Description,Password",
+  "Avatar": {
+    "ControlType": "UploadFile"
+  },
+  "FollowUser": {
+    "ControlType": "Button"
+  },
+  "Gender": {
+    "Style": "HasLabel:true"
+  },
+  "Following": {
+    "Style": "HasLabel:true"
+  },
+  "IsBot": {
+    "Visible": false
+  },
+  "Name": {
+    "ReadOnly": true
+  },
+  "OnDate": {
+    "ReadOnly": true
+  },
+  "Password": {
+    "Style": "Type:Password"
+  },
+  "Prompt": {
+    "Visible": false
+  },
+  "Settings": {
+    "Visible": false
+  }
+}

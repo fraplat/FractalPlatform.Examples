@@ -1,0 +1,15 @@
+{
+  "Style": "Save:Post;CollLabel:Новый комментарий",
+  "Name": {
+    "Visible": false
+  },
+  "OnDate": {
+    "Visible": false
+  },
+  "Text": {
+    "ControlType": "RichTextBox"
+  },
+  "Picture": {
+    "ControlType": "UploadFile"
+  }
+}

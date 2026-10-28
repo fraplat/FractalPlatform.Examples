@@ -1,0 +1,6 @@
+{
+    "ReadOnly": true,
+    "BookTour": {
+        "ControlType": "Button"
+    }
+}

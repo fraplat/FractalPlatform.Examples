@@ -1,0 +1,8 @@
+﻿{
+    "Name": "Test",
+    "Phone": "+38123456",
+    "Description": "hochu na more",
+    "Email": "test@gmail.com",
+    "IsBooked": false,
+    "BookTour": "Book Tour"
+}
